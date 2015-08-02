@@ -2,23 +2,28 @@ defmodule PlanningPoker.Room do
   use PlanningPoker.Web, :model
   alias PlanningPoker.Repo
 
-  @primary_key {:id, :binary_id, autogenerate: true}
+  before_insert :put_uuid, []
 
   schema "rooms" do
+    field :uuid,  Ecto.UUID
     field :title, :string
 
-    belongs_to :owner,        PlanningPoker.Participant
-    has_many   :participants, PlanningPoker.Participant
-    has_many   :tickets,      PlanningPoker.Ticket
+    has_many :room_participants, PlanningPokerApi.RoomParticipants
+    has_many :participants, through: [:room_participants, :participant]
+    has_many :tickets, PlanningPokerApi.Ticket
 
     timestamps
   end
 
-  @required_fields ~w(title)
-  @optional_fields ~w()
+  @required_fields ["title"]
+  @optional_fields []
 
   def changeset(model, params \\ nil) do
     model
     |> cast(params, @required_fields, @optional_fields)
+  end
+
+  def put_uuid(changeset) do
+    Ecto.Changeset.put_change(changeset, :uuid, Ecto.UUID.generate())
   end
 end

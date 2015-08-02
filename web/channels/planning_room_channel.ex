@@ -3,9 +3,10 @@ defmodule PlanningPoker.PlanningRoomChannel do
   alias PlanningPoker.Room
   alias PlanningPoker.Participant
   alias PlanningPoker.Ticket
+  alias PlanningPokerApi.RoomParticipants
 
-  def join("planning:room:" <> room_uuid, payload, socket) do
-    room = get_room(room_uuid)
+  def join("planning:room:" <> uuid, payload, socket) do
+    room = get_room_with_associations(uuid, [:participants])
 
     case room do
       %Room{} ->
@@ -13,10 +14,6 @@ defmodule PlanningPoker.PlanningRoomChannel do
 
         case participant do
           %Participant{} ->
-            if is_nil(room.owner_id) do
-              Repo.update!(%{room | owner_id: participant.id})
-            end
-
             send(self, {:new_participant, participant})
             {:ok, socket}
 
@@ -35,7 +32,7 @@ defmodule PlanningPoker.PlanningRoomChannel do
   end
 
   def handle_in("create_ticket", %{"userUUID" => userUUID, "ticket" => ticket}, socket) do
-    participant = get_participant(userUUID)
+    participant = Repo.get_by!(Participant, %{uuid: userUUID})
     "planning:room:" <> room_uuid = socket.topic
     ticket = Repo.insert!(%Ticket{room_id: room_uuid, owner: participant, name: ticket["name"]})
     sync(socket, room_uuid)
@@ -58,21 +55,6 @@ defmodule PlanningPoker.PlanningRoomChannel do
     {:noreply, socket}
   end
 
-  def handle_in("final_estimate_ticket", %{ticket: ticket, participant: participant}, socket) do
-    broadcast socket, "ticket_final_estimated", %{ticket: ticket}
-    {:noreply, socket}
-  end
-
-  def handle_in("edit_room", %{room: room}, socket) do
-    broadcast socket, "room_edited", %{room: room}
-    {:noreply, socket}
-  end
-
-  def handle_in("leaving", %{participant: participant}, socket) do
-    broadcast socket, "participant_leaving", %{id: participant.id}
-    {:noreply, socket}
-  end
-
   # This is invoked every time a notification is being broadcast
   # to the client. The default implementation is just to push it
   # downstream but one could filter or change the event.
@@ -81,23 +63,25 @@ defmodule PlanningPoker.PlanningRoomChannel do
     {:noreply, socket}
   end
 
-  def get_room(uuid) do
-    Repo.get(Room, uuid)
+  def get_room_with_associations(uuid, associations \\ [:participants, :tickets, :room_participants]) do
+    Repo.get_by!(Room, %{uuid: uuid}) |> Repo.preload(associations)
   end
 
-  def get_participant(uuid) do
-    Repo.get_by!(Participant, %{uuid: uuid})
-  end
-
-  def insert_unless_exists(_, %{"uuid" => uuid}) do
-    get_participant(uuid)
+  def insert_unless_exists(room, %{"uuid" => uuid}) do
+    participant = Repo.get_by!(Participant, %{uuid: uuid})
+    unless Enum.member?(room.participants, participant) do
+      Repo.insert!(%RoomParticipants{room_id: room.id, participant_id: participant.id})
+    end
+    participant
   end
 
   def insert_unless_exists(room, _) do
-    Repo.insert!(%Participant{name: PlanningPoker.RandomGenerator.name(), room_id: room.id})
+    participant = Repo.insert!(%Participant{name: PlanningPokerApi.RandomGenerator.name()})
+    Repo.insert!(%RoomParticipants{room_id: room.id, participant_id: participant.id})
+    participant
   end
 
-  def sync(socket, room_uuid) do
-    broadcast socket, "sync", %{room: get_room(room_uuid) |> Repo.preload([:owner, :participants, :tickets])}
+  def sync(socket, uuid) do
+    broadcast socket, "sync", %{room: get_room_with_associations(uuid)}
   end
 end

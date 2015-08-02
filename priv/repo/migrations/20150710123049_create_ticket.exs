@@ -5,7 +5,7 @@ defmodule PlanningPoker.Repo.Migrations.CreateTicket do
     create table(:tickets) do
       add :name, :string
       add :owner_id, references(:participants)
-      add :room_id, references(:rooms, type: :uuid)
+      add :room_id, references(:rooms)
       add :final_estimation, :string
 
       timestamps

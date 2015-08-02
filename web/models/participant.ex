@@ -4,17 +4,17 @@ defmodule PlanningPoker.Participant do
   before_insert :put_uuid, []
 
   schema "participants" do
-    field :name,    :string
-    field :uuid,    Ecto.UUID
-    field :room_id, Ecto.UUID
+    field :uuid, Ecto.UUID
+    field :name, :string
 
-    # belongs_to :room, PlanningPoker.Room
+    has_many :room_participants, PlanningPokerApi.RoomParticipants
+    has_many :rooms, through: [:room_participants, :room]
 
     timestamps
   end
 
-  @required_fields ~w(name room_id)
-  @optional_fields ~w()
+  @required_fields ["name"]
+  @optional_fields []
 
   def changeset(model, params \\ nil) do
     model
