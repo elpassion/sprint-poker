@@ -52,25 +52,25 @@ defmodule PlanningPoker.PlanningRoomChannel do
     {:noreply, socket}
   end
 
-  def get_room_with_associations(uuid, associations \\ [:participants, :tickets, :room_participants]) do
+  defp get_room_with_associations(uuid, associations \\ [:participants, :tickets, :room_participants]) do
     Repo.get_by!(Room, %{uuid: uuid}) |> Repo.preload(associations)
   end
 
-  def insert_unless_exists(room, %{"uuid" => uuid}) do
+  defp insert_unless_exists(room, %{"uuid" => uuid}) do
     participant = Repo.get_by!(Participant, %{uuid: uuid})
-    unless Enum.member?(room.participants, participant) do
+    unless participant in room.participants do
       Repo.insert!(%RoomParticipants{room_id: room.id, participant_id: participant.id})
     end
     participant
   end
 
-  def insert_unless_exists(room, _) do
+  defp insert_unless_exists(room, _) do
     participant = Repo.insert!(%Participant{name: PlanningPokerApi.RandomGenerator.name()})
     Repo.insert!(%RoomParticipants{room_id: room.id, participant_id: participant.id})
     participant
   end
 
-  def sync(socket, uuid) do
+  defp sync(socket, uuid) do
     broadcast socket, "sync", %{room: get_room_with_associations(uuid)}
   end
 end
