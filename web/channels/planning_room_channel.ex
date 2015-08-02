@@ -7,21 +7,9 @@ defmodule PlanningPoker.PlanningRoomChannel do
 
   def join("planning:room:" <> uuid, payload, socket) do
     room = get_room_with_associations(uuid, [:participants])
-
-    case room do
-      %Room{} ->
-        participant = insert_unless_exists(room, payload)
-
-        case participant do
-          %Participant{} ->
-            send(self, {:new_participant, participant})
-            {:ok, socket}
-
-          _ -> {:error, %{reason: "unauthorized"}}
-        end
-
-      _ -> {:error, %{reason: "unauthorized"}}
-    end
+    participant = insert_unless_exists(room, payload)
+    send(self, {:new_participant, participant})
+    {:ok, socket}
   end
 
   def handle_info({:new_participant, participant}, socket) do
@@ -31,10 +19,11 @@ defmodule PlanningPoker.PlanningRoomChannel do
     {:noreply, socket}
   end
 
-  def handle_in("create_ticket", %{"userUUID" => userUUID, "ticket" => ticket}, socket) do
-    participant = Repo.get_by!(Participant, %{uuid: userUUID})
+  def handle_in("create_ticket", %{"userUUID" => user_uuid, "ticket" => ticket}, socket) do
+    participant = Repo.get_by!(Participant, %{uuid: user_uuid})
     "planning:room:" <> room_uuid = socket.topic
-    ticket = Repo.insert!(%Ticket{room_id: room_uuid, owner: participant, name: ticket["name"]})
+    room = Repo.get_by!(Room, %{uuid: room_uuid})
+    ticket = Repo.insert!(%Ticket{room_id: room.id, owner: participant, name: ticket["name"]})
     sync(socket, room_uuid)
     {:noreply, socket}
   end
