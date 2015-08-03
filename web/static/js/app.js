@@ -1,13 +1,37 @@
-import {Socket} from "phoenix"
+'use strict';
+console.log('start');
 
-// let socket = new Socket("/ws")
-// socket.connect()
-// let chan = socket.chan("topic:subtopic", {})
-// chan.join().receive("ok", resp => {
-//   console.log("Joined succesffuly!", resp)
-// })
+let Router = ReactRouter
+let Route = ReactRouter.Route
+let Redirect = ReactRouter.Redirect
 
-let App = {
-}
+var PlanningPokerReactApp = require('./components/PlanningPokerReactApp');
+var NewRoom = require('./components/NewRoom');
+var RoomLobby = require('./components/RoomLobby');
+var Room = require('./components/Room');
 
-export default App
+var routes = (
+  <Route handler={PlanningPokerReactApp}>
+    <Route path="new-room" name="new-room" handler={NewRoom}/>
+    <Route path="rooms" name="rooms" handler={Room}>
+      <Route path="/:uuid" handler={RoomLobby}/>
+    </Route>
+    <Redirect from="/" to="new-room" />
+  </Route>
+);
+
+console.log('start');
+
+Router.run(routes, Router.HistoryLocation, function (Handler) {
+  React.render(<Handler/>, document.body);
+});
+
+// React.render(
+//   <Router history={new BrowserHistory()} children={routes}/>, document.body
+// );
+
+let App = {};
+
+console.log('123');
+
+export default App;
