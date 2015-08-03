@@ -5,7 +5,8 @@
     "react": "^0.13.3",
     "lodash": "^3.9.1",
     "normalize.css": "~3.0.3",
-    "react-router": "^0.13.3"
+    "react-router": "^0.13.3",
+    "flexboxgrid": "*"
   },
   "overrides": {
     "superagent": {
