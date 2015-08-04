@@ -1,9 +1,12 @@
-var Actions = require('../actions/SocketConnectionActions');
-var ParticipantsActions = require('../actions/ParticipantsActions');
-var TicketsActions = require('../actions/TicketsActions');
-var RoomActions = require('../actions/RoomActions');
-var SessionActions = require('../actions/SessionActions');
-var SessionStore = require('../stores/SessionStore');
+import Reflux from 'reflux';
+import { Socket } from '../../vendor/phoenix'
+
+import Actions from '../actions/SocketConnectionActions';
+import ParticipantsActions from '../actions/ParticipantsActions';
+import TicketsActions from '../actions/TicketsActions';
+import RoomActions from'../actions/RoomActions';
+import SessionActions from '../actions/SessionActions';
+import SessionStore from '../stores/SessionStore';
 
 var SocketConnection = Reflux.createStore({
   listenables: [Actions],
@@ -88,4 +91,4 @@ var SocketConnection = Reflux.createStore({
   }
 });
 
-module.exports = SocketConnection;
+export default SocketConnection;

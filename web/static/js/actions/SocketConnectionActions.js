@@ -1,8 +1,10 @@
-var SocketConnectionActions  =  Reflux.createActions({
+import Reflux from 'reflux';
+
+var SocketConnectionActions = Reflux.createActions({
   "establishConnection": {},
   "createTicket": {},
   "deleteTicket": {},
   "updateTicket": {}
 });
 
-module.exports = SocketConnectionActions;
+export default SocketConnectionActions;

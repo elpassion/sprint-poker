@@ -1,3 +1,4 @@
+import Reflux from 'reflux'
 import Actions from '../actions/SessionActions';
 
 var SessionStore = Reflux.createStore({

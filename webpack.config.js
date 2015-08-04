@@ -7,10 +7,16 @@ module.exports = {
     filename: 'main.js',
     path: './priv/static/js/'
   },
+  debug: true,
+  devtool: 'source-map',
+  stats: {
+    colors: true,
+    reasons: true
+  },
   module: {
     loaders: [{
       test: /\.js$/,
-      exclude: /node_modules/,
+      exclude: /(node_modules)/,
       loader: 'babel-loader'
     }, {
       test: /\.sass/,

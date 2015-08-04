@@ -1,3 +1,5 @@
+import React from 'react';
+
 var LobbyNavbar = React.createClass({
   propTypes: {
     roomName: React.PropTypes.string.isRequired,
@@ -46,5 +48,4 @@ var LobbyNavbar = React.createClass({
   }
 });
 
-module.exports = LobbyNavbar;
-
+export default LobbyNavbar;

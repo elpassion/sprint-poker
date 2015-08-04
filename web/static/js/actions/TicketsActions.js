@@ -1,3 +1,5 @@
+import Reflux from 'reflux'
+
 var TicketsActions = Reflux.createActions({
   changeName: {},
   deleteTicket: { asyncResult: true },
@@ -5,4 +7,4 @@ var TicketsActions = Reflux.createActions({
   setTickets: {}
 });
 
-module.exports = TicketsActions;
+export default TicketsActions;

@@ -1,6 +1,8 @@
-var NewTicketActions =  Reflux.createActions({
+import Reflux from 'reflux';
+
+var NewTicketActions = Reflux.createActions({
   "createTicket": { asyncResult: true },
   "changeName": {}
 });
 
-module.exports = NewTicketActions;
+export default NewTicketActions;

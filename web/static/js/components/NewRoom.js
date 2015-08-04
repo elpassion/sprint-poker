@@ -1,5 +1,6 @@
-var Navigation = ReactRouter.Navigation;
-var Link = ReactRouter.Link;
+import React from 'react';
+import Reflux from 'reflux';
+import { Navigation, Link } from 'react-router';
 
 import NewRoomStore from '../stores/NewRoomStore';
 import SessionStore from '../stores/SessionStore';
@@ -50,5 +51,4 @@ var NewRoom = React.createClass({
   }
 });
 
-module.exports = NewRoom;
-
+export default NewRoom;

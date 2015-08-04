@@ -1,13 +1,13 @@
-var RouteHandler = ReactRouter.RouteHandler
+import React from 'react'
 
 var PlanningPokerReactApp = React.createClass({
   render: function() {
     return (
       <div className='main row center-xs middle-xs'>
-        <RouteHandler/>
+        { this.props.children }
       </div>
     );
   }
 });
 
-module.exports = PlanningPokerReactApp;
+export default PlanningPokerReactApp;

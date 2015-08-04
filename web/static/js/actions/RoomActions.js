@@ -1,5 +1,7 @@
-var RoomActions  =  Reflux.createActions({
+import Reflux from 'reflux'
+
+var RoomActions = Reflux.createActions({
   "setRoom": {}
 });
 
-module.exports = RoomActions;
+export default RoomActions;
