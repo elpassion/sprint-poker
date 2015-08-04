@@ -11,7 +11,7 @@ config :planning_poker, PlanningPoker.Endpoint,
   debug_errors: true,
   code_reloader: true,
   cache_static_lookup: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch"]]
+  watchers: [{Path.expand("node_modules/webpack/bin/webpack.js"), ["--watch", "--colors", "--progress"]}]
 
 # Watch static and templates for browser reloading.
 config :planning_poker, PlanningPoker.Endpoint,

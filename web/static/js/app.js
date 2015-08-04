@@ -1,5 +1,4 @@
 'use strict';
-console.log('start');
 
 let Router = ReactRouter
 let Route = ReactRouter.Route

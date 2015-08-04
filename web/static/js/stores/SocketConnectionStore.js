@@ -4,7 +4,6 @@ var TicketsActions = require('../actions/TicketsActions');
 var RoomActions = require('../actions/RoomActions');
 var SessionActions = require('../actions/SessionActions');
 var SessionStore = require('../stores/SessionStore');
-import {Socket} from 'phoenix';
 
 var SocketConnection = Reflux.createStore({
   listenables: [Actions],
