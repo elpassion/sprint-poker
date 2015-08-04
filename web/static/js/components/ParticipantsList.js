@@ -1,3 +1,5 @@
+import React from 'react';
+
 var ParticipantsList = React.createClass({
   propTypes: {
     participants: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
@@ -52,5 +54,4 @@ var ParticipantsList = React.createClass({
   }
 });
 
-module.exports = ParticipantsList;
-
+export default ParticipantsList;

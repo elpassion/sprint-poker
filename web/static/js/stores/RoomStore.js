@@ -1,4 +1,5 @@
-var Actions = require('../actions/RoomActions');
+import Reflux from 'reflux';
+import Actions from '../actions/RoomActions';
 
 var RoomStore = Reflux.createStore({
   listenables: [Actions],
@@ -29,4 +30,4 @@ var RoomStore = Reflux.createStore({
   }
 });
 
-module.exports = RoomStore;
+export default RoomStore;

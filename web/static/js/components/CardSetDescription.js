@@ -1,3 +1,5 @@
+import React from 'react';
+
 var CardSetDescription = React.createClass({
   propTypes: {
     description: React.PropTypes.arrayOf(React.PropTypes.string).isRequired

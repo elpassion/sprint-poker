@@ -7,13 +7,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Phoenix!</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <title>Planning Poker</title>
+    <!-- link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>" -->
   </head>
 
   <body>
-    <h1>hi</h1>
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-    <script>require("web/static/js/app")</script>
+    <h1>Planning Poker is loading ...</h1>
+    <script src="<%= static_path(@conn, "/assets/main.js") %>"></script>
   </body>
 </html>

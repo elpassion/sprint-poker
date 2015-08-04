@@ -1,37 +1,28 @@
-'use strict';
-console.log('start');
+require('flexboxgrid');
+require('normalize.css');
+require('../css/app.sass');
 
-let Router = ReactRouter
-let Route = ReactRouter.Route
-let Redirect = ReactRouter.Redirect
+import React from 'react'
+import { Router, Route, Redirect } from 'react-router'
+import BrowserHistory from 'react-router/lib/BrowserHistory';
 
-var PlanningPokerReactApp = require('./components/PlanningPokerReactApp');
-var NewRoom = require('./components/NewRoom');
-var RoomLobby = require('./components/RoomLobby');
-var Room = require('./components/Room');
+import PlanningPokerReactApp from './components/PlanningPokerReactApp';
+import NewRoom from './components/NewRoom';
+import RoomLobby from './components/RoomLobby';
+import Room from './components/Room';
 
 var routes = (
-  <Route handler={PlanningPokerReactApp}>
-    <Route path="new-room" name="new-room" handler={NewRoom}/>
-    <Route path="rooms" name="rooms" handler={Room}>
-      <Route path="/:uuid" handler={RoomLobby}/>
-    </Route>
+  <Route components={PlanningPokerReactApp}>
     <Redirect from="/" to="new-room" />
+    <Route path="new-room" components={NewRoom}/>
+    <Route path="rooms" components={Room}>
+      <Route path="/:uuid" components={RoomLobby}/>
+    </Route>
   </Route>
 );
 
-console.log('start');
+React.render(
+  <Router history={new BrowserHistory()} children={routes}/>, document.body
+);
 
-Router.run(routes, Router.HistoryLocation, function (Handler) {
-  React.render(<Handler/>, document.body);
-});
-
-// React.render(
-//   <Router history={new BrowserHistory()} children={routes}/>, document.body
-// );
-
-let App = {};
-
-console.log('123');
-
-export default App;
+export default {};

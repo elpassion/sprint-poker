@@ -1,5 +1,8 @@
-var NewTicketStore = require('../stores/NewTicketStore');
-var NewTicketActions = require('../actions/NewTicketActions');
+import React from 'react'
+import Reflux from 'reflux'
+
+import NewTicketStore from '../stores/NewTicketStore';
+import NewTicketActions from '../actions/NewTicketActions';
 
 var NewTicketForm = React.createClass({
   mixins: [Reflux.connect(NewTicketStore, "newTicketStorage")],
@@ -42,5 +45,4 @@ var NewTicketForm = React.createClass({
   }
 });
 
-module.exports = NewTicketForm;
-
+export default NewTicketForm;

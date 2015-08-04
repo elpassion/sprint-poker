@@ -1,3 +1,6 @@
+import React from 'react';
+import _ from 'lodash';
+
 import CardSetDescription from '../components/CardSetDescription';
 import NewRoomActions from '../actions/NewRoomActions';
 

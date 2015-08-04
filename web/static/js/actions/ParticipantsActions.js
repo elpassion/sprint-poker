@@ -1,7 +1,9 @@
+import Reflux from 'reflux';
+
 var ParticipantsActions = Reflux.createActions({
   "addParticipant": {},
   "removeParticipant": {},
   "setParticipants": {}
 });
 
-module.exports = ParticipantsActions;
+export default ParticipantsActions;

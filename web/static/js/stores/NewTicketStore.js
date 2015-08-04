@@ -1,5 +1,7 @@
-var Actions = require('../actions/NewTicketActions');
-var SocketConnectionActions = require('../actions/SocketConnectionActions');
+import Reflux from 'reflux'
+
+import Actions from '../actions/NewTicketActions';
+import SocketConnectionActions from '../actions/SocketConnectionActions';
 
 var NewTicketStore = Reflux.createStore({
   listenables: [Actions],
@@ -36,4 +38,4 @@ var NewTicketStore = Reflux.createStore({
   }
 });
 
-module.exports = NewTicketStore;
+export default NewTicketStore;

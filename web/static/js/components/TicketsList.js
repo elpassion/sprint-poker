@@ -1,5 +1,7 @@
-var Actions = require('../actions/TicketsActions');
-var NewTicketForm = require('./NewTicketForm');
+import React from 'react'
+
+import Actions from '../actions/TicketsActions';
+import NewTicketForm from './NewTicketForm';
 
 var TicketsList = React.createClass({
   propTypes: {
@@ -100,4 +102,4 @@ var TicketsList = React.createClass({
   }
 });
 
-module.exports = TicketsList;
+export default TicketsList;

@@ -1,3 +1,6 @@
+import React from 'react';
+import smallLogo from '../../assets/images/logo_small.png'
+
 var LobbyNavbar = React.createClass({
   propTypes: {
     roomName: React.PropTypes.string.isRequired,
@@ -24,7 +27,7 @@ var LobbyNavbar = React.createClass({
       <nav className="lobby-navbar row center-xs middle-xs">
         <div className="container">
           <div className="simple-row middle-xs">
-            <img className="logo" src="../images/logo_small.png" alt="Planning Poker"/>
+            <img className="logo" src={smallLogo} alt="Planning Poker"/>
             <div className="separator"></div>
             <div className="project-name">
               <span className="project">PROJECT:</span>
@@ -46,5 +49,4 @@ var LobbyNavbar = React.createClass({
   }
 });
 
-module.exports = LobbyNavbar;
-
+export default LobbyNavbar;

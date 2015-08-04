@@ -1,10 +1,13 @@
-var Navigation = ReactRouter.Navigation;
-var Link = ReactRouter.Link;
+import React from 'react';
+import Reflux from 'reflux';
+import { Navigation, Link } from 'react-router';
 
 import NewRoomStore from '../stores/NewRoomStore';
 import SessionStore from '../stores/SessionStore';
 import NewRoomActions from '../actions/NewRoomActions';
 import CardSetList from './CardSetList';
+
+import logo from '../../assets/images/logo.png';
 
 var NewRoom = React.createClass({
   mixins: [
@@ -29,7 +32,7 @@ var NewRoom = React.createClass({
   render: function () {
     return (
       <div className="sessions col-xs-12 col-md-6">
-        <img className="logo" src="../images/logo.png"></img>
+        <img className="logo" src={logo}></img>
         <div className="session-form-container row">
           <div className="header-text col-xs-12">
             Use online Planning Poker to easy estimate and plan tickets with your team. Your room will only be seen by those you invite.
@@ -50,5 +53,4 @@ var NewRoom = React.createClass({
   }
 });
 
-module.exports = NewRoom;
-
+export default NewRoom;

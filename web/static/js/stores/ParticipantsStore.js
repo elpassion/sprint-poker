@@ -1,4 +1,5 @@
-var Actions = require('../actions/ParticipantsActions');
+import Reflux from 'reflux';
+import Actions from '../actions/ParticipantsActions';
 
 var ParticipantsStore = Reflux.createStore({
   listenables: [Actions],
@@ -42,4 +43,4 @@ var ParticipantsStore = Reflux.createStore({
   }
 });
 
-module.exports = ParticipantsStore;
+export default ParticipantsStore;

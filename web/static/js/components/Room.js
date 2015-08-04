@@ -1,9 +1,12 @@
-var RoomStore = require('../stores/RoomStore');
-var TicketsStore = require('../stores/TicketsStore');
-var ParticipantsStore = require('../stores/ParticipantsStore');
-var SocketConnectionStore = require('../stores/SocketConnectionStore');
-var SocketConnectionActions = require('../actions/SocketConnectionActions');
-var SessionStore = require('../stores/SessionStore');
+import React from 'react';
+import Reflux from 'reflux';
+
+import RoomStore from '../stores/RoomStore';
+import TicketsStore from '../stores/TicketsStore';
+import ParticipantsStore from '../stores/ParticipantsStore';
+import SocketConnectionStore from '../stores/SocketConnectionStore';
+import SocketConnectionActions from '../actions/SocketConnectionActions';
+import SessionStore from '../stores/SessionStore';
 
 var Room = React.createClass({
   mixins: [
@@ -29,5 +32,4 @@ var Room = React.createClass({
   }
 });
 
-module.exports = Room;
-
+export default Room;

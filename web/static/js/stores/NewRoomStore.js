@@ -1,3 +1,5 @@
+import Reflux from 'reflux';
+import superagent from 'superagent';
 import NewRoomActions from '../actions/NewRoomActions';
 
 var NewRoomStore = Reflux.createStore({
@@ -39,16 +41,16 @@ var NewRoomStore = Reflux.createStore({
   },
 
   onCreateRoom(room, session, transition) {
-    // superagent.post('http://localhost:4000/api/rooms')
-    //   .send({ room: { title: room.title, owner_id: session.id } })
-    //   .set('Accept', 'application/json')
-    //   .end((error, response) => {
-    //     if (error) {
-    //       NewRoomActions.createRoom.failed(response);
-    //     } else {
-    //       NewRoomActions.createRoom.completed(response, transition);
-    //     }
-    //   });
+    superagent.post('http://localhost:4000/api/rooms')
+      .send({ room: { title: room.title, owner_id: session.id } })
+      .set('Accept', 'application/json')
+      .end((error, response) => {
+        if (error) {
+          NewRoomActions.createRoom.failed(response);
+        } else {
+          NewRoomActions.createRoom.completed(response, transition);
+        }
+      });
   },
 
   onCreateRoomCompleted(response, transition) {
