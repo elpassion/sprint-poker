@@ -1,4 +1,4 @@
-defmodule PlanningPokerApi.Repo.Migrations.CreateRoomParticipants do
+defmodule PlanningPoker.Repo.Migrations.CreateRoomParticipants do
   use Ecto.Migration
 
   def change do

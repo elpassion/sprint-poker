@@ -7,7 +7,7 @@ defmodule PlanningPoker.Participant do
     field :uuid, Ecto.UUID
     field :name, :string
 
-    has_many :room_participants, PlanningPokerApi.RoomParticipants
+    has_many :room_participants, PlanningPoker.RoomParticipants
     has_many :rooms, through: [:room_participants, :room]
 
     timestamps

@@ -3,7 +3,7 @@ defmodule PlanningPoker.PlanningRoomChannel do
   alias PlanningPoker.Room
   alias PlanningPoker.Participant
   alias PlanningPoker.Ticket
-  alias PlanningPokerApi.RoomParticipants
+  alias PlanningPoker.RoomParticipants
 
   def join("planning:room:" <> uuid, payload, socket) do
     room = get_room_with_associations(uuid, [:participants])
@@ -65,7 +65,7 @@ defmodule PlanningPoker.PlanningRoomChannel do
   end
 
   defp insert_unless_exists(room, _) do
-    participant = Repo.insert!(%Participant{name: PlanningPokerApi.RandomGenerator.name()})
+    participant = Repo.insert!(%Participant{name: PlanningPoker.RandomGenerator.name()})
     Repo.insert!(%RoomParticipants{room_id: room.id, participant_id: participant.id})
     participant
   end

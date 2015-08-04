@@ -1,10 +1,10 @@
-defmodule PlanningPokerApi.RoomParticipants do
-  use PlanningPokerApi.Web, :model
+defmodule PlanningPoker.RoomParticipants do
+  use PlanningPoker.Web, :model
 
   schema "room_participants" do
 
-    belongs_to :room,        PlanningPokerApi.Room
-    belongs_to :participant, PlanningPokerApi.Participant
+    belongs_to :room,        PlanningPoker.Room
+    belongs_to :participant, PlanningPoker.Participant
 
     timestamps
   end

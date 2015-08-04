@@ -5,8 +5,8 @@ defmodule PlanningPoker.Ticket do
     field :name,             :string
     field :final_estimation, :string
 
-    belongs_to :room,  PlanningPokerApi.Room
-    belongs_to :owner, PlanningPokerApi.Participant
+    belongs_to :room,  PlanningPoker.Room
+    belongs_to :owner, PlanningPoker.Participant
 
     timestamps
   end
