@@ -1,8 +1,6 @@
 defmodule PlanningPoker.TicketSerializer do
   defimpl Poison.Encoder, for: PlanningPoker.Ticket do
     def encode(ticket, options) do
-      IO.inspect(ticket)
-
       hash = %{
         id: ticket.id,
         name: ticket.name,

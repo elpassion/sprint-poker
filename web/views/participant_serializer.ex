@@ -1,8 +1,6 @@
 defmodule PlanningPoker.ParticipantSerializer do
   defimpl Poison.Encoder, for: PlanningPoker.Participant do
     def encode(participant, options) do
-      IO.inspect(participant)
-
       hash = %{
         id: participant.id,
         name: participant.name,

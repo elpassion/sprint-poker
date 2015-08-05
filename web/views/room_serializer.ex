@@ -7,12 +7,10 @@ defmodule PlanningPoker.RoomSerializer do
         uuid: room.uuid
       }
 
-      IO.inspect(room.tickets)
-
       if Ecto.Association.loaded?(room.tickets) do
         hash = Dict.put(
           hash,
-          :tickets,
+          :puttickets,
           Poison.Encoder.encode(room.tickets, options)
         )
       end
