@@ -1,0 +1,13 @@
+%flex
+  display: -webkit-flex
+  display: flex
+
+%simple-row
+  @extend %flex
+  -webkit-flex-direction: row
+  flex-direction: row
+
+%simple-column
+  @extend %flex
+  -webkit-flex-direction: column
+  flex-direction: column
