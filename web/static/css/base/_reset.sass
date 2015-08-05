@@ -3,10 +3,13 @@
   position: relative
 
 html,
-body,
-.main
+body
+  @extend %flex
   margin: 0
   padding: 0
 
-.main
-  background-color: $background-white
+html
+  min-height: 100%
+
+body
+  @extend %flex-fill
