@@ -2,7 +2,7 @@ defmodule PlanningPoker.PlanningRoomSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "planning:*", PlanningRoomChannel
+  channel "planning:*", PlanningPoker.PlanningRoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
