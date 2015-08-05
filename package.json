@@ -8,8 +8,7 @@
     "react": "^0.13.3",
     "react-router": "^1.0.0-beta3",
     "reflux": "^0.2.7",
-    "superagent": "^1.2.0",
-    "flexboxgrid": "*"
+    "superagent": "^1.2.0"
   },
   "devDependencies": {
     "babel": "^5.8.20",

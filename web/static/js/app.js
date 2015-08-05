@@ -1,4 +1,3 @@
-require('flexboxgrid');
 require('normalize.css');
 require('../css/app.sass');
 

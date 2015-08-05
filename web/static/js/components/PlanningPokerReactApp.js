@@ -3,7 +3,7 @@ import React from 'react'
 class PlanningPokerReactApp extends React.Component {
   render() {
     return (
-      <div className='main row center-xs middle-xs'>
+      <div className='pp-App'>
         { this.props.children }
       </div>
     );
