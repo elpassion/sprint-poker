@@ -8,14 +8,10 @@ defmodule PlanningPoker.ParticipantSerializer do
       }
 
       if Ecto.Association.loaded?(participant.rooms) do
-        hash = Dict.put(
-          hash,
-          :rooms,
-          participant.rooms
-        )
+        hash = hash |> Dict.put(:rooms, participant.rooms)
       end
 
-      Poison.Encoder.encode(hash, options)
+      hash |> Poison.Encoder.encode(options)
     end
   end
 end
