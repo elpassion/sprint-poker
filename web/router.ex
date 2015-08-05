@@ -11,7 +11,9 @@ defmodule PlanningPoker.Router do
   scope "/", PlanningPoker do
     pipe_through :browser
 
+    get "/", PageController, :index
     get "/:anything", PageController, :index
+    get "/rooms/:anything", PageController, :index
   end
 
   pipeline :api do

@@ -5,7 +5,7 @@ module.exports = {
   entry: './web/static/js/app.js',
   output: {
     filename: 'main.js',
-    path: './priv/static/js/'
+    path: './priv/static/assets/'
   },
   debug: true,
   devtool: 'source-map',
@@ -26,7 +26,7 @@ module.exports = {
       loader: 'style-loader!css-loader'
     }, {
       test: /\.(png|jpg|woff|woff2)$/,
-      loader: 'url-loader?limit=8192'
+      loader: 'url-loader?prefix=assets/'
     }]
   },
 };

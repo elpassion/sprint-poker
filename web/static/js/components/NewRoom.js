@@ -7,6 +7,8 @@ import SessionStore from '../stores/SessionStore';
 import NewRoomActions from '../actions/NewRoomActions';
 import CardSetList from './CardSetList';
 
+import logo from '../../assets/images/logo.png';
+
 var NewRoom = React.createClass({
   mixins: [
     Reflux.connect(NewRoomStore, "newRoomStorage"),
@@ -29,8 +31,8 @@ var NewRoom = React.createClass({
 
   render: function () {
     return (
-      <div className="pp-NewSession col-xs-12 col-md-6">
-        <img className="logo" src="../images/logo.png"></img>
+      <div className="pp-NewSession">
+        <img className="logo" src={logo}></img>
         <div className="form-container">
           <div className="header-text">
             Use online Planning Poker to easy estimate and plan tickets with your team. Your room will only be seen by those you invite.
@@ -43,7 +45,7 @@ var NewRoom = React.createClass({
                   <input value={this.state.newRoomStorage.room.title} type="text" onChange={this.changeTitle}/>
               </label>
             </div>
-            <button className="pp.button primary fluid" type="submit">Start Session</button>
+            <button className="pp-button primary fluid" type="submit">Start Session</button>
           </form>
         </div>
       </div>

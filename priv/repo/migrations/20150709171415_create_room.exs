@@ -2,10 +2,10 @@ defmodule PlanningPoker.Repo.Migrations.CreateRoom do
   use Ecto.Migration
 
   def up do
-    create table(:rooms, primary_key: false) do
-      add :id, :uuid, primary_key: true
+
+    create table(:rooms) do
+      add :uuid, :uuid
       add :title, :string
-      add :owner_id, references(:participants)
 
       timestamps
     end

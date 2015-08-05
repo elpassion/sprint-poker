@@ -55,7 +55,7 @@ var NewRoomStore = Reflux.createStore({
 
   onCreateRoomCompleted(response, transition) {
     var room = JSON.parse(response.text);
-    if (transition) { transition(room.id); }
+    if (transition) { transition(room.uuid); }
   },
 
   onCreateRoomFailed(error) {

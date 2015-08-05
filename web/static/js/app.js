@@ -1,3 +1,5 @@
+require('flexboxgrid');
+require('normalize.css');
 require('../css/app.sass');
 
 import React from 'react'
@@ -23,6 +25,4 @@ React.render(
   <Router history={new BrowserHistory()} children={routes}/>, document.body
 );
 
-let App = {};
-
-export default App;
+export default {};
