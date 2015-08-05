@@ -1,17 +1,36 @@
-.session-form-container
-  @extend .border_gray
-  padding: $normal-distance
-  max-width: 420px
-  background-color: $white
-  margin: 0 auto $normal-distance
+.pp-NewSession
+  @extend .col-xs-12
+  @extend .col-md-6
 
-  .header-text
-    font-size: 14px
-    line-height: 20px
-    text-align: center
-    letter-spacing: 0.2px
-    margin-bottom: $normal-distance
+  > .form-container
+    @extend .row
+    padding: $default-gutter
+    max-width: 420px
+    background-color: $white
+    margin: 0 auto $default-gutter
 
-  .session-form
-    .form-group:last-of-type
-      margin-bottom: $normal-distance
+    > .header-text
+      @extend .col-xs-12
+      font-size: 14px
+      line-height: 20px
+      text-align: center
+      letter-spacing: 0.2px
+      margin-bottom: $default-gutter
+
+    > .session-form
+      @extend .col-xs-12
+
+      > .form-group
+        @extend .row
+
+        &:last-of-type
+          margin-bottom: $normal-distance
+
+        > label
+          @extend .col-xs-12
+          @extend .start-xs
+
+          > span,
+          > input
+            width: 100%
+            @extend .simple-row

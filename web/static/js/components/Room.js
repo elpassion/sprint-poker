@@ -27,7 +27,7 @@ var Room = React.createClass({
 
   render() {
     return (
-      <div className="full-width">{this.props.children}</div>
+      <div className="pp-Room">{this.props.children}</div>
     );
   }
 });

@@ -1,0 +1,21 @@
+.pp-button
+  outline: none
+  border: none
+  padding: ($default-gutter/2)
+  border-radius: 2px
+  color: $white
+  text-transform: uppercase
+  font-size: 18px
+  letter-spacing: 2px
+  font-weight: 500
+  transition: background 0.25s ease-in-out;
+
+  // Variants
+  &.primary
+    background: linear-gradient(90deg, #ff4048 0%, #ff8042 100%)
+
+    &:hover
+      background: linear-gradient(90deg, darken(#ff4048, 20%) 0%, darken(#ff8042, 20%) 100%)
+
+  &.fluid
+    width: 100%

@@ -29,21 +29,21 @@ var NewRoom = React.createClass({
 
   render: function () {
     return (
-      <div className="sessions col-xs-12 col-md-6">
+      <div className="pp-NewSession col-xs-12 col-md-6">
         <img className="logo" src="../images/logo.png"></img>
-        <div className="session-form-container row">
-          <div className="header-text col-xs-12">
+        <div className="form-container">
+          <div className="header-text">
             Use online Planning Poker to easy estimate and plan tickets with your team. Your room will only be seen by those you invite.
           </div>
-          <form className="session-form col-xs-12" onSubmit={this.createRoom}>
+          <form className="session-form" onSubmit={this.createRoom}>
             <CardSetList cardSets={this.state.newRoomStorage.room.cardSets} />
-            <div className="form-group row">
-              <label className="col-xs-12 start-xs">
-                  <span className="simple-row">Session Title:</span>
-                  <input className="simple-row full-width" value={this.state.newRoomStorage.room.title} type="text" onChange={this.changeTitle}/>
+            <div className="form-group">
+              <label>
+                  <span>Session Title:</span>
+                  <input value={this.state.newRoomStorage.room.title} type="text" onChange={this.changeTitle}/>
               </label>
             </div>
-            <button className="button full-width" type="submit">Start Session</button>
+            <button className="pp.button primary fluid" type="submit">Start Session</button>
           </form>
         </div>
       </div>
