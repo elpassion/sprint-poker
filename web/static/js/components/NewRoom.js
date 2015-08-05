@@ -31,13 +31,13 @@ var NewRoom = React.createClass({
 
   render: function () {
     return (
-      <div className="pp-NewSession">
+      <div className="pp-NewRoom">
         <img className="logo" src={logo}></img>
         <div className="form-container">
           <div className="header-text">
             Use online Planning Poker to easy estimate and plan tickets with your team. Your room will only be seen by those you invite.
           </div>
-          <form className="session-form" onSubmit={this.createRoom}>
+          <form className="room-form" onSubmit={this.createRoom}>
             <CardSetList cardSets={this.state.newRoomStorage.room.cardSets} />
             <div className="form-group">
               <label>

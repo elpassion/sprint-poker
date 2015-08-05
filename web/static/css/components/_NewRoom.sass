@@ -1,4 +1,4 @@
-.pp-NewSession
+.pp-NewRoom
   @extend .col-xs-12
   @extend .col-md-6
 
@@ -8,6 +8,8 @@
     max-width: 420px
     background-color: $white
     margin: 0 auto $default-gutter
+    border: 1px $gray solid
+    color: $dark-gray
 
     > .header-text
       @extend .col-xs-12
@@ -17,11 +19,12 @@
       letter-spacing: 0.2px
       margin-bottom: $default-gutter
 
-    > .session-form
+    > .room-form
       @extend .col-xs-12
 
       > .form-group
         @extend .row
+        margin-bottom: ($default-gutter/2)
 
         &:last-of-type
           margin-bottom: $default-gutter
@@ -29,8 +32,27 @@
         > label
           @extend .col-xs-12
           @extend .start-xs
+          font-size: 12px
+          letter-spacing: 2.4px
+          text-transform: uppercase
+
+          > span
+            margin-bottom: 10px
 
           > span,
           > input
+            @extend %simple-row
             width: 100%
-            @extend .simple-row
+
+          > select,
+          > input
+            border: 1px $gray solid
+            padding: 15px
+            -webkit-appearance: none
+            -moz-appearance: none
+            appearance: none
+            background-color: $background-white
+            border-radius: 2px
+            font-size: 14px
+            color: $black
+            width: 100%

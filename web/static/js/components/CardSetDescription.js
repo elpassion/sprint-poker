@@ -17,7 +17,7 @@ var CardSetDescription = React.createClass({
 
   render: function () {
     return (
-        <div className="description col-xs-12">{this.props.description.join(', ')}</div>
+        <div className="pp-CardSetDescription">{this.props.description.join(', ')}</div>
       );
   }
 });

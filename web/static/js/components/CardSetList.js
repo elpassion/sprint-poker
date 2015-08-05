@@ -23,10 +23,10 @@ var CardSetList = React.createClass({
     var pickedCardSet = _.find(this.props.cardSets, { picked: true });
     if(pickedCardSet === undefined) { pickedCardSet = {}; }
     return (
-      <div className="form-group row">
-        <label className="col-xs-12">
-          <span className="simple-row">Session Value Scale:</span>
-          <select className="simple-row full-width" value={pickedCardSet.id} onChange={this.pickCardSet}>
+      <div className="pp-CardSetList form-group">
+        <label className="">
+          <span className="">Session Value Scale:</span>
+          <select className="" value={pickedCardSet.id} onChange={this.pickCardSet}>
             {
               this.props.cardSets.map(function(cardSet, index) {
                 return(<option value={cardSet.id} key={index}>{cardSet.name}</option>);
