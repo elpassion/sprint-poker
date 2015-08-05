@@ -11,7 +11,7 @@ defmodule PlanningPoker.ParticipantSerializer do
         hash = Dict.put(
           hash,
           :rooms,
-          Poison.Encoder.encode(participant.rooms)
+          participant.rooms
         )
       end
 

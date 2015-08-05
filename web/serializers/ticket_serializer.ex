@@ -11,7 +11,7 @@ defmodule PlanningPoker.TicketSerializer do
         hash = Dict.put(
           hash,
           :owner,
-          Poison.Encoder.encode(ticket.owner)
+          ticket.owner
         )
       end
 
@@ -19,7 +19,7 @@ defmodule PlanningPoker.TicketSerializer do
         hash = Dict.put(
           hash,
           :room,
-          Poison.Encoder.encode(ticket.room)
+          ticket.room
         )
       end
 
