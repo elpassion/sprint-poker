@@ -24,5 +24,3 @@ var routes = (
 React.render(
   <Router history={new BrowserHistory()} children={routes}/>, document.body
 );
-
-export default {};

@@ -18,7 +18,7 @@ var LobbyNavbar = React.createClass({
     return true;
   },
 
-  roomUrl() {
+  roomUrl: function() {
     return `http://localhost:8000/webpack-dev-server/rooms/${this.props.roomUUID}`
   },
 
