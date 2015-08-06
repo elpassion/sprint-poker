@@ -6,8 +6,8 @@ class PlanningPokerReactApp extends React.Component {
       <div className='main row center-xs middle-xs'>
         { this.props.children }
       </div>
-    );
+    )
   }
 }
 
-export default PlanningPokerReactApp;
+export default PlanningPokerReactApp

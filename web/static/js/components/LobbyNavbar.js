@@ -1,28 +1,23 @@
-import React from 'react';
+import React from 'react'
 import smallLogo from '../../assets/images/logo_small.png'
 
-var LobbyNavbar = React.createClass({
-  propTypes: {
+class LobbyNavbar extends React.Component {
+
+  static propTypes = {
     roomName: React.PropTypes.string.isRequired,
     roomUUID: React.PropTypes.string.isRequired
-  },
+  }
 
-  getDefaultProps: function() {
-    return {
+  static defaultProps = {
       roomName: "",
       roomUUID: ""
-    };
-  },
+  }
 
-  shouldComponentUpdate: function() {
-    return true;
-  },
+  shouldComponentUpdate() {
+    return true
+  }
 
-  roomUrl: function() {
-    return `http://localhost:8000/webpack-dev-server/rooms/${this.props.roomUUID}`
-  },
-
-  render: function () {
+  render() {
     return (
       <nav className="lobby-navbar row center-xs middle-xs">
         <div className="container">
@@ -36,7 +31,7 @@ var LobbyNavbar = React.createClass({
             <div className="invite simple-row middle-xs">
               <span className="invite-text">INVITE PEOPLE:</span>
               <div className="invite-link simple-row">
-                <span className="link">{this.roomUrl()}</span>
+                <span className="link">{document.URL}</span>
                 <a href="#" className="addon">
                   CTRL + C
                 </a>
@@ -45,8 +40,8 @@ var LobbyNavbar = React.createClass({
           </div>
         </div>
       </nav>
-    );
+    )
   }
-});
+}
 
-export default LobbyNavbar;
+export default LobbyNavbar

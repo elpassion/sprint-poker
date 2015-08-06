@@ -24,7 +24,7 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       exclude: /(node_modules)/,
-      loader: 'babel-loader'
+      loader: 'babel-loader?stage=0'
     }, {
       test: /\.sass/,
       loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&indentedSyntax'
