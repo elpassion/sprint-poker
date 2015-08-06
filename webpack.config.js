@@ -7,6 +7,13 @@ module.exports = {
     filename: 'main.js',
     path: './priv/static/assets/'
   },
+  resolve: {
+    modulesDirectories: [
+      './node_modules',
+      './deps/phoenix/web/static/js',
+      './deps/phoenix_html/web/static/js'
+    ],
+  },
   debug: true,
   devtool: 'source-map',
   stats: {

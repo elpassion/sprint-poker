@@ -1,5 +1,5 @@
 import Reflux from 'reflux';
-import { Socket } from '../../vendor/phoenix'
+import { Socket } from 'phoenix'
 
 import Actions from '../actions/SocketConnectionActions';
 import ParticipantsActions from '../actions/ParticipantsActions';
@@ -45,10 +45,10 @@ var SocketConnection = Reflux.createStore({
 
   joinChannel(roomUUID) {
     if(this.session.uuid) {
-      var channel = this.socket.chan(`planning:room:${roomUUID}`, { uuid: this.session.uuid });
+      var channel = this.socket.channel(`planning:room:${roomUUID}`, { uuid: this.session.uuid });
     }
     else {
-      var channel = this.socket.chan(`planning:room:${roomUUID}`);
+      var channel = this.socket.channel(`planning:room:${roomUUID}`);
     }
     this.channel = channel;
     this.mapChannelCallbacks();
