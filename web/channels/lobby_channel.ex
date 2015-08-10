@@ -11,7 +11,7 @@ defmodule PlanningPoker.LobbyChannel do
   end
 
   def handle_info({:after_join, message}, socket) do
-    socket |> push "user", get_user(message)
+    socket |> push "user", get_or_create_user(message)
     socket |> push "scales", get_scales
     {:noreply, socket}
   end
@@ -23,11 +23,15 @@ defmodule PlanningPoker.LobbyChannel do
     {:noreply, socket}
   end
 
-  defp get_user(%{"uuid" => uuid}) do
-    Repo.get_by(User, %{uuid: uuid}) || get_user(nil)
+  def handle_in("create_session", message, socket) do
+
   end
 
-  defp get_user(_) do
+  defp get_or_create_user(%{"uuid" => uuid}) do
+    Repo.get_by(User, %{uuid: uuid}) || get_or_create_user(nil)
+  end
+
+  defp get_or_create_user(_) do
     Repo.insert!(
       %User{
         name: RandomGenerator.name()
