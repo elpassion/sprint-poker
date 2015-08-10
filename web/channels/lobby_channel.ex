@@ -17,7 +17,7 @@ defmodule PlanningPoker.LobbyChannel do
   end
 
   defp get_user(%{"uuid" => uuid}) do
-    Repo.get_by!(User, %{uuid: uuid}) || get_user(nil)
+    Repo.get_by(User, %{uuid: uuid}) || get_user(nil)
   end
 
   defp get_user(_) do
