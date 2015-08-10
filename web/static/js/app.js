@@ -24,3 +24,20 @@ var routes = (
 React.render(
   <Router history={new BrowserHistory()} children={routes}/>, document.body
 );
+
+import { Socket } from 'phoenix';
+
+var socket = new Socket("ws://localhost:4000/ws");
+socket.connect();
+socket.onOpen(ev => console.log("OPEN", ev));
+socket.onError(ev => console.log("ERROR", ev));
+socket.onClose(ev => console.log("CLOSE", ev));
+
+var channel = socket.channel('lobby',  {uuid: "3dbdf2b8-f1ff-451e-ab16-3850e235c44a", name: "Violet Nemesi"})
+channel
+  .join()
+  .receive("ignore", () => console.log("auth error"))
+  .receive("ok", () => console.log("join ok"))
+
+channel.on("user", (user) => console.log("user", user))
+channel.on("scales", (scales) => console.log("scales", scales))

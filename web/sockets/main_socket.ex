@@ -2,7 +2,8 @@ defmodule PlanningPoker.MainSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "planning:*", PlanningPoker.PlanningRoomChannel
+  channel "lobby", PlanningPoker.LobbyChannel
+  channel "planning:*", PlanningPoker.PlanningChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

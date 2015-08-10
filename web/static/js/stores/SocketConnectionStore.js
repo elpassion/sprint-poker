@@ -38,7 +38,9 @@ var SocketConnection = Reflux.createStore({
   onEstablishConnection(roomUUID, session) {
     this.session = session;
     this.socket.connect();
-    this.socket.onClose(e => console.log("CLOSE", e));
+    this.socket.onOpen(ev => console.log("OPEN", ev));
+    this.socket.onError(ev => console.log("ERROR", ev));
+    this.socket.onClose(ev => console.log("CLOSE", ev));
     this.emitData();
     this.joinChannel(roomUUID);
   },
