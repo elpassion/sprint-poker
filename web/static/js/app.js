@@ -33,7 +33,7 @@ socket.onOpen(ev => console.log("OPEN", ev));
 socket.onError(ev => console.log("ERROR", ev));
 socket.onClose(ev => console.log("CLOSE", ev));
 
-var user = {name: "Green Vixen", id: "8f9bddc4-fb69-4bde-8081-f3728eddee09"}
+var user = {name: "Grey Goblin", id: "ede0e541-6e96-494a-b986-8327c5b5bf0f"}
 
 var channel = socket.channel('lobby', user)
 channel

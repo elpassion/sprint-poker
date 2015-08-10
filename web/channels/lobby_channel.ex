@@ -25,15 +25,13 @@ defmodule PlanningPoker.LobbyChannel do
   end
 
   def handle_in("create_session", message, socket) do
-
-    IO.inspect(message)
-
     socket |> push "session", Repo.insert!(
       %Session{
         name: message["name"],
-        owner: Repo.get(User, message["owner"]["id"])
+        owner_id: Repo.get(User, message["owner"]["id"]).id
       }
-    )
+    ) |> Repo.preload([:owner])
+
     {:noreply, socket}
   end
 

@@ -8,8 +8,8 @@ defmodule PlanningPoker.Session do
 
   schema "sessions" do
     field :name, :string
-    
-    has_one :owner, PlanningPoker.User
+
+    belongs_to :owner, PlanningPoker.User
     has_many :session_user, PlanningPoker.SessionUser
     has_many :users, through: [:session_user, :user]
 
