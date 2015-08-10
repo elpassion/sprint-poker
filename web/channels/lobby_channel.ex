@@ -3,6 +3,7 @@ defmodule PlanningPoker.LobbyChannel do
 
   alias PlanningPoker.Repo
   alias PlanningPoker.User
+  alias PlanningPoker.Session
   alias PlanningPoker.RandomGenerator
 
   def join("lobby", message, socket) do
@@ -25,6 +26,15 @@ defmodule PlanningPoker.LobbyChannel do
 
   def handle_in("create_session", message, socket) do
 
+    IO.inspect(message)
+
+    socket |> push "session", Repo.insert!(
+      %Session{
+        name: message["name"],
+        owner: Repo.get(User, message["owner"]["id"])
+      }
+    )
+    {:noreply, socket}
   end
 
   defp get_or_create_user(%{"id" => id}) do

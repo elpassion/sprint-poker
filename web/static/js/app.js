@@ -33,15 +33,17 @@ socket.onOpen(ev => console.log("OPEN", ev));
 socket.onError(ev => console.log("ERROR", ev));
 socket.onClose(ev => console.log("CLOSE", ev));
 
-var channel = socket.channel('lobby',  {name: "Plum Goat", id: "dff8aea7-22ed-4fb7-8270-918d14e074fe"})
+var user = {name: "Green Vixen", id: "8f9bddc4-fb69-4bde-8081-f3728eddee09"}
+
+var channel = socket.channel('lobby', user)
 channel
   .join()
   .receive("ignore", () => console.log("auth error"))
   .receive("ok", () =>
-channel.push("update_user", {name: "Terefere", id: "dff8aea7-22ed-4fb7-8270-918d14e074fe"})
-
-          )
+    channel.push("create_session", {name: "new session", owner: user})
+  )
 
 channel.on("user", (user) => console.log("user", user))
 channel.on("scales", (scales) => console.log("scales", scales))
+channel.on("session", (session) => console.log("session", session))
 
