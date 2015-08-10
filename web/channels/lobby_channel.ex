@@ -17,7 +17,7 @@ defmodule PlanningPoker.LobbyChannel do
   end
 
   def handle_in("update_user", message, socket) do
-    user = %{Repo.get_by(User, uuid: message["uuid"]) | name: message["name"]} |> Repo.update!
+    user = %{Repo.get(User, message["id"]) | name: message["name"]} |> Repo.update!
 
     socket |> push "user", user
     {:noreply, socket}
@@ -27,8 +27,8 @@ defmodule PlanningPoker.LobbyChannel do
 
   end
 
-  defp get_or_create_user(%{"uuid" => uuid}) do
-    Repo.get_by(User, %{uuid: uuid}) || get_or_create_user(nil)
+  defp get_or_create_user(%{"id" => id}) do
+    Repo.get(User, id) || get_or_create_user(nil)
   end
 
   defp get_or_create_user(_) do

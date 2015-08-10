@@ -33,12 +33,12 @@ socket.onOpen(ev => console.log("OPEN", ev));
 socket.onError(ev => console.log("ERROR", ev));
 socket.onClose(ev => console.log("CLOSE", ev));
 
-var channel = socket.channel('lobby',  {uuid: "3dbdf2b8-f1ff-451e-ab16-3850e235c44a", name: "Violet Nemesi"})
+var channel = socket.channel('lobby',  {name: "Plum Goat", id: "dff8aea7-22ed-4fb7-8270-918d14e074fe"})
 channel
   .join()
   .receive("ignore", () => console.log("auth error"))
   .receive("ok", () =>
-channel.push("update_user", {uuid: "3dbdf2b8-f1ff-451e-ab16-3850e235c44a", name: "Zocha xxxttt"})
+channel.push("update_user", {name: "Terefere", id: "dff8aea7-22ed-4fb7-8270-918d14e074fe"})
 
           )
 
