@@ -1,4 +1,4 @@
-defmodule PlanningPoker.PlanningRoomSocket do
+defmodule PlanningPoker.MainSocket do
   use Phoenix.Socket
 
   ## Channels
