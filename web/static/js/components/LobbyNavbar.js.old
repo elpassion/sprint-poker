@@ -9,8 +9,8 @@ class LobbyNavbar extends React.Component {
   }
 
   static defaultProps = {
-      roomName: "",
-      roomUUID: ""
+    roomName: "",
+    roomUUID: ""
   }
 
   shouldComponentUpdate() {
