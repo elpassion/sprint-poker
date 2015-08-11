@@ -13,14 +13,13 @@ defmodule PlanningPoker.UserSocket do
   transport :longpoll, Phoenix.Transports.LongPoll
 
   def connect(params, socket) do
-    IO.inspect(params)
     {:ok, assign(socket, :user_id, get_or_create_user(params).id)}
   end
 
-  def id(socket), do: nil #"users:#{socket.assigns.user_id}"
+  def id(socket), do: "user:#{socket.assigns.user_id}"
 
-  defp get_or_create_user(%{"id" => id}) do
-    Repo.get(User, id) || get_or_create_user(nil)
+  defp get_or_create_user(%{"id" => id, "auth_token" => auth_token}) do
+    Repo.get_by(User, id: id, auth_token: auth_token) || get_or_create_user(nil)
   end
 
   defp get_or_create_user(_) do

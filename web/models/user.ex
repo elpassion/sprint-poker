@@ -3,11 +3,12 @@ defmodule PlanningPoker.User do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  @required_fields ~w(name)
+  @required_fields ~w(name auth_token)
   @optional_fields ~w()
 
   schema "users" do
     field :name, :string
+    field :auth_token, Ecto.UUID, autogenerate: true
 
     timestamps
   end

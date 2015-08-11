@@ -11,13 +11,14 @@ defmodule PlanningPoker.LobbyChannel do
   end
 
   def handle_info({:after_join, message}, socket) do
-    socket |> push "user", Repo.get(User, socket.assigns.user_id)
+    user = Repo.get(User, socket.assigns.user_id)
+    socket |> push "user", %{id: user.id, auth_token: user.auth_token, name: user.name}
     socket |> push "scales", get_scales
     {:noreply, socket}
   end
 
   def handle_in("update_user", message, socket) do
-    user = %{Repo.get(User, message["id"]) | name: message["name"]} |> Repo.update!
+    user = %{Repo.get(User, socket.assigns.user_id) | name: message["name"]} |> Repo.update!
 
     socket |> push "user", user
     {:noreply, socket}

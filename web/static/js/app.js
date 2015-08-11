@@ -28,7 +28,7 @@ React.render(
 
 import { Socket } from 'phoenix';
 
-var user = {name: "Salmon Duck", id: "9f1e913d-7342-4097-bbf2-2da8cc7c9df7"}
+var user = {name: "Silver Fo", id: "9f79514f-2c72-4bb3-930b-dd45528cad73", auth_token: "a383d3e5-e581-4a3f-9ab1-fe18052541e0"}
 
 var socket = new Socket("ws://localhost:4000/ws");
 socket.connect(user);
