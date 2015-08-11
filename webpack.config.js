@@ -36,7 +36,7 @@ module.exports = {
       test: /\.(png|jpg|woff|woff2)$/,
       loader: 'url-loader?prefix=assets/'
     },{
-      test: /\.cjsx$/,
+      test: /\.coffee$/,
       loader: "coffee-jsx-loader"
     }]
   },

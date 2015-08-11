@@ -1,13 +1,13 @@
 React = require 'react'
 smallLogo = require '../../assets/images/logo_small.png'
 
-class LobbyNavbar extends React.Component
+LobbyNavbar = React.createClass
 
-  @propTypes =
+  propTypes:
     roomName: React.PropTypes.string.isRequired
     roomUUID: React.PropTypes.string.isRequired
 
-  @defaultProps =
+  defaultProps:
     roomName: ""
     roomUUID: ""
 
