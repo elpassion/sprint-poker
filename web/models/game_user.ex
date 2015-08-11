@@ -1,16 +1,16 @@
-defmodule PlanningPoker.SessionUser do
+defmodule PlanningPoker.GameUser do
   use PlanningPoker.Web, :model
 
   @foreign_key_type :binary_id
 
-  schema "session_user" do
-    belongs_to :session, PlanningPoker.Session
-    belongs_to :user,    PlanningPoker.User
+  schema "game_user" do
+    belongs_to :game, PlanningPoker.Game
+    belongs_to :user, PlanningPoker.User
 
     timestamps
   end
 
-  @required_fields ~w(session_id user_id)
+  @required_fields ~w(game_id user_id)
   @optional_fields ~w()
 
   @doc """

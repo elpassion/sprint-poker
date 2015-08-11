@@ -1,8 +1,8 @@
-defmodule PlanningPoker.Repo.Migrations.CreateSession do
+defmodule PlanningPoker.Repo.Migrations.CreateGame do
   use Ecto.Migration
 
   def change do
-    create table(:sessions, primary_key: false) do
+    create table(:games, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :owner_id, references(:users, type: :uuid)
       add :name, :string

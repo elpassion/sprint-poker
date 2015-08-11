@@ -10,11 +10,12 @@ import PlanningPokerReactApp from './components/PlanningPokerReactApp';
 import NewRoom from './components/NewRoom';
 import RoomLobby from './components/RoomLobby';
 import Room from './components/Room';
+import NewSession from './components/NewSession';
 
 var routes = (
   <Route components={PlanningPokerReactApp}>
     <Redirect from="/" to="new-room" />
-    <Route path="new-room" components={NewRoom}/>
+    <Route path="new-room" components={NewSession}/>
     <Route path="rooms" components={Room}>
       <Route path="/:uuid" components={RoomLobby}/>
     </Route>
@@ -27,23 +28,23 @@ React.render(
 
 import { Socket } from 'phoenix';
 
+var user = {name: "Salmon Duck", id: "9f1e913d-7342-4097-bbf2-2da8cc7c9df7"}
+
 var socket = new Socket("ws://localhost:4000/ws");
-socket.connect();
+socket.connect(user);
 socket.onOpen(ev => console.log("OPEN", ev));
 socket.onError(ev => console.log("ERROR", ev));
 socket.onClose(ev => console.log("CLOSE", ev));
-
-var user = {name: "Grey Goblin", id: "ede0e541-6e96-494a-b986-8327c5b5bf0f"}
 
 var channel = socket.channel('lobby', user)
 channel
   .join()
   .receive("ignore", () => console.log("auth error"))
   .receive("ok", () =>
-    channel.push("create_session", {name: "new session", owner: user})
+    channel.push("create_game", {name: "new game"})
   )
 
 channel.on("user", (user) => console.log("user", user))
 channel.on("scales", (scales) => console.log("scales", scales))
-channel.on("session", (session) => console.log("session", session))
+channel.on("game", (game) => console.log("game", game))
 

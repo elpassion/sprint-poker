@@ -3,8 +3,7 @@ defmodule PlanningPoker.LobbyChannel do
 
   alias PlanningPoker.Repo
   alias PlanningPoker.User
-  alias PlanningPoker.Session
-  alias PlanningPoker.RandomGenerator
+  alias PlanningPoker.Game
 
   def join("lobby", message, socket) do
     send(self, {:after_join, message})
@@ -12,7 +11,7 @@ defmodule PlanningPoker.LobbyChannel do
   end
 
   def handle_info({:after_join, message}, socket) do
-    socket |> push "user", get_or_create_user(message)
+    socket |> push "user", Repo.get(User, socket.assigns.user_id)
     socket |> push "scales", get_scales
     {:noreply, socket}
   end
@@ -24,27 +23,15 @@ defmodule PlanningPoker.LobbyChannel do
     {:noreply, socket}
   end
 
-  def handle_in("create_session", message, socket) do
-    socket |> push "session", Repo.insert!(
-      %Session{
+  def handle_in("create_game", message, socket) do
+    socket |> push "game", Repo.insert!(
+      %Game{
         name: message["name"],
-        owner_id: Repo.get(User, message["owner"]["id"]).id
+        owner_id: Repo.get(User, socket.assigns.user_id).id
       }
     ) |> Repo.preload([:owner])
 
     {:noreply, socket}
-  end
-
-  defp get_or_create_user(%{"id" => id}) do
-    Repo.get(User, id) || get_or_create_user(nil)
-  end
-
-  defp get_or_create_user(_) do
-    Repo.insert!(
-      %User{
-        name: RandomGenerator.name()
-      }
-    )
   end
 
   defp get_scales do
