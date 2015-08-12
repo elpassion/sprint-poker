@@ -1,18 +1,26 @@
 React   = require 'react'
 Reflux  = require 'reflux'
 Logo    = require '../../assets/images/logo.png'
-Store   = require '../stores/NewSessionStore'
-Actions = require '../actions/NewSessionActions'
+Store   = require '../stores/SocketConnectionStore'
+Actions = require '../actions/SocketConnectionActions'
 
-NewSession = React.createClass
+NewGame = React.createClass
 
   mixins: [Reflux.connect(Store)]
 
-  onChangeTitle: (e) ->
-    Actions.changeTitle(e.target.value)
+  onChangeGameTitle: (e) ->
+    Actions.changeGameTitle(e.target.value)
 
   onChangeUserName: (e) ->
     Actions.changeUserName(e.target.value)
+
+  onSubmitUserName: (e) ->
+    if e.which == 13
+      Actions.submitUserName()
+      e.preventDefault()
+
+  componentDidMount: ->
+    Actions.join('lobby')
 
   render: ->
     <div className="sessions col-xs-12 col-md-6">
@@ -25,13 +33,13 @@ NewSession = React.createClass
           <div className="form-group row">
             <label className="col-xs-12 start-xs">
                 <span className="simple-row">Session Title:</span>
-                <input className="simple-row full-width" value={ @state.title } type="text" onChange={ @onChangeTitle }/>
+                <input className="simple-row full-width" value={ null } type="text" onChange={ @onChangeGameTitle }/>
             </label>
           </div>
           <div className="form-group row">
             <label className="col-xs-12 start-xs">
                 <span className="simple-row">Your Nickname:</span>
-                <input className="simple-row full-width" value={ @state.userName } type="text" onChange={ @onChangeUserName }/>
+                <input className="simple-row full-width" value={ @state.user.name } type="text" onChange={ @onChangeUserName } onKeyDown={ @onSubmitUserName }/>
             </label>
           </div>
           <button className="button full-width" type="submit">Start Session</button>
@@ -39,4 +47,4 @@ NewSession = React.createClass
       </div>
     </div>
 
-module.exports = NewSession
+module.exports = NewGame

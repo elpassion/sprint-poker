@@ -12,7 +12,9 @@ defmodule PlanningPoker.LobbyChannel do
 
   def handle_info({:after_join, message}, socket) do
     user = Repo.get(User, socket.assigns.user_id)
-    socket |> push "user", %{id: user.id, auth_token: user.auth_token, name: user.name}
+
+    socket |> push "auth_token", %{auth_token: user.auth_token}
+    socket |> push "user", user
     socket |> push "scales", get_scales
     {:noreply, socket}
   end
