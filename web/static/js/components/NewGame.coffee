@@ -1,11 +1,12 @@
 React   = require 'react'
 Reflux  = require 'reflux'
+_       = require 'lodash'
 Logo    = require '../../assets/images/logo.png'
 Store   = require '../stores/SocketConnectionStore'
 Actions = require '../actions/SocketConnectionActions'
+If      = require './if'
 
 NewGame = React.createClass
-
   mixins: [Reflux.connect(Store)]
 
   onChangeGameName: (e) ->
@@ -17,13 +18,32 @@ NewGame = React.createClass
   onSubmitUserName: (e) ->
     if e.which == 13
       Actions.submitUserName()
-      e.preventDefault()
 
   onBlurUserName: ->
     Actions.submitUserName()
 
+  onCreateGame: (e) ->
+
+    gameName = _.trim(@state.game.name)
+    userName = _.trim(@state.user.name)
+
+    @setState
+      errors:
+        gameName: (gameName == '')
+        userName: (userName == '')
+
+    if gameName != '' && userName != ''
+      Actions.createGame()
+
+    e.preventDefault()
+
   componentDidMount: ->
     Actions.join('lobby')
+
+  getInitialState: ->
+    errors:
+      gameName: false
+      userName: false
 
   render: ->
     <div className="sessions col-xs-12 col-md-6">
@@ -32,8 +52,8 @@ NewGame = React.createClass
         <div className="header-text col-xs-12">
           Use online Planning Poker to easy estimate and plan tickets with your team. Your room will only be seen by those you invite.
         </div>
-        <form className="session-form col-xs-12">
-          <div className="form-group row">
+        <form className="session-form col-xs-12" onSubmit={ @onCreateGame }>
+          <div className="form-group row has-error">
             <label className="col-xs-12 start-xs">
                 <span className="simple-row">Session Title:</span>
                 <input className="simple-row full-width"
@@ -41,6 +61,9 @@ NewGame = React.createClass
                   value={ @state.game.name }
                   onChange={ @onChangeGameName }
                 />
+                <If condition={@state.errors.gameName}>
+                  <span>Session Title can't be blank</span>
+                </If>
             </label>
           </div>
           <div className="form-group row">
@@ -53,6 +76,9 @@ NewGame = React.createClass
                   onKeyDown={ @onSubmitUserName }
                   onBlur={ @onBlurUserName }
                 />
+                <If condition={@state.errors.userName}>
+                  <span>Your Nickname can't be blank</span>
+                </If>
             </label>
           </div>
           <button className="button full-width" type="submit">Start Session</button>

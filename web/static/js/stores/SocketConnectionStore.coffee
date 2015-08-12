@@ -30,7 +30,9 @@ SocketConnection = Reflux.createStore
 
     @channel.on "user", (@user) => @emit()
     @channel.on "scales", (@scales) => @emit()
-    @channel.on "game", (@game) => @emit()
+    @channel.on "game", (@game) =>
+      console.log(@game)
+      @emit()
     @channel.on "auth_token", (@auth_token) ->
       localStorage.setItem('auth_token', @auth_token['auth_token'])
 
@@ -44,5 +46,8 @@ SocketConnection = Reflux.createStore
   onChangeGameName: (name) ->
     @game.name = name
     @emit()
+
+  onCreateGame: ->
+    @channel.push('create_game', @game)
 
 module.exports = SocketConnection
