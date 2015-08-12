@@ -1,11 +1,6 @@
 Reflux = require 'reflux'
 
 SocketConnectionActions = Reflux.createActions
-  connect: {}
-  join: {}
-  changeUserName: {}
-  submitUserName: {}
-  changeGameName: {}
-  createGame: {}
+  nothing: {}
 
 module.exports = SocketConnectionActions

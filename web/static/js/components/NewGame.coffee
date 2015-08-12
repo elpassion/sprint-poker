@@ -2,12 +2,17 @@ React   = require 'react'
 Reflux  = require 'reflux'
 _       = require 'lodash'
 Logo    = require '../../assets/images/logo.png'
-Store   = require '../stores/SocketConnectionStore'
-Actions = require '../actions/SocketConnectionActions'
 If      = require './if'
+{ Navigation } = require 'react-router'
+
+Store = require '../stores/SocketConnectionStore'
+Actions = Store.Actions
 
 NewGame = React.createClass
-  mixins: [Reflux.connect(Store)]
+  mixins: [
+    Reflux.connect(Store)
+    Navigation
+  ]
 
   onChangeGameName: (e) ->
     Actions.changeGameName(e.target.value)
@@ -23,7 +28,6 @@ NewGame = React.createClass
     Actions.submitUserName()
 
   onCreateGame: (e) ->
-
     gameName = _.trim(@state.game.name)
     userName = _.trim(@state.user.name)
 
@@ -33,7 +37,8 @@ NewGame = React.createClass
         userName: (userName == '')
 
     if gameName != '' && userName != ''
-      Actions.createGame()
+      Actions.createGame (id) =>
+        @transitionTo "/games/#{id}"
 
     e.preventDefault()
 
@@ -58,6 +63,7 @@ NewGame = React.createClass
                 <span className="simple-row">Session Title:</span>
                 <input className="simple-row full-width"
                   type="text"
+                  placeholder="Enter Session Title"
                   value={ @state.game.name }
                   onChange={ @onChangeGameName }
                 />
@@ -71,6 +77,7 @@ NewGame = React.createClass
                 <span className="simple-row">Your Nickname:</span>
                 <input className="simple-row full-width"
                   type="text"
+                  placeholder="Enter Your Nickname"
                   value={ @state.user.name }
                   onChange={ @onChangeUserName }
                   onKeyDown={ @onSubmitUserName }

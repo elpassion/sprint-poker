@@ -1,6 +1,5 @@
 defmodule PlanningPoker.UserSocket do
   use Phoenix.Socket
-  alias PlanningPoker.RandomGenerator
   alias PlanningPoker.Repo
   alias PlanningPoker.User
 
@@ -23,11 +22,7 @@ defmodule PlanningPoker.UserSocket do
   end
 
   defp get_or_create_user(_) do
-    Repo.insert!(
-      %User{
-        name: RandomGenerator.name()
-      }
-    )
+    Repo.insert!(%User{})
   end
 
 end

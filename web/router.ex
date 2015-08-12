@@ -13,7 +13,7 @@ defmodule PlanningPoker.Router do
 
     get "/", PageController, :index
     get "/:anything", PageController, :index
-    get "/rooms/:anything", PageController, :index
+    get "/games/:anything", PageController, :index
   end
 
   pipeline :api do

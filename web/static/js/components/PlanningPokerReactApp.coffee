@@ -1,10 +1,9 @@
 React = require 'react'
-SocketConnectionActions = require '../actions/SocketConnectionActions'
+Store = require '../stores/SocketConnectionStore'
 
 PlanningPokerReactApp = React.createClass
-
   componentDidMount: ->
-    SocketConnectionActions.connect()
+    Store.Actions.connect()
 
   render: ->
       <div className='main row center-xs middle-xs'>

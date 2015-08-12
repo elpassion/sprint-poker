@@ -1,15 +1,28 @@
 Reflux     = require 'reflux'
-Actions    = require '../actions/SocketConnectionActions'
+_          = require 'lodash'
+{ Router } = require 'react-router'
 { Socket } = require 'phoenix'
+UserMixin  = require './UserMixin'
+GameMixin  = require './GameMixin'
+AuthMixin  = require './AuthMixin'
 
-SocketConnection = Reflux.createStore
-  listenables: [Actions]
+Actions = Reflux.createActions _.merge
+  connect: {}
+  join: {}
+  UserMixin.actions
+  GameMixin.actions
+
+Store = Reflux.createStore
+  mixins: [
+    UserMixin
+    GameMixin
+    AuthMixin
+  ]
+
+  listenables: [ Actions ]
 
   init: ->
     @socket = new Socket("/ws")
-    @auth_token = { auth_token: localStorage.getItem('auth_token') }
-    @user = {}
-    @game = {}
 
   getInitialState: ->
     @getState()
@@ -21,33 +34,12 @@ SocketConnection = Reflux.createStore
   emit: ->
     @trigger @getState()
 
-  onConnect: ->
-    @socket.connect(@auth_token)
-
   onJoin: (channel) ->
     @channel = @socket.channel(channel)
     @channel.join()
-
-    @channel.on "user", (@user) => @emit()
     @channel.on "scales", (@scales) => @emit()
-    @channel.on "game", (@game) =>
-      console.log(@game)
-      @emit()
-    @channel.on "auth_token", (@auth_token) ->
-      localStorage.setItem('auth_token', @auth_token['auth_token'])
 
-  onChangeUserName: (name) ->
-    @user.name = name
-    @emit()
+    event() for event in @channelEvents
 
-  onSubmitUserName: ->
-    @channel.push('update_user', @user)
-
-  onChangeGameName: (name) ->
-    @game.name = name
-    @emit()
-
-  onCreateGame: ->
-    @channel.push('create_game', @game)
-
-module.exports = SocketConnection
+module.exports = Store
+module.exports.Actions = Actions
