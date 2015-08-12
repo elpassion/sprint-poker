@@ -19,6 +19,9 @@ NewGame = React.createClass
       Actions.submitUserName()
       e.preventDefault()
 
+  onBlurUserName: ->
+    Actions.submitUserName()
+
   componentDidMount: ->
     Actions.join('lobby')
 
@@ -33,13 +36,23 @@ NewGame = React.createClass
           <div className="form-group row">
             <label className="col-xs-12 start-xs">
                 <span className="simple-row">Session Title:</span>
-                <input className="simple-row full-width" value={ null } type="text" onChange={ @onChangeGameTitle }/>
+                <input className="simple-row full-width"
+                  value={ null }
+                  type="text"
+                  onChange={ @onChangeGameTitle }
+                />
             </label>
           </div>
           <div className="form-group row">
             <label className="col-xs-12 start-xs">
                 <span className="simple-row">Your Nickname:</span>
-                <input className="simple-row full-width" value={ @state.user.name } type="text" onChange={ @onChangeUserName } onKeyDown={ @onSubmitUserName }/>
+                <input className="simple-row full-width"
+                  value={ @state.user.name }
+                  type="text"
+                  onChange={ @onChangeUserName }
+                  onKeyDown={ @onSubmitUserName }
+                  onBlur={ @onBlurUserName }
+                />
             </label>
           </div>
           <button className="button full-width" type="submit">Start Session</button>
