@@ -5,6 +5,6 @@ SocketConnectionActions = Reflux.createActions
   join: {}
   changeUserName: {}
   submitUserName: {}
-  changeGameTitle: {}
+  changeGameName: {}
 
 module.exports = SocketConnectionActions

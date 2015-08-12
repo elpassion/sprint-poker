@@ -8,8 +8,8 @@ NewGame = React.createClass
 
   mixins: [Reflux.connect(Store)]
 
-  onChangeGameTitle: (e) ->
-    Actions.changeGameTitle(e.target.value)
+  onChangeGameName: (e) ->
+    Actions.changeGameName(e.target.value)
 
   onChangeUserName: (e) ->
     Actions.changeUserName(e.target.value)
@@ -37,9 +37,9 @@ NewGame = React.createClass
             <label className="col-xs-12 start-xs">
                 <span className="simple-row">Session Title:</span>
                 <input className="simple-row full-width"
-                  value={ null }
                   type="text"
-                  onChange={ @onChangeGameTitle }
+                  value={ @state.game.name }
+                  onChange={ @onChangeGameName }
                 />
             </label>
           </div>
@@ -47,8 +47,8 @@ NewGame = React.createClass
             <label className="col-xs-12 start-xs">
                 <span className="simple-row">Your Nickname:</span>
                 <input className="simple-row full-width"
-                  value={ @state.user.name }
                   type="text"
+                  value={ @state.user.name }
                   onChange={ @onChangeUserName }
                   onKeyDown={ @onSubmitUserName }
                   onBlur={ @onBlurUserName }
