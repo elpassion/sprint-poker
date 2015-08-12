@@ -10,4 +10,4 @@ config :planning_poker, PlanningPoker.Endpoint,
 config :planning_poker, PlanningPoker.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: {:system, "DATABASE_URL"},
-  size: 20 # The amount of database connections in the pool
+  pool_size: 20 # The amount of database connections in the pool
