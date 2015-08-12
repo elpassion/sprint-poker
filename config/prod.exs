@@ -13,7 +13,8 @@ use Mix.Config
 # which you typically run after static files are built.
 config :planning_poker, PlanningPoker.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "planning-poker-phoenix.herokuapp.com", port: 80]
+  url: [host: "planning-poker-phoenix.herokuapp.com", port: 80],
+  cache_static_manifest: "priv/static/manifest.json"
 
 # ## SSL Support
 #
