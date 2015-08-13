@@ -1,11 +1,9 @@
 defmodule PlanningPoker.GameUser do
   use PlanningPoker.Web, :model
 
-  @foreign_key_type :binary_id
-
   schema "game_user" do
-    belongs_to :game, PlanningPoker.Game
-    belongs_to :user, PlanningPoker.User
+    belongs_to :game, PlanningPoker.Game, type: :binary_id
+    belongs_to :user, PlanningPoker.User, type: :binary_id
 
     timestamps
   end

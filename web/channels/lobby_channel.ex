@@ -28,10 +28,12 @@ defmodule PlanningPoker.LobbyChannel do
   end
 
   def handle_in("create_game", message, socket) do
+    IO.inspect(message)
     game = Repo.insert!(
       %Game{
         name: message["name"],
-        owner_id: Repo.get(User, socket.assigns.user_id).id
+        owner_id: Repo.get(User, socket.assigns.user_id).id,
+        deck_id: Repo.get(Deck, message["deck_id"]).id
       }
     ) |> Repo.preload([:owner])
 
