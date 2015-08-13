@@ -2,6 +2,9 @@
   "name": "planningpokerreact",
   "version": "0.0.0",
   "description": "",
+  "scripts": {
+    "test": "webpack-dev-server 'mocha!./web/static/js/test/test.js' --output-filename test.js --hot --config webpack.test.config.js"
+  },
   "dependencies": {
     "lodash": "^3.9.1",
     "normalize.css": "~3.0.3",
@@ -20,8 +23,11 @@
     "jshint": "^2.8.0",
     "jshint-loader": "^0.8.3",
     "jsxhint-loader": "^0.2.0",
+    "mocha": "^2.2.5",
+    "mocha-loader": "^0.7.1",
     "node-sass": "^3.2.0",
     "sass-loader": "^1.0.3",
+    "sinon": "git://github.com/uberVU/Sinon.JS",
     "style-loader": "^0.12.3",
     "url-loader": "^0.5.6",
     "webpack": "^1.10.5"

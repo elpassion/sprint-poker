@@ -4,6 +4,9 @@
 /deps
 /*.ez
 
+# Generate on crash by the npm
+npm-debug.log
+
 # Generate on crash by the VM
 erl_crash.dump
 
