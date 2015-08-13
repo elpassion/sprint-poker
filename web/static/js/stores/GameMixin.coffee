@@ -26,7 +26,7 @@ GameMixin =
 
   onChangeGameDeckId: (deck_id) ->
     @game.deck_id = deck_id
-    @emit
+    @emit()
 
 module.exports = GameMixin
 
