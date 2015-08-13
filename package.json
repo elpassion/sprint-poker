@@ -2,6 +2,9 @@
   "name": "planningpokerreact",
   "version": "0.0.0",
   "description": "",
+  "scripts": {
+    "test": "webpack-dev-server 'mocha!./web/static/js/test/test.js' --output-filename test.js --hot"
+  },
   "dependencies": {
     "lodash": "^3.9.1",
     "normalize.css": "~3.0.3",
