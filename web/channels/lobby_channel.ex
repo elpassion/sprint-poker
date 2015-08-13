@@ -11,7 +11,7 @@ defmodule PlanningPoker.LobbyChannel do
     {:ok, socket}
   end
 
-  def handle_info({:after_join, message}, socket) do
+  def handle_info({:after_join, _message}, socket) do
     user = Repo.get(User, socket.assigns.user_id)
 
     socket |> push "auth_token", %{auth_token: user.auth_token}
@@ -20,7 +20,7 @@ defmodule PlanningPoker.LobbyChannel do
     {:noreply, socket}
   end
 
-  def handle_in("update_user", message, socket) do
+  def handle_in("change_user_name", message, socket) do
     user = %{Repo.get(User, socket.assigns.user_id) | name: message["name"]} |> Repo.update!
 
     socket |> push "user", %{user: user}
@@ -28,7 +28,6 @@ defmodule PlanningPoker.LobbyChannel do
   end
 
   def handle_in("create_game", message, socket) do
-    IO.inspect(message)
     game = Repo.insert!(
       %Game{
         name: message["name"],

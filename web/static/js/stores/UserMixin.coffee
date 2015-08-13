@@ -16,6 +16,6 @@ UserMixin =
     @emit()
 
   onSubmitUserName: ->
-    @channel.push('update_user', @user)
+    @channel.push('change_user_name', @user)
 
 module.exports = UserMixin
