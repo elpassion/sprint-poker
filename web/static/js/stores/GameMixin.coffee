@@ -8,7 +8,8 @@ GameMixin =
 
     @channelEvents ||= []
     @channelEvents.push =>
-      @channel.on "game", (@game) =>
+      @channel.on "game", (game) =>
+        @game = game["game"]
         @createGameCallback(@game['id'])
         @createGameCallback = nil
 

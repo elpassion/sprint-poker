@@ -5,6 +5,7 @@ _          = require 'lodash'
 UserMixin  = require './UserMixin'
 GameMixin  = require './GameMixin'
 AuthMixin  = require './AuthMixin'
+DeckMixin  = require './DeckMixin'
 
 Actions = Reflux.createActions _.merge
   connect: {}
@@ -17,6 +18,7 @@ Store = Reflux.createStore
     UserMixin
     GameMixin
     AuthMixin
+    DeckMixin
   ]
 
   listenables: [ Actions ]
@@ -30,6 +32,7 @@ Store = Reflux.createStore
   getState: ->
     user: @user
     game: @game
+    decks: @decks
 
   emit: ->
     @trigger @getState()
@@ -37,8 +40,6 @@ Store = Reflux.createStore
   onJoin: (channel) ->
     @channel = @socket.channel(channel)
     @channel.join()
-    @channel.on "scales", (@scales) => @emit()
-
     event() for event in @channelEvents
 
 module.exports = Store

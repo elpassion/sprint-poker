@@ -7,7 +7,8 @@ UserMixin =
     @user = {}
     @channelEvents ||= []
     @channelEvents.push =>
-      @channel.on "user", (@user) =>
+      @channel.on "user", (user) =>
+        @user = user["user"]
         @emit()
 
   onChangeUserName: (name) ->

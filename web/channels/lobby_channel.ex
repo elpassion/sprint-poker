@@ -4,6 +4,7 @@ defmodule PlanningPoker.LobbyChannel do
   alias PlanningPoker.Repo
   alias PlanningPoker.User
   alias PlanningPoker.Game
+  alias PlanningPoker.Deck
 
   def join("lobby", message, socket) do
     send(self, {:after_join, message})
@@ -14,34 +15,27 @@ defmodule PlanningPoker.LobbyChannel do
     user = Repo.get(User, socket.assigns.user_id)
 
     socket |> push "auth_token", %{auth_token: user.auth_token}
-    socket |> push "user", user
-    socket |> push "scales", get_scales
+    socket |> push "user", %{user: user}
+    socket |> push "decks", %{decks: Repo.all(Deck)}
     {:noreply, socket}
   end
 
   def handle_in("update_user", message, socket) do
     user = %{Repo.get(User, socket.assigns.user_id) | name: message["name"]} |> Repo.update!
 
-    socket |> push "user", user
+    socket |> push "user", %{user: user}
     {:noreply, socket}
   end
 
   def handle_in("create_game", message, socket) do
-    socket |> push "game", Repo.insert!(
+    game = Repo.insert!(
       %Game{
         name: message["name"],
         owner_id: Repo.get(User, socket.assigns.user_id).id
       }
     ) |> Repo.preload([:owner])
 
+    socket |> push "game", %{game: game}
     {:noreply, socket}
   end
-
-  defp get_scales do
-    %{
-      "Fibbonacci" => 0,
-      "Other" => 999
-    }
-  end
-
 end
