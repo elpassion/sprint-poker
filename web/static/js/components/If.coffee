@@ -2,8 +2,8 @@ React = require 'react'
 
 If = React.createClass
   render: ->
-    if this.props.condition
-      this.props.children
+    if @props.condition
+      @props.children
     else
       false
 

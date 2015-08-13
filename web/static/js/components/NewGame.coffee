@@ -2,7 +2,7 @@ React   = require 'react'
 Reflux  = require 'reflux'
 _       = require 'lodash'
 Logo    = require '../../assets/images/logo.png'
-If      = require './if'
+If      = require './If'
 { Navigation } = require 'react-router'
 
 Store = require '../stores/SocketConnectionStore'
@@ -58,34 +58,45 @@ NewGame = React.createClass
           Use online Planning Poker to easy estimate and plan tickets with your team. Your room will only be seen by those you invite.
         </div>
         <form className="session-form col-xs-12" onSubmit={ @onCreateGame }>
-          <div className="form-group row has-error">
+          <div className="form-group row">
             <label className="col-xs-12 start-xs">
-                <span className="simple-row">Session Title:</span>
-                <input className="simple-row full-width"
-                  type="text"
-                  placeholder="Enter Session Title"
-                  value={ @state.game.name }
-                  onChange={ @onChangeGameName }
-                />
-                <If condition={@state.errors.gameName}>
-                  <span>Session Title can't be blank</span>
-                </If>
+              <span className="simple-row">Session Title:</span>
+              <input className="simple-row full-width"
+                type="text"
+                placeholder="Enter Session Title"
+                value={ @state.game.name }
+                onChange={ @onChangeGameName }
+              />
+              <If condition={@state.errors.gameName}>
+                <span>Session Title can't be blank</span>
+              </If>
             </label>
           </div>
           <div className="form-group row">
             <label className="col-xs-12 start-xs">
-                <span className="simple-row">Your Nickname:</span>
-                <input className="simple-row full-width"
-                  type="text"
-                  placeholder="Enter Your Nickname"
-                  value={ @state.user.name }
-                  onChange={ @onChangeUserName }
-                  onKeyDown={ @onSubmitUserName }
-                  onBlur={ @onBlurUserName }
-                />
-                <If condition={@state.errors.userName}>
-                  <span>Your Nickname can't be blank</span>
-                </If>
+              <span className="simple-row">Session Deck:</span>
+                <select className="simple-row full-width" value="1">
+                  {
+                    for option in @state.decks
+                      <option value={option.id} key={option.id}>{option.name} ({_.take(option.cards,4).join(', ')})</option>
+                  }
+                </select>
+            </label>
+          </div>
+          <div className="form-group row">
+            <label className="col-xs-12 start-xs">
+              <span className="simple-row">Your Nickname:</span>
+              <input className="simple-row full-width"
+                type="text"
+                placeholder="Enter Your Nickname"
+                value={ @state.user.name }
+                onChange={ @onChangeUserName }
+                onKeyDown={ @onSubmitUserName }
+                onBlur={ @onBlurUserName }
+              />
+              <If condition={@state.errors.userName}>
+                <span>Your Nickname can't be blank</span>
+              </If>
             </label>
           </div>
           <button className="button full-width" type="submit">Start Session</button>
