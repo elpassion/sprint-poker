@@ -51,7 +51,4 @@ defmodule PlanningPoker.LobbyChannelTest do
     owner_id = user.id
     assert_push "game", %{game: %{id: _, name: "new game", owner_id: ^owner_id}}
   end
-
-
-
 end

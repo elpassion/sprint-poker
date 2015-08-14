@@ -3,8 +3,8 @@ defmodule PlanningPoker.Repo.Migrations.CreateDeck do
 
   def change do
     create table(:decks) do
-      add :name, :string
-      add :cards, {:array, :string}
+      add :name, :string, null: false
+      add :cards, {:array, :string}, null: false
 
       timestamps
     end

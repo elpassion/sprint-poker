@@ -3,8 +3,8 @@ defmodule PlanningPoker.Repo.Migrations.CreateGameUser do
 
   def change do
     create table(:game_user) do
-      add :game_id, references(:games, type: :uuid)
-      add :user_id, references(:users, type: :uuid)
+      add :game_id, references(:games, type: :uuid), null: false
+      add :user_id, references(:users, type: :uuid), null: false
 
       timestamps
     end

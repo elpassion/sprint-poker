@@ -1,21 +1,29 @@
 defmodule PlanningPoker.DeckTest do
-  # use PlanningPoker.ModelCase
-  #
-  # alias PlanningPoker.Deck
-  # alias PlanningPoker.Repo
-  #
-  # test "deck with name and cards" do
-  #   deck = Repo.insert %Deck{
-  #     name: "sample name",
-  #     cards: []
-  #   }
-  #   assert deck
-  # end
-  #
-  # test "deck without name" do
-  #   deck = Repo.insert %Deck{
-  #     cards: []
-  #   }
-  #   refute deck
-  # end
+  use PlanningPoker.ModelCase
+
+  alias PlanningPoker.Deck
+  alias PlanningPoker.Repo
+
+  test "don't create empty deck" do
+    assert_raise Postgrex.Error, fn ->
+      %Deck{} |> Repo.insert!
+    end
+  end
+
+  test "don't create deck without name" do
+    assert_raise Postgrex.Error, fn ->
+      %Deck{
+        cards: []
+      } |> Repo.insert!
+    end
+  end
+
+  test "create deck with name and cards" do
+    deck = %Deck{
+      name: "sample name",
+      cards: []
+    } |> Repo.insert!
+
+    assert deck
+  end
 end
