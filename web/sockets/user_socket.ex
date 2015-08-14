@@ -12,7 +12,6 @@ defmodule PlanningPoker.UserSocket do
   transport :longpoll, Phoenix.Transports.LongPoll
 
   def connect(params, socket) do
-    IO.inspect(params)
     {:ok, assign(socket, :user_id, get_or_create_user(params).id)}
   end
 

@@ -40,16 +40,16 @@ defmodule PlanningPoker.LobbyChannelTest do
     assert_push "user", ^change_user_name_response
   end
 
-  test "sending create_game resend new game" do
+  test "sending create_game resend new game with owner_id and name" do
     user = %User{name: "test user"} |> Repo.insert!
     deck = %Deck{name: "test deck"} |> Repo.insert!
-    owner_id = user.id
 
     {:ok, _, socket } = subscribe_and_join_with_assigns(LobbyChannel, "lobby", %{user_id: user.id})
 
-    socket |> push "create_game", %{"name" => "new session", "deck_id" => deck.id}
+    socket |> push "create_game", %{"name" => "new game", "deck_id" => deck.id}
 
-    assert_push "game", %{game: %{id: _, owner_id: ^owner_id}}
+    owner_id = user.id
+    assert_push "game", %{game: %{id: _, name: "new game", owner_id: ^owner_id}}
   end
 
 
