@@ -3,6 +3,4 @@ otp_release:
   - 17.4
 addons:
   postgresql: '9.4'
-before_script:
-  - MIX_ENV=test mix do deps.get, deps.compile, ecto.create, ecto.migrate
 
