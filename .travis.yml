@@ -1,0 +1,8 @@
+language: elixir
+otp_release:
+  - 18.0.2
+addons:
+  postgresql: '9.4'
+before_script:
+  - MIX_ENV=test mix do deps.get, deps.compile, ecto.create, ecto.migrate
+
