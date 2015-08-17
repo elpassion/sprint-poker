@@ -16,7 +16,7 @@ before_install:
 
 script:
   - mix test
-  - karma start
+  - node_modules/.bin/karma start
 
 deploy:
   provider: heroku
