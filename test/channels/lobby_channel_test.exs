@@ -40,7 +40,7 @@ defmodule PlanningPoker.LobbyChannelTest do
     assert_push "user", ^change_user_name_response
   end
 
-  test "sending create_game resend new game with owner_id and name" do
+  test "sending create_game resends new game with owner_id and name" do
     user = %User{name: "test user"} |> Repo.insert!
     deck = %Deck{name: "test deck"} |> Repo.insert!
 
