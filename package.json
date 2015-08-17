@@ -15,13 +15,19 @@
     "babel": "^5.8.20",
     "babel-core": "^5.8.20",
     "babel-loader": "^5.3.2",
+    "coffee-jsx-loader": "*",
     "css-loader": "^0.15.6",
     "file-loader": "^0.8.4",
+    "jasmine-core": "^2.3.4",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-chrome-launcher": "*",
+    "karma-sourcemap-loader": "^0.3.5",
+    "karma-webpack": "*",
     "node-sass": "^3.2.0",
     "sass-loader": "^1.0.3",
     "style-loader": "^0.12.3",
     "url-loader": "^0.5.6",
-    "coffee-jsx-loader": "*",
     "webpack": "^1.10.5"
   }
 }
