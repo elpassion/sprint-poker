@@ -1,4 +1,4 @@
-defmodule PlanningPoker.PlanningRoomChannel do
+defmodule PlanningPoker.PlanningChannel do
   use PlanningPoker.Web, :channel
   alias PlanningPoker.Room
   alias PlanningPoker.Participant

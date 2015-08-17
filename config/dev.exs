@@ -30,7 +30,7 @@ config :logger, :console, format: "[$level] $message\n"
 config :planning_poker, PlanningPoker.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "planning_poker_dev",
-  size: 10 # The amount of database connections in the pool
+  pool_size: 10 # The amount of database connections in the pool
 
 config :plug_cors,
   origins: ["*"],

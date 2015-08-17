@@ -9,3 +9,11 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias PlanningPoker.Repo
+alias PlanningPoker.Deck
+
+Repo.insert!(%Deck{name: "Fibonacci", cards: ["1","2","3","5","8"]})
+Repo.insert!(%Deck{name: "T-Shirts", cards: ["S","M","L","XXL"]})
+Repo.insert!(%Deck{name: "Powers of 2", cards: ["1","2","4","8","16"]})
+Repo.insert!(%Deck{name: "No Bullsh*t", cards: ["1","TFB","NFC"]})

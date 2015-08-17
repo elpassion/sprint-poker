@@ -1,7 +1,7 @@
 defmodule PlanningPoker.Endpoint do
   use Phoenix.Endpoint, otp_app: :planning_poker
 
-  socket "/ws", PlanningPoker.MainSocket
+  socket "/ws", PlanningPoker.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #

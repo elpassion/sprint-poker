@@ -8,6 +8,7 @@ module.exports = {
     path: './priv/static/assets/'
   },
   resolve: {
+    extensions: ['', '.js', '.cjsx', '.coffee'],
     modulesDirectories: [
       './node_modules',
       './deps/phoenix/web/static/js',
@@ -34,6 +35,9 @@ module.exports = {
     }, {
       test: /\.(png|jpg|woff|woff2)$/,
       loader: 'url-loader?prefix=assets/'
+    },{
+      test: /\.(cjsx|coffee)$/,
+      loader: "coffee-jsx-loader"
     }]
   },
 };

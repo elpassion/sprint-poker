@@ -12,5 +12,5 @@ config :logger, level: :warn
 # Configure your database
 config :planning_poker, PlanningPoker.Repo,
   adapter: Ecto.Adapters.Postgres,
-  database: "planning_poker_test",
+  database: "postgress",
   pool: Ecto.Adapters.SQL.Sandbox
