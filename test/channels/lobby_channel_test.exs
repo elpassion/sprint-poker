@@ -30,7 +30,7 @@ defmodule PlanningPoker.LobbyChannelTest do
     assert_push "decks", ^decks_response
   end
 
-  test "sending change_user_name resend updated user" do
+  test "sending change_user_name resends updated user" do
     user = %User{name: "test user"} |> Repo.insert!
     {:ok, _, socket } = subscribe_and_join_with_assigns(LobbyChannel, "lobby", %{user_id: user.id})
 
