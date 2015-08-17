@@ -19,7 +19,6 @@ Store = Reflux.createStore
     errors: @errors
 
   emit: ->
-    console.log @getState()
     @trigger @getState()
 
   onSetGameNameError: (condition, message) ->
