@@ -7,10 +7,9 @@ module.exports = function (config) {
       'karma-jasmine',
       'karma-sourcemap-loader',
       'karma-webpack',
-      'karma-chrome-launcher',
-      'karma-phantomjs-launcher'
+      'karma-firefox-launcher',
     ],
-    browsers: ['Chrome'],
+    browsers: ['Firefox'],
     singleRun: true,
     frameworks: [ 'jasmine' ],
     files: [
