@@ -8,7 +8,7 @@ defmodule PlanningPoker.Endpoint do
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :planning_poker, gzip: false,
+    at: "/", from: :planning_poker, gzip: true,
     only: ~w(assets favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
