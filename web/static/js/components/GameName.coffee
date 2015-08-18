@@ -4,17 +4,20 @@ Reflux  = require 'reflux'
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
 
-ErrorStore = require '../stores/ErrorStore'
-ErrorActions = ErrorStore.Actions
-
 GameName = React.createClass
   mixins: [
     Reflux.connect(Store)
-    Reflux.connect(ErrorStore)
   ]
 
   onChangeGameName: (e) ->
     Actions.changeGameName(e.target.value)
+
+  onSubmitGameName: (e) ->
+    if e.which == 13
+      Actions.validateGameName()
+
+  onBlurGameName: ->
+    Actions.validateGameName()
 
   render: ->
     <div className="form-group row">
@@ -25,9 +28,11 @@ GameName = React.createClass
           placeholder="Enter Session Title"
           value={ @state.game.name }
           onChange={ @onChangeGameName }
+          onKeyDown={ @onSubmitGameName }
+          onBlur={ @onBlurGameName }
         />
-        {if @state.errors.gameName
-          <span>{@state.errors.gameName}</span>
+        {if @state.game.errors['name']
+          <span>{@state.game.errors['name']}</span>
         }
       </label>
     </div>

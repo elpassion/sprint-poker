@@ -4,13 +4,9 @@ Reflux  = require 'reflux'
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
 
-ErrorStore = require '../stores/ErrorStore'
-ErrorActions = ErrorStore.Actions
-
 GameDeck = React.createClass
   mixins: [
     Reflux.connect(Store)
-    Reflux.connect(ErrorStore)
   ]
 
   onChangeGameDeck: (e) ->
@@ -23,7 +19,16 @@ GameDeck = React.createClass
           <select className="simple-row full-width" value={@state.game.deck_id} onChange={@onChangeGameDeck}>
             {
               for option in @state.decks
-                <option value={option.id} key={option.id}>{option.name} ({_.take(option.cards,4).join(', ')})</option>
+                <option
+                  value={option.id}
+                  key={option.id}>
+
+                  {option.name} ({_.take(option.cards,4).join(', ')}
+                  { if option.cards.length > 4
+                    ', ...'
+                  }
+                  )
+                </option>
             }
           </select>
       </label>
