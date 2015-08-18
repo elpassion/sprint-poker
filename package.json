@@ -15,7 +15,7 @@
     "babel": "^5.8.20",
     "babel-core": "^5.8.20",
     "babel-loader": "^5.3.2",
-    "coffee-jsx-loader": "*",
+    "coffee-jsx-loader": "fazibear/coffee-jsx-loader",
     "css-loader": "^0.15.6",
     "file-loader": "^0.8.4",
     "jasmine-core": "^2.3.4",
