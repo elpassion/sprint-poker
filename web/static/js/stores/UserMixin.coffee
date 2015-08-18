@@ -2,7 +2,7 @@ UserMixin =
   actions:
     changeUserName: {}
     submitUserName: {}
-    validateUserName: {}
+    validateUserName: {sync: true}
 
   init: ->
     @user = {

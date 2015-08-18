@@ -18,13 +18,10 @@ NewGame = React.createClass
   ]
 
   onCreateGame: (e) ->
-    Actions.validateUserName()
     Actions.validateGameName()
+    Actions.validateUserName()
 
-    gameName = _.trim(@state.game.name)
-    userName = _.trim(@state.user.name)
-
-    if gameName != '' && userName != ''
+    if _.isEmpty(@state.user.errors) && _.isEmpty(@state.game.errors)
       Actions.createGame (id) =>
         @transitionTo "/games/#{id}"
 

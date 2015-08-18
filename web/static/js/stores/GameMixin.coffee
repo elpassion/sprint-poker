@@ -3,7 +3,7 @@ GameMixin =
     changeGameName: {}
     changeGameDeckId: {}
     createGame: {}
-    validateGameName: {}
+    validateGameName: {sync: true}
 
   init: ->
     @game = {
