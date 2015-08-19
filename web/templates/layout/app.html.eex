@@ -9,7 +9,7 @@
 
     <title>Planning Poker</title>
 
-    <% if Mix.env == "prod" do %>
+    <%= if Mix.env == :prod do %>
       <script>
         var _rollbarConfig = {
             accessToken: "<%= System.get_env("ROLLBAR_ACCESS_TOKEN_CLIENT") %>",
