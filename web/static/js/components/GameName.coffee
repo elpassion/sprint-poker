@@ -32,7 +32,7 @@ GameName = React.createClass
           onBlur={ @onBlurGameName }
         />
         {if @state.game.errors.name
-          <span>{ @state.game.erros.name }</span>
+          <span>{ @state.game.errors.name }</span>
         }
       </label>
     </div>
