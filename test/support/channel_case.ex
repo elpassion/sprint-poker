@@ -19,7 +19,6 @@ defmodule PlanningPoker.ChannelCase do
     quote do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
-      use Phoenix.ChannelTestWithAssign
 
       alias PlanningPoker.Repo
       import Ecto.Model
