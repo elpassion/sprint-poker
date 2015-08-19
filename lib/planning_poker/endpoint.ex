@@ -1,4 +1,5 @@
 defmodule PlanningPoker.Endpoint do
+  use ExceptionPlug
   use Phoenix.Endpoint, otp_app: :planning_poker
 
   socket "/ws", PlanningPoker.UserSocket

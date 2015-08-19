@@ -37,5 +37,5 @@ config :plug_cors,
   headers: ["Origin"]
 
 config :airbrake,
-  api_key: {:system, "AIRBRAKE_API_KEY"},
-  project_id: {:system, "AIRBRAKE_PROJECT_ID"}
+  api_key: System.get_env("AIRBRAKE_API_KEY"),
+  project_id: System.get_env("AIRBRAKE_PROJECT_ID")

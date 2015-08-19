@@ -39,7 +39,7 @@ defmodule PlanningPoker.Mixfile do
      {:plug_cors, "~> 0.7.3"},
      {:faker, "~> 0.5"},
      {:inflex, "~> 1.4.0", github: "nurugger07/inflex" },
-     {:airbrake_plug, "~> 0.1.0"},
+     {:airbrake, "~> 0.1.0"},
      {:rollbax, "~> 0.0.1"}]
   end
 end

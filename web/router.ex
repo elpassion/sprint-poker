@@ -1,6 +1,7 @@
 defmodule PlanningPoker.Router do
+  use ExceptionPlug
   use PlanningPoker.Web, :router
-  use AirbrakePlug
+
 
   pipeline :browser do
     plug :accepts, ["html"]
