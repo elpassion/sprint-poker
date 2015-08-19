@@ -8,7 +8,7 @@ defmodule PlanningPoker.LobbyChannelTest do
 
   test "joining lobby sends auth_token" do
     user = %User{name: "test user"} |> Repo.insert!
-    subscribe_and_join_with_assigns(LobbyChannel, "lobby", %{user_id: user.id})
+    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
 
     auth_token_response = %{"auth_token": user.auth_token}
     assert_push "auth_token", ^auth_token_response
@@ -16,7 +16,7 @@ defmodule PlanningPoker.LobbyChannelTest do
 
   test "joining lobby sends user" do
     user = %User{name: "test user"} |> Repo.insert!
-    subscribe_and_join_with_assigns(LobbyChannel, "lobby", %{user_id: user.id})
+    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
 
     user_response = %{"user": user}
     assert_push "user", ^user_response
@@ -24,7 +24,7 @@ defmodule PlanningPoker.LobbyChannelTest do
 
   test "joining lobby sends decks" do
     user = %User{name: "test user"} |> Repo.insert!
-    subscribe_and_join_with_assigns(LobbyChannel, "lobby", %{user_id: user.id})
+    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
 
     decks_response = %{decks: []}
     assert_push "decks", ^decks_response
@@ -32,7 +32,7 @@ defmodule PlanningPoker.LobbyChannelTest do
 
   test "sending change_user_name resends updated user" do
     user = %User{name: "test user"} |> Repo.insert!
-    {:ok, _, socket } = subscribe_and_join_with_assigns(LobbyChannel, "lobby", %{user_id: user.id})
+    {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
 
     socket |> push "change_user_name", %{"name" => "new name"}
 
@@ -44,7 +44,7 @@ defmodule PlanningPoker.LobbyChannelTest do
     user = %User{name: "test user"} |> Repo.insert!
     deck = %Deck{name: "test deck"} |> Repo.insert!
 
-    {:ok, _, socket } = subscribe_and_join_with_assigns(LobbyChannel, "lobby", %{user_id: user.id})
+    {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
 
     socket |> push "create_game", %{"name" => "new game", "deck_id" => deck.id}
 

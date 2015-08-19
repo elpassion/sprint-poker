@@ -23,8 +23,8 @@ GameDeck = React.createClass
                   value={ option.id }
                   key={ option.id }>
 
-                  { option.name } ({ _.take(option.cards,4).join(', ') }
-                  { if option.cards.length > 4
+                  { option.name } ({ _.take(option.cards,5).join(', ') }
+                  { if option.cards.length > 5
                     ', ...'
                   }
                   )
