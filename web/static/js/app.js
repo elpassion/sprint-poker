@@ -11,14 +11,13 @@ import NewRoom from './components/NewRoom';
 import RoomLobby from './components/RoomLobby';
 import Room from './components/Room';
 import NewGame from './components/NewGame';
+import Game from './components/Game';
 
 var routes = (
   <Route components={PlanningPokerReactApp}>
     <Redirect from="/" to="new-game" />
     <Route path="new-game" components={NewGame}/>
-    <Route path="games" components={Room}>
-      <Route path="/:uuid" components={RoomLobby}/>
-    </Route>
+    <Route path="games/:uuid" components={Game}/>
   </Route>
 );
 
