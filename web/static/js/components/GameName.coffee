@@ -31,8 +31,8 @@ GameName = React.createClass
           onKeyDown={ @onSubmitGameName }
           onBlur={ @onBlurGameName }
         />
-        {if @state.game.errors['name']
-          <span>{@state.game.errors['name']}</span>
+        {if @state.game.errors.name
+          <span>{ @state.game.erros.name }</span>
         }
       </label>
     </div>

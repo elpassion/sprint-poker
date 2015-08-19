@@ -2,7 +2,7 @@ UserMixin =
   actions:
     changeUserName: {}
     submitUserName: {}
-    validateUserName: {sync: true}
+    validateUserName: { sync: true }
 
   init: ->
     @user = {
@@ -11,7 +11,7 @@ UserMixin =
     @channelEvents ||= []
     @channelEvents.push =>
       @channel.on "user", (user) =>
-        @user = _.merge(@user, user["user"])
+        @user = _.merge(@user, user.user)
         @emit()
 
   onChangeUserName: (name) ->
@@ -26,8 +26,8 @@ UserMixin =
 
     @user.name = _.trim(@user.name)
 
-    @user.errors['name'] = 'Your Nickname Cant be blank' if @user.name == ''
-    @user.errors['name'] = 'Your Nichname is too long' if @user.name.length > 254
+    @user.errors.name = 'Your Nickname Cant be blank' if @user.name == ''
+    @user.errors.name = 'Your Nichname is too long' if @user.name.length > 254
 
     @emit()
 
