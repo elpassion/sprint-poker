@@ -18,7 +18,7 @@ defmodule PlanningPoker.Mixfile do
   def application do
     [mod: {PlanningPoker, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex, :poison, :faker, :rollbax, :airbrake]]
+                    :phoenix_ecto, :postgrex, :poison, :faker, :rollbax]]
   end
 
   # Specifies which paths to compile per environment
@@ -39,7 +39,6 @@ defmodule PlanningPoker.Mixfile do
      {:plug_cors, "~> 0.7.3"},
      {:faker, "~> 0.5"},
      {:inflex, "~> 1.4.0", github: "nurugger07/inflex" },
-     {:airbrake, "~> 0.1.0"},
      {:rollbax, "~> 0.0.1"}]
   end
 end

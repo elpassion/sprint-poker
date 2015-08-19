@@ -1,7 +1,5 @@
 defmodule PlanningPoker.Router do
-  use ExceptionPlug
   use PlanningPoker.Web, :router
-
 
   pipeline :browser do
     plug :accepts, ["html"]

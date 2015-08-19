@@ -16,6 +16,15 @@ config :planning_poker, PlanningPoker.Endpoint,
   url: [host: "planning-poker-phoenix.herokuapp.com", port: 80],
   cache_static_manifest: "priv/static/manifest.json"
 
+config :planning_poker, PlanningPoker.Endpoint,
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
+
+# Configure your database
+config :planning_poker, PlanningPoker.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: {:system, "DATABASE_URL"},
+  pool_size: 20 # The amount of database connections in the pool
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
@@ -50,7 +59,3 @@ config :logger, Rollbax.Notifier,
 #
 #     config :planning_poker, PlanningPoker.Endpoint, server: true
 #
-
-# Finally import the config/prod.secret.exs
-# which should be versioned separately.
-import_config "prod.secret.exs"
