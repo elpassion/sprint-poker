@@ -20,8 +20,8 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :rollbax,
-  access_token: {:system, "ROLLBAR_ACCESS_TOKEN"} || "",
-  environment: "production"
+  access_token: System.get_env("ROLLBAR_ACCESS_TOKEN") || "",
+  environment: Mix.env
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -35,3 +35,7 @@ config :planning_poker, PlanningPoker.Repo,
 config :plug_cors,
   origins: ["*"],
   headers: ["Origin"]
+
+config :airbrake,
+  api_key: {:system, "AIRBRAKE_API_KEY"},
+  project_id: {:system, "AIRBRAKE_PROJECT_ID"}

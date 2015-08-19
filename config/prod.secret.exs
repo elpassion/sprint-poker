@@ -13,6 +13,6 @@ config :planning_poker, PlanningPoker.Repo,
   pool_size: 20 # The amount of database connections in the pool
 
 config :airbrake,
-  api_key: {:system, "AIRBRAKE_API_KEY"},
-  project_id: {:system, "AIRBRAKE_PROJECT_ID"}
+  api_key: System.get_env("AIRBRAKE_API_KEY"),
+  project_id: System.get_env("AIRBRAKE_PROJECT_ID")
 

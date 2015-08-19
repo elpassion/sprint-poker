@@ -18,7 +18,7 @@ defmodule PlanningPoker.Mixfile do
   def application do
     [mod: {PlanningPoker, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex, :poison, :faker, :rollbax]]
+                    :phoenix_ecto, :postgrex, :poison, :faker, :rollbax, :airbrake]]
   end
 
   # Specifies which paths to compile per environment
