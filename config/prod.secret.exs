@@ -15,3 +15,4 @@ config :planning_poker, PlanningPoker.Repo,
 config :airbrake,
   api_key: {:system, "AIRBRAKE_API_KEY"},
   project_id: {:system, "AIRBRAKE_PROJECT_ID"}
+

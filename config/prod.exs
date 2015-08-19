@@ -32,7 +32,11 @@ config :planning_poker, PlanningPoker.Endpoint,
 # disk for the key and cert.
 
 # Do not print debug messages in production
-config :logger, level: :info
+config :logger,
+  backends: [Rollbax.Notifier]
+
+config :logger, Rollbax.Notifier,
+  level: :error
 
 # ## Using releases
 #
