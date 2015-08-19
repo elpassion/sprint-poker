@@ -4,13 +4,9 @@ Reflux  = require 'reflux'
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
 
-ErrorStore = require '../stores/ErrorStore'
-ErrorActions = ErrorStore.Actions
-
 UserName = React.createClass
   mixins: [
     Reflux.connect(Store)
-    Reflux.connect(ErrorStore)
   ]
 
   onChangeUserName: (e) ->
@@ -18,9 +14,11 @@ UserName = React.createClass
 
   onSubmitUserName: (e) ->
     if e.which == 13
+      Actions.validateUserName()
       Actions.submitUserName()
 
   onBlurUserName: ->
+    Actions.validateUserName()
     Actions.submitUserName()
 
   render: ->
@@ -35,8 +33,8 @@ UserName = React.createClass
           onKeyDown={ @onSubmitUserName }
           onBlur={ @onBlurUserName }
         />
-        {if @state.errors.userName
-          <span>{@state.errors.userName}</span>
+        {if @state.user.errors.name
+          <span>{ @state.user.errors.name }</span>
         }
       </label>
     </div>

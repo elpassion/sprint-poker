@@ -11,24 +11,17 @@ GameDeck = require './GameDeck'
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
 
-ErrorStore = require '../stores/ErrorStore'
-ErrorActions = ErrorStore.Actions
-
 NewGame = React.createClass
   mixins: [
     Reflux.connect(Store)
-    Reflux.connect(ErrorStore)
     Navigation
   ]
 
   onCreateGame: (e) ->
-    gameName = _.trim(@state.game.name)
-    userName = _.trim(@state.user.name)
+    Actions.validateGameName()
+    Actions.validateUserName()
 
-    ErrorActions.setGameNameError(gameName == '', 'Session Title cant be blank')
-    ErrorActions.setUserNameError(userName == '', 'Your Nickname Cant be blank')
-
-    if gameName != '' && userName != ''
+    if _.isEmpty(@state.user.errors) && _.isEmpty(@state.game.errors)
       Actions.createGame (id) =>
         @transitionTo "/games/#{id}"
 
