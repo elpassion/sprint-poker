@@ -16,7 +16,7 @@ GameMixin =
       @channel.on "game", (game) =>
         @game = _.merge(@game, game.game)
         @createGameCallback(@game.id)
-        @createGameCallback = nil
+        @createGameCallback = null
 
   onChangeGameName: (name) ->
     @game.name = name
