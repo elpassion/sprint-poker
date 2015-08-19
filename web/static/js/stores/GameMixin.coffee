@@ -36,7 +36,7 @@ GameMixin =
     @game.name = _.trim(@game.name)
 
     @game.errors.name = 'Session Title Cant be blank' if @game.name == ''
-    @game.errors.name = 'Session Title is too long' if @game.name.length > 254
+    @game.errors.name = 'Session Title is too long' if @game.name.length > 100
 
     @emit()
 
