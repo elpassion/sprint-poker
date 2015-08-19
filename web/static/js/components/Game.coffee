@@ -1,8 +1,10 @@
 React = require 'react'
+Store = require '../stores/SocketConnectionStore'
 
 GameNavBar = require './GameNavBar'
-
-Store = require '../stores/SocketConnectionStore'
+GameTickets = require './GameTickets'
+GameTicketsOwner = require './GameTicketsOwner'
+GameUsers = require './GameUsers'
 
 Game = React.createClass
 
@@ -15,10 +17,10 @@ Game = React.createClass
             <div className="lobby-container container">
               <div className="row">
                 <div className="col-xs-8">
-                  <!-- TicketsList -->
+                  <GameTicketsOwner/>
                 </div>
                 <div className="col-xs-4">
-                  <!-- ParticipantsList -->
+                  <GameUsers/>
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 React = require 'react'
 Store = require '../stores/SocketConnectionStore'
 
-PlanningPokerReactApp = React.createClass
+PlanningPokerApp = React.createClass
   componentDidMount: ->
     Store.Actions.connect()
 
@@ -10,4 +10,4 @@ PlanningPokerReactApp = React.createClass
         { this.props.children }
       </div>
 
-module.exports = PlanningPokerReactApp
+module.exports = PlanningPokerApp
