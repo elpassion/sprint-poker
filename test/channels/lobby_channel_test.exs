@@ -60,7 +60,7 @@ defmodule PlanningPoker.LobbyChannelTest do
 
     {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
 
-    socket |> push "create_game", %{"name" => "new game", "deck_id" => deck.id}
+    socket |> push "create_game", %{"name" => "new game", "deck" => %{"id" => deck.id}}
 
     owner_id = user.id
     assert_push "game", %{game: %{id: _, name: "new game", owner_id: ^owner_id}}
