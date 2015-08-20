@@ -20,7 +20,7 @@ defmodule PlanningPoker.LobbyChannel do
 
     case message do
       %{"game_id" => game_id} ->
-        game = Repo.get!(Game, game_id) |> Repo.preload([:owner, :users])
+        game = Repo.get!(Game, game_id) |> Repo.preload([:owner])
         socket |> push "game", %{game: game}
       _ ->
     end

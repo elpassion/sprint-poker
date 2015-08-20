@@ -39,9 +39,17 @@ JoinGame = React.createClass
                 value={ @state.game.name }
                 disabled
               />
-              {if @state.game.errors.name
-                <span>{ @state.game.errors.name }</span>
-              }
+            </label>
+          </div>
+          <div className="form-group row">
+            <label className="col-xs-12 start-xs">
+              <span className="simple-row">Session Owner:</span>
+              <input className="simple-row full-width"
+                type="text"
+                placeholder="Session Owner"
+                value={ @state.game.owner.name }
+                disabled
+              />
             </label>
           </div>
           <UserName/>

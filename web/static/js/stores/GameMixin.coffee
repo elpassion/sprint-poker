@@ -10,6 +10,7 @@ GameMixin =
     @game = {
       errors: {}
       users: []
+      owner: {}
       deck_id: 1
     }
 
