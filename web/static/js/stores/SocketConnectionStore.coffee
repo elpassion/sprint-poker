@@ -6,7 +6,7 @@ UserMixin  = require './UserMixin'
 GameMixin  = require './GameMixin'
 AuthMixin  = require './AuthMixin'
 DeckMixin  = require './DeckMixin'
-NewTicketMixin  = require './NewTicketMixin'
+TicketMixin  = require './TicketMixin'
 
 Actions = Reflux.createActions _.merge
   connect: {}
@@ -14,7 +14,7 @@ Actions = Reflux.createActions _.merge
   setCurrentGame: {}
   UserMixin.actions
   GameMixin.actions
-  NewTicketMixin.actions
+  TicketMixin.actions
 
 Store = Reflux.createStore
   mixins: [
@@ -22,7 +22,7 @@ Store = Reflux.createStore
     GameMixin
     AuthMixin
     DeckMixin
-    NewTicketMixin
+    TicketMixin
   ]
 
   listenables: [ Actions ]

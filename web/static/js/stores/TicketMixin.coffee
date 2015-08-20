@@ -1,4 +1,4 @@
-NewTicketMixin =
+TicketMixin =
   actions:
     changeNewTicketName: {}
     submitNewTicket: {}
@@ -15,6 +15,4 @@ NewTicketMixin =
     @channel.push('new_ticket', @newTicket)
     @newTicket.name = ''
 
-module.exports = NewTicketMixin
-
-
+module.exports = TicketMixin
