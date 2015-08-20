@@ -15,11 +15,11 @@ defmodule PlanningPoker.GameSerializer do
       end
 
       if Ecto.Association.loaded?(game.users) do
-        hash = hash |> Dict.put(:users, game.users)
+        hash = hash |> Dict.put(:users, Enum.sort(game.users, &(&1.name < &2.name)))
       end
 
       if Ecto.Association.loaded?(game.tickets) do
-        hash = hash |> Dict.put(:tickets, game.tickets)
+        hash = hash |> Dict.put(:tickets, Enum.sort(game.tickets, &(&1.id < &2.id)))
       end
 
       if Ecto.Association.loaded?(game.deck) do

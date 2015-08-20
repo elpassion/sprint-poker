@@ -2,8 +2,8 @@ defmodule PlanningPoker.GameUser do
   use PlanningPoker.Web, :model
 
   schema "game_user" do
-    belongs_to :game, PlanningPoker.Game, type: :binary_id
     belongs_to :user, PlanningPoker.User, type: :binary_id
+    belongs_to :game, PlanningPoker.Game, type: :binary_id
 
     timestamps
   end

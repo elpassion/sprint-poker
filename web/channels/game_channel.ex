@@ -72,4 +72,18 @@ defmodule PlanningPoker.GameChannel do
     end
     {:noreply, socket}
   end
+
+  def handle_in("change_ticket_name", message, socket) do
+    user = Repo.get!(User, socket.assigns.user_id)
+    "game:" <> game_id = socket.topic
+    game = Repo.get!(Game, game_id)
+    ticket = Repo.get!(Ticket, message["ticket"]["id"])
+    if game.owner_id == user.id && ticket.name != message["ticket"]["name"] do
+      %{ticket | name: String.slice(message["ticket"]["name"], 0..254)} |> Repo.update!
+
+      game = game |> Repo.preload([:owner, :deck, :users, :tickets])
+      socket |> broadcast "game", %{game: game}
+    end
+    {:noreply, socket}
+  end
 end

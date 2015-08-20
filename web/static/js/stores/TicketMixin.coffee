@@ -3,6 +3,8 @@ TicketMixin =
     changeNewTicketName: {}
     submitNewTicket: {}
     deleteTicket: {}
+    changeTicketName: {}
+    submitTicketName: {}
 
   init: ->
     @newTicket = {}
@@ -19,7 +21,15 @@ TicketMixin =
       @newTicket.name = ''
 
   onDeleteTicket: (id) ->
-    console.log(id)
     @channel.push('delete_ticket', {ticket: {id: id}})
+
+  onChangeTicketName: (id, name) ->
+    i = _.findIndex @game.tickets, (ticket) ->
+      String(ticket.id) == String(id)
+    @game.tickets[i].name = name
+    @emit()
+
+  onSubmitTicketName: (id, name) ->
+    @channel.push('change_ticket_name', {ticket: {id: id, name: name}})
 
 module.exports = TicketMixin
