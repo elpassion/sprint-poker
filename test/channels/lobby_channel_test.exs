@@ -5,6 +5,8 @@ defmodule PlanningPoker.LobbyChannelTest do
   alias PlanningPoker.User
   alias PlanningPoker.Deck
   alias PlanningPoker.Repo
+  alias PlanningPoker.Game
+  alias PlanningPoker.Deck
 
   test "joining lobby sends auth_token" do
     user = %User{name: "test user"} |> Repo.insert!
@@ -29,6 +31,18 @@ defmodule PlanningPoker.LobbyChannelTest do
     decks_response = %{decks: []}
     assert_push "decks", ^decks_response
   end
+
+  test "joining lobby sends game" do
+    user = %User{name: "test user"} |> Repo.insert!
+    deck = %Deck{name: "test deck"} |> Repo.insert!
+    game = %Game{name: "test game", owner_id: user.id, deck_id: deck.id} |> Repo.insert! |> Repo.preload([:owner])
+
+    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby", %{"game_id" => game.id})
+
+    game_response = %{"game": game}
+    assert_push "game", ^game_response
+  end
+
 
   test "sending change_user_name resends updated user" do
     user = %User{name: "test user"} |> Repo.insert!
