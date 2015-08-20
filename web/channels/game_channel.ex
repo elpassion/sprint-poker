@@ -48,11 +48,24 @@ defmodule PlanningPoker.GameChannel do
     game = Repo.get!(Game, game_id)
 
     if game.owner_id == user.id do
-      IO.inspect game.id
       %Ticket{
         name: message["name"],
         game_id: game.id
       } |> Repo.insert!
+
+      game = game |> Repo.preload([:owner, :deck, :users, :tickets])
+      socket |> broadcast "game", %{game: game}
+    end
+    {:noreply, socket}
+  end
+
+  def handle_in("delete_ticket", message, socket) do
+    user = Repo.get!(User, socket.assigns.user_id)
+    "game:" <> game_id = socket.topic
+    game = Repo.get!(Game, game_id)
+
+    if game.owner_id == user.id do
+      Repo.get!(Ticket, message["ticket"]["id"]) |> Repo.delete!
 
       game = game |> Repo.preload([:owner, :deck, :users, :tickets])
       socket |> broadcast "game", %{game: game}

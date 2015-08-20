@@ -11,11 +11,8 @@ GameTickets = React.createClass
     Reflux.connect(Store)
   ]
 
-  onNewTicketChange: (e) ->
-    Actions.changeNewTicketName(e.target.value)
-
-  onNewTicketSubmit: (e) ->
-    Actions.submitNewTicket()
+  onDeleteTicket: (e) ->
+    Actions.deleteTicket(e.target.dataset.id)
     e.preventDefault()
 
   render: ->
@@ -45,7 +42,7 @@ GameTickets = React.createClass
                       { ticket.points }
                     </td>
                     <td className="delete-column">
-                      <input type="button" value="DELETE"/>
+                      <input type="button" data-id={ticket.id} value="DELETE" onClick={ @onDeleteTicket }/>
                     </td>
                   </tr>
                 </table>
