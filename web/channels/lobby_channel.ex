@@ -28,8 +28,8 @@ defmodule PlanningPoker.LobbyChannel do
     {:noreply, socket}
   end
 
-  def handle_in("change_user_name", message, socket) do
-    user = %{Repo.get!(User, socket.assigns.user_id) | name: String.slice(message["name"], 0..254)} |> Repo.update!
+  def handle_in("update_user", message, socket) do
+    user = %{Repo.get!(User, socket.assigns.user_id) | name: String.slice(message["user"]["name"], 0..254)} |> Repo.update!
 
     socket |> push "user", %{user: user}
     {:noreply, socket}

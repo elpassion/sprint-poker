@@ -16,7 +16,7 @@ defmodule PlanningPoker.GameChannelTest do
 
     socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
-    game = Repo.get(Game, game.id) |> Repo.preload([:owner, :deck, :users])
+    game = Repo.get(Game, game.id) |> Repo.preload([:owner, :deck, :users, :tickets])
 
     game_response = %{"game": game}
     assert user in game.users

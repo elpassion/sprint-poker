@@ -73,7 +73,7 @@ defmodule PlanningPoker.GameChannel do
     {:noreply, socket}
   end
 
-  def handle_in("change_ticket_name", message, socket) do
+  def handle_in("update_ticket", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
     "game:" <> game_id = socket.topic
     game = Repo.get!(Game, game_id)

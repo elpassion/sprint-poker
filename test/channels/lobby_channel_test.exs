@@ -44,11 +44,11 @@ defmodule PlanningPoker.LobbyChannelTest do
   end
 
 
-  test "sending change_user_name resends updated user" do
+  test "sending update_user resends updated user" do
     user = %User{name: "test user"} |> Repo.insert!
     {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
 
-    socket |> push "change_user_name", %{"name" => "new name"}
+    socket |> push "update_user", %{"user" => %{"name" => "new name"}}
 
     change_user_name_response = %{user: %User{user | name: "new name"}}
     assert_push "user", ^change_user_name_response

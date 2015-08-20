@@ -30,6 +30,6 @@ TicketMixin =
     @emit()
 
   onSubmitTicketName: (id, name) ->
-    @channel.push('change_ticket_name', {ticket: {id: id, name: name}})
+    @channel.push('update_ticket', {ticket: {id: id, name: _.trim(name) }})
 
 module.exports = TicketMixin
