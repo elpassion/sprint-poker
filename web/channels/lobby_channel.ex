@@ -42,7 +42,7 @@ defmodule PlanningPoker.LobbyChannel do
         owner_id: Repo.get!(User, socket.assigns.user_id).id,
         deck_id: Repo.get!(Deck, message["deck"]["id"]).id
       }
-    ) |> Repo.preload([:owner])
+    ) |> Repo.preload([:owner, :deck])
 
     socket |> push "game", %{game: game}
     {:noreply, socket}
