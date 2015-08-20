@@ -36,7 +36,7 @@ defmodule PlanningPoker.GameChannel do
   def handle_info({:after_join, _message}, socket) do
     "game:" <> game_id = socket.topic
     game = Repo.get!(Game, game_id)
-    |> Repo.preload([:owner, :users])
+    |> Repo.preload([:owner, :deck, :users])
 
     socket |> broadcast "game", %{game: game}
     {:noreply, socket}
