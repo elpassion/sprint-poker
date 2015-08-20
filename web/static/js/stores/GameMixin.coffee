@@ -4,6 +4,7 @@ GameMixin =
     changeGameDeckId: {}
     createGame: {}
     validateGameName: { sync: true }
+    getGameInfo: {}
 
   init: ->
     @game = {

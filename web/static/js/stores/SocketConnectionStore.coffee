@@ -40,8 +40,8 @@ Store = Reflux.createStore
   emit: ->
     @trigger @getState()
 
-  onJoin: (channel) ->
-    @channel = @socket.channel(channel)
+  onJoin: (channel, gameId) ->
+    @channel = @socket.channel(channel, {game_id: gameId})
     @channel.join()
     event() for event in @channelEvents
 

@@ -11,12 +11,20 @@ defmodule PlanningPoker.LobbyChannel do
     {:ok, socket}
   end
 
-  def handle_info({:after_join, _message}, socket) do
+  def handle_info({:after_join, message}, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
 
     socket |> push "auth_token", %{auth_token: user.auth_token}
     socket |> push "user", %{user: user}
     socket |> push "decks", %{decks: Repo.all(Deck)}
+
+    case message do
+      %{"game_id" => game_id} ->
+        game = Repo.get!(Game, game_id) |> Repo.preload([:owner, :users])
+        socket |> push "game", %{game: game}
+      _ ->
+    end
+
     {:noreply, socket}
   end
 
@@ -39,4 +47,13 @@ defmodule PlanningPoker.LobbyChannel do
     socket |> push "game", %{game: game}
     {:noreply, socket}
   end
+
+  def handle_in("game_info", message, socket) do
+    game = Repo.get!(Game, message["game_id"])
+
+    socket |> push "game", %{game: game}
+
+    {:noreply, socket}
+  end
+
 end

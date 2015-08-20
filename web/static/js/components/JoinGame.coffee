@@ -13,7 +13,7 @@ JoinGame = React.createClass
   ]
 
   componentDidMount: ->
-    Actions.join('lobby')
+    Actions.join('lobby', @props.id)
 
   onJoinGame: (e) ->
     Actions.validateUserName()
@@ -27,9 +27,23 @@ JoinGame = React.createClass
       <img className="logo" src={Logo}></img>
       <div className="session-form-container row">
         <div className="header-text col-xs-12">
-          Join game ?
+          Join session ?
         </div>
         <form className="session-form col-xs-12" onSubmit={ @onJoinGame }>
+          <div className="form-group row">
+            <label className="col-xs-12 start-xs">
+              <span className="simple-row">Session Title:</span>
+              <input className="simple-row full-width"
+                type="text"
+                placeholder="Session Title"
+                value={ @state.game.name }
+                disabled
+              />
+              {if @state.game.errors.name
+                <span>{ @state.game.errors.name }</span>
+              }
+            </label>
+          </div>
           <UserName/>
           <button className="button full-width" type="submit">Join Session</button>
         </form>
