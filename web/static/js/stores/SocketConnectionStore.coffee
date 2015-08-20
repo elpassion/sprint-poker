@@ -10,6 +10,7 @@ DeckMixin  = require './DeckMixin'
 Actions = Reflux.createActions _.merge
   connect: {}
   join: {}
+  setCurrentGame: {}
   UserMixin.actions
   GameMixin.actions
 
@@ -25,6 +26,7 @@ Store = Reflux.createStore
 
   init: ->
     @socket = new Socket("/ws")
+    @currentGame = null
 
   getInitialState: ->
     @getState()
@@ -33,6 +35,7 @@ Store = Reflux.createStore
     user: @user
     game: @game
     decks: @decks
+    currentGame: @currentGame
 
   emit: ->
     @trigger @getState()
@@ -41,6 +44,10 @@ Store = Reflux.createStore
     @channel = @socket.channel(channel)
     @channel.join()
     event() for event in @channelEvents
+
+  onSetCurrentGame: (id) ->
+    @currentGame = id
+    @emit()
 
 module.exports = Store
 module.exports.Actions = Actions

@@ -9,14 +9,14 @@ BrowserHistory = require('react-router/lib/BrowserHistory').default
 PlanningPokerApp = require './components/PlanningPokerApp'
 
 NewGame = require './components/NewGame'
-Game = require './components/Game'
+GameLobby = require './components/GameLobby'
 
 React.render(
   <Router history={ new BrowserHistory() }>
     <Route components={ PlanningPokerApp }>
       <Redirect from="/" to="new-game" />
       <Route path="new-game" components={ NewGame }/>
-      <Route path="games/:uuid" components={ Game }/>
+      <Route path="games/:gameId" components={ GameLobby }/>
     </Route>
   </Router>
   , document.body

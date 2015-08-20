@@ -12,7 +12,7 @@ defmodule PlanningPoker.LobbyChannel do
   end
 
   def handle_info({:after_join, _message}, socket) do
-    user = Repo.get(User, socket.assigns.user_id)
+    user = Repo.get!(User, socket.assigns.user_id)
 
     socket |> push "auth_token", %{auth_token: user.auth_token}
     socket |> push "user", %{user: user}
@@ -21,7 +21,7 @@ defmodule PlanningPoker.LobbyChannel do
   end
 
   def handle_in("change_user_name", message, socket) do
-    user = %{Repo.get(User, socket.assigns.user_id) | name: String.slice(message["name"], 0..254)} |> Repo.update!
+    user = %{Repo.get!(User, socket.assigns.user_id) | name: String.slice(message["name"], 0..254)} |> Repo.update!
 
     socket |> push "user", %{user: user}
     {:noreply, socket}
@@ -31,8 +31,8 @@ defmodule PlanningPoker.LobbyChannel do
     game = Repo.insert!(
       %Game{
         name: String.slice(message["name"], 0..254),
-        owner_id: Repo.get(User, socket.assigns.user_id).id,
-        deck_id: Repo.get(Deck, message["deck_id"]).id
+        owner_id: Repo.get!(User, socket.assigns.user_id).id,
+        deck_id: Repo.get!(Deck, message["deck_id"]).id
       }
     ) |> Repo.preload([:owner])
 

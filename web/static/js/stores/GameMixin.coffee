@@ -8,15 +8,18 @@ GameMixin =
   init: ->
     @game = {
       errors: {}
+      users: []
       deck_id: 1
     }
 
     @channelEvents ||= []
     @channelEvents.push =>
       @channel.on "game", (game) =>
-        @game = _.merge(@game, game.game)
-        @createGameCallback(@game.id)
-        @createGameCallback = null
+        @game = game.game
+        if @createGameCallback
+          @createGameCallback(@game.id)
+          @createGameCallback = null
+        @emit()
 
   onChangeGameName: (name) ->
     @game.name = name

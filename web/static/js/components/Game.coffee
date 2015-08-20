@@ -1,4 +1,5 @@
 React = require 'react'
+Reflux = require 'reflux'
 Store = require '../stores/SocketConnectionStore'
 
 GameNavBar = require './GameNavBar'
@@ -6,7 +7,16 @@ GameTickets = require './GameTickets'
 GameTicketsOwner = require './GameTicketsOwner'
 GameUsers = require './GameUsers'
 
+Store = require '../stores/SocketConnectionStore'
+Actions = Store.Actions
+
 Game = React.createClass
+  mixins: [
+    Reflux.connect(Store)
+  ]
+
+  componentDidMount: ->
+    Actions.join("game:#{@props.id}")
 
   render: ->
     <div className="full-width">
@@ -17,7 +27,7 @@ Game = React.createClass
             <div className="lobby-container container">
               <div className="row">
                 <div className="col-xs-8">
-                  <GameTicketsOwner/>
+                      <GameTicketsOwner/>
                 </div>
                 <div className="col-xs-4">
                   <GameUsers/>

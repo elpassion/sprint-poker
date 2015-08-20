@@ -23,6 +23,7 @@ NewGame = React.createClass
 
     if _.isEmpty(@state.user.errors) && _.isEmpty(@state.game.errors)
       Actions.createGame (id) =>
+        Actions.setCurrentGame(id)
         @transitionTo "/games/#{id}"
 
     e.preventDefault()

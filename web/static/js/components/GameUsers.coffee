@@ -1,6 +1,13 @@
 React = require 'react'
+Reflux = require 'reflux'
+
+Store = require '../stores/SocketConnectionStore'
+Actions = Store.Actions
 
 GameUsers = React.createClass
+  mixins: [
+    Reflux.connect(Store)
+  ]
 
   render: ->
     <table className="users-list full-width">
@@ -9,17 +16,22 @@ GameUsers = React.createClass
           Team&nbsp;
         </span>
         <span className="counter">
-          (0 Users)
+          ({@state.game.users.length} Users)
         </span>
       </caption>
       <tbody>
-        { for user in [1,2,3,4]
-          <tr key={user}>
+        { for user in @state.game.users
+          <tr key={user.id}>
             <td className="name-column">
-              XXX
+              {user.name}
             </td>
             <td className="owner-column">
-              OWNER
+              {if user.id == @state.game.owner.id
+                "OWNER"
+              }
+              {if user.id == @state.user.id
+                "YOU"
+              }
             </td>
           </tr>
         }
