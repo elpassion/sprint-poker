@@ -15,10 +15,12 @@ defmodule PlanningPoker.GameSerializer do
       end
 
       if Ecto.Association.loaded?(game.users) do
+        #sort with sql instead !!!
         hash = hash |> Dict.put(:users, Enum.sort(game.users, &(&1.name < &2.name)))
       end
 
       if Ecto.Association.loaded?(game.tickets) do
+        #sort with sql instead !!!
         hash = hash |> Dict.put(:tickets, Enum.sort(game.tickets, &(&1.id < &2.id)))
       end
 
