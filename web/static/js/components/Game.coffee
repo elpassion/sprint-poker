@@ -27,7 +27,11 @@ Game = React.createClass
             <div className="lobby-container container">
               <div className="row">
                 <div className="col-xs-8">
+                  { if @state.user.id == @state.game.owner.id
                       <GameTicketsOwner/>
+                    else
+                      <GameTickets/>
+                  }
                 </div>
                 <div className="col-xs-4">
                   <GameUsers/>
