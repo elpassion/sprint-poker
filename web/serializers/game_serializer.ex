@@ -5,6 +5,7 @@ defmodule PlanningPoker.GameSerializer do
         id: game.id,
         name: game.name,
         users: [],
+        tickets: [],
         owner: %{},
         errors: %{}
       }
@@ -15,6 +16,10 @@ defmodule PlanningPoker.GameSerializer do
 
       if Ecto.Association.loaded?(game.users) do
         hash = hash |> Dict.put(:users, game.users)
+      end
+
+      if Ecto.Association.loaded?(game.tickets) do
+        hash = hash |> Dict.put(:tickets, game.tickets)
       end
 
       if Ecto.Association.loaded?(game.deck) do

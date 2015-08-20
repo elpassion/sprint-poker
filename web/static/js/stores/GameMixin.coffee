@@ -9,6 +9,7 @@ GameMixin =
     @game = {
       errors: {}
       users: []
+      tickets: []
       owner: {}
       deck: {
         id: 1
@@ -45,6 +46,7 @@ GameMixin =
     @game.errors.name = 'Session Title is too long' if @game.name.length > 100
 
     @emit()
+
 
 module.exports = GameMixin
 

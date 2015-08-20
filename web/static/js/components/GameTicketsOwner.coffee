@@ -1,6 +1,22 @@
 React = require 'react'
+Reflux = require 'reflux'
+
+Store = require '../stores/SocketConnectionStore'
+Actions = Store.Actions
+
+GameNewTicketOwner = require './GameNewTicketOwner'
 
 GameTickets = React.createClass
+  mixins: [
+    Reflux.connect(Store)
+  ]
+
+  onNewTicketChange: (e) ->
+    Actions.changeNewTicketName(e.target.value)
+
+  onNewTicketSubmit: (e) ->
+    Actions.submitNewTicket()
+    e.preventDefault()
 
   render: ->
     <table className="tickets-list full-width">
@@ -9,24 +25,24 @@ GameTickets = React.createClass
           Tickets list&nbsp;
         </span>
         <span className="counter">
-          (0 total)
+          ({ @state.game.tickets.length } total)
         </span>
       </caption>
       <tbody>
-        { for ticket in [1,2,3]
-          <tr key={ticket}>
+        { for ticket in @state.game.tickets
+          <tr key={ticket.id}>
             <td>
               <form>
                 <table className="full-width">
                   <tr>
                     <td className="index-column">
-                      {0}
+                      { ticket.id }
                     </td>
                     <td className="name-column">
-                      <input className="full-width" type="text"/>
+                      <input className="full-width" type="text" value={ ticket.name }/>
                     </td>
                     <td className="estimation-column">
-                      {0}
+                      { ticket.points }
                     </td>
                     <td className="delete-column">
                       <input type="button" value="DELETE"/>
@@ -37,25 +53,7 @@ GameTickets = React.createClass
             </td>
           </tr>
         }
-        <tr>
-          <td colSpan="4">
-            <form>
-              <table className="full-width">
-                <tr>
-                  <td className="index-column">
-                    -
-                  </td>
-                  <td className="name-column" colSpan="2">
-                    <input className="full-width" type="text" placeholder="enter your ticket name here"/>
-                  </td>
-                  <td className="delete-column">
-                    <input type="submit" value="CREATE"></input>
-                  </td>
-                </tr>
-              </table>
-            </form>
-          </td>
-        </tr>
+        <GameNewTicketOwner/>
       </tbody>
     </table>
 
