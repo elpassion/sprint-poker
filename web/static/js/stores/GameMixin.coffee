@@ -4,19 +4,21 @@ GameMixin =
     changeGameDeckId: {}
     createGame: {}
     validateGameName: { sync: true }
-    getGameInfo: {}
 
   init: ->
     @game = {
       errors: {}
       users: []
       owner: {}
-      deck_id: 1
+      deck: {
+        id: 1
+      }
     }
 
     @channelEvents ||= []
     @channelEvents.push =>
       @channel.on "game", (game) =>
+        console.log game.game
         @game = game.game
         if @createGameCallback
           @createGameCallback(@game.id)
@@ -32,7 +34,7 @@ GameMixin =
     @channel.push('create_game', @game)
 
   onChangeGameDeckId: (deck_id) ->
-    @game.deck_id = deck_id
+    @game.deck.id = deck_id
     @emit()
 
   onValidateGameName: ->

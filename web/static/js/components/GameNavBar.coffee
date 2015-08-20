@@ -21,7 +21,7 @@ GameNavBar = React.createClass
           <img className="logo" src={smallLogo} alt="Planning Poker"/>
           <div className="separator"></div>
           <div className="project-name">
-            <span className="project">PROJECT:</span>
+            <span className="project">SESSION NAME:</span>
             <span className="name">{@state.game.name}</span>
           </div>
           <div className="invite simple-row middle-xs">

@@ -30,6 +30,7 @@ GameName = React.createClass
           onChange={ @onChangeGameName }
           onKeyDown={ @onSubmitGameName }
           onBlur={ @onBlurGameName }
+          disabled={ @props.disabled }
         />
         {if @state.game.errors.name
           <span>{ @state.game.errors.name }</span>

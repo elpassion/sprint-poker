@@ -3,6 +3,8 @@ Reflux = require 'reflux'
 Logo = require '../../assets/images/logo.png'
 
 UserName = require './UserName'
+GameName = require './GameName'
+GameDeck = require './GameDeck'
 
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
@@ -32,17 +34,6 @@ JoinGame = React.createClass
         <form className="session-form col-xs-12" onSubmit={ @onJoinGame }>
           <div className="form-group row">
             <label className="col-xs-12 start-xs">
-              <span className="simple-row">Session Title:</span>
-              <input className="simple-row full-width"
-                type="text"
-                placeholder="Session Title"
-                value={ @state.game.name }
-                disabled
-              />
-            </label>
-          </div>
-          <div className="form-group row">
-            <label className="col-xs-12 start-xs">
               <span className="simple-row">Session Owner:</span>
               <input className="simple-row full-width"
                 type="text"
@@ -52,6 +43,8 @@ JoinGame = React.createClass
               />
             </label>
           </div>
+          <GameName disabled={ true }/>
+          <GameDeck disabled={ true }/>
           <UserName/>
           <button className="button full-width" type="submit">Join Session</button>
         </form>
