@@ -42,14 +42,14 @@ defmodule PlanningPoker.GameChannel do
     {:noreply, socket}
   end
 
-  def handle_in("new_ticket", message, socket) do
+  def handle_in("create_ticket", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
     "game:" <> game_id = socket.topic
     game = Repo.get!(Game, game_id)
 
     if game.owner_id == user.id do
       %Ticket{
-        name: message["name"],
+        name: message["ticket"]["name"],
         game_id: game.id
       } |> Repo.insert!
 

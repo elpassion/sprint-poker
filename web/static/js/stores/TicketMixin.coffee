@@ -17,7 +17,7 @@ TicketMixin =
     @newTicket.name = _.trim(@newTicket.name)
 
     if @newTicket.name != '' && @newTicket.name.length < 100
-      @channel.push('new_ticket', @newTicket)
+      @channel.push('create_ticket', {ticket: @newTicket})
       @newTicket.name = ''
 
   onDeleteTicket: (id) ->
