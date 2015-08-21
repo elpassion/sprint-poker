@@ -94,7 +94,7 @@ defmodule PlanningPoker.GameChannel do
 
     if game.owner_id == user.id && ticket.name != message["ticket"]["name"] do
       changeset = Ticket.changeset(ticket, %{
-        name: "skdjfnskjdfhsjdfg sjdgfjshgdf ksjdhfksjhdfksjdhfkajshdgfajdfhlasdjkfhlksdjfhgksjdhfg kjsdhf gkjsdhfgkjshdfkgjhsd fkjghs dkfjghs dkfjhg sdkjhg skdjfhg ksdjhg ksjdhfkasjdhfka jshf kajsdhf kajsdhf kajsdhfkajsdhfkajsdhfkajsdhfaksjdhfa ksdjfha ksdjfh aksjdhf aksjdhf kasjdhf kj3h4kjh3k4j5h3k4j5h3k45h3k4j5h34k534534534k5j3h4k5jh3 4kj5h34k5jh3k45j345jh3k45jh345j3h45k3j45hk3j4h53kj45h3k4j5h3k4j5h345345345 345345 34534 345345345345" #message["ticket"]["name"]
+        name: message["ticket"]["name"]
       })
 
       case changeset do
