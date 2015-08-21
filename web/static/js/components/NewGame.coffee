@@ -7,6 +7,7 @@ Logo    = require '../../assets/images/logo.png'
 GameName = require './GameName'
 UserName = require './UserName'
 GameDeck = require './GameDeck'
+Errors = require './Errors'
 
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
@@ -34,6 +35,7 @@ NewGame = React.createClass
   render: ->
     <div className="sessions col-xs-12 col-md-6">
       <img className="logo" src={Logo}></img>
+      <Errors/>
       <div className="session-form-container row">
         <div className="header-text col-xs-12">
           Use online Planning Poker to easy estimate and plan tickets with your team. Your room will only be seen by those you invite.

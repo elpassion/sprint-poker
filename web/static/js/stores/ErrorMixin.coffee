@@ -1,6 +1,7 @@
 ErrorMixin =
   actions:
     setErrorCallback: {}
+    dissmissErrors: {}
 
   init: ->
     @errors = []
@@ -17,6 +18,10 @@ ErrorMixin =
 
   onSetErrorCallback: (fn) ->
     @errorCallback = fn
+
+  onDissmissErrors: ->
+    @errors = []
+    @emit()
 
 module.exports = ErrorMixin
 
