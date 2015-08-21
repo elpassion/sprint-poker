@@ -39,20 +39,37 @@ defmodule PlanningPoker.LobbyChannel do
   end
 
   def handle_in("update_user", message, socket) do
-    user = %{Repo.get!(User, socket.assigns.user_id) | name: String.slice(message["user"]["name"], 0..254)} |> Repo.update!
+    user = Repo.get!(User, socket.assigns.user_id)
+    changeset = User.changeset(user, %{
+      name: message["user"]["name"]
+    })
+
+    case changeset do
+      {:error, errors} ->
+        IO.inspect errors
+      _ ->
+        user = changeset |> Repo.update!
+    end
 
     socket |> push "user", %{user: user}
     {:noreply, socket}
   end
 
   def handle_in("create_game", message, socket) do
-    game = Repo.insert!(
-      %Game{
-        name: String.slice(message["name"], 0..254),
-        owner_id: Repo.get!(User, socket.assigns.user_id).id,
-        deck_id: Repo.get!(Deck, message["deck"]["id"]).id
-      }
-    ) |> Repo.preload([:owner, :deck])
+    changeset = Game.changeset(%Game{}, %{
+      name: message["name"],
+      owner_id: Repo.get!(User, socket.assigns.user_id).id,
+      deck_id: Repo.get!(Deck, message["deck"]["id"]).id
+    })
+
+    case changeset do
+      {:error, errors} ->
+        IO.inspect errors
+      _ ->
+        game = changeset |> Repo.insert!
+    end
+
+    game = game |> Repo.preload([:owner, :deck])
 
     socket |> push "game", %{game: game}
     {:noreply, socket}

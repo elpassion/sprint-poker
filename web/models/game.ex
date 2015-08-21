@@ -6,7 +6,7 @@ defmodule PlanningPoker.Game do
   alias PlanningPoker.Repo
 
   @primary_key {:id, :binary_id, autogenerate: true}
-  @required_fields ~w(name, owner_id deck_id)
+  @required_fields ~w(name owner_id deck_id)
   @optional_fields ~w()
 
   schema "games" do
@@ -25,6 +25,7 @@ defmodule PlanningPoker.Game do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> update_change(:name, &(String.slice(&1, 0..254)))
   end
 
   def preload(model) do
