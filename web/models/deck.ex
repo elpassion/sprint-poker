@@ -8,11 +8,12 @@ defmodule PlanningPoker.Deck do
     timestamps
   end
 
-  @required_fields ~w(name cards)
+  @required_fields ~w(name)
   @optional_fields ~w()
 
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> update_change(:name, &(String.slice(&1, 0..254)))
   end
 end
