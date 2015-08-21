@@ -24,13 +24,13 @@ defmodule PlanningPoker.LobbyChannel do
           {:ok, _} ->
             case Repo.get(Game, game_id) do
               nil ->
-                socket |> push "error", %{error: "game not exists"}
+                socket |> push "error", %{code: "GAME_ERR", message: "Game not exists"}
               game ->
                 game = game |> Repo.preload([:owner, :deck])
                 socket |> push "game", %{game: game}
             end
           _ ->
-            socket |> push "error", %{error: "wrong game uuid"}
+            socket |> push "error", %{code: "GAME_ERR", message: "Game uuid is not valid"}
         end
       _ -> # nothing
     end
