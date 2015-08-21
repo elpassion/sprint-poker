@@ -29,14 +29,14 @@ defmodule PlanningPoker.GameChannel do
     Repo.get_by(GameUser, game_id: game.id, user_id: user.id)
     |> Repo.delete!
 
-    game = game |> Repo.preload([:owner, :deck, :users, :tickets])
+    game = game |> Game.preload
     socket |> broadcast "game", %{game: game}
   end
 
   def handle_info({:after_join, _message}, socket) do
     "game:" <> game_id = socket.topic
     game = Repo.get!(Game, game_id)
-    |> Repo.preload([:owner, :deck, :users, :tickets])
+    |> Game.preload
 
     socket |> broadcast "game", %{game: game}
     {:noreply, socket}
@@ -53,7 +53,7 @@ defmodule PlanningPoker.GameChannel do
         game_id: game.id
       } |> Repo.insert!
 
-      game = game |> Repo.preload([:owner, :deck, :users, :tickets])
+      game = game |> Game.preload
       socket |> broadcast "game", %{game: game}
     end
     {:noreply, socket}
@@ -67,7 +67,7 @@ defmodule PlanningPoker.GameChannel do
     if game.owner_id == user.id do
       Repo.get!(Ticket, message["ticket"]["id"]) |> Repo.delete!
 
-      game = game |> Repo.preload([:owner, :deck, :users, :tickets])
+      game = game |> Game.preload
       socket |> broadcast "game", %{game: game}
     end
     {:noreply, socket}
@@ -81,7 +81,7 @@ defmodule PlanningPoker.GameChannel do
     if game.owner_id == user.id && ticket.name != message["ticket"]["name"] do
       %{ticket | name: String.slice(message["ticket"]["name"], 0..254)} |> Repo.update!
 
-      game = game |> Repo.preload([:owner, :deck, :users, :tickets])
+      game = game |> Game.preload
       socket |> broadcast "game", %{game: game}
     end
     {:noreply, socket}

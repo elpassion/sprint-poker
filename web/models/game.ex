@@ -1,6 +1,10 @@
 defmodule PlanningPoker.Game do
   use PlanningPoker.Web, :model
 
+  alias PlanningPoker.Ticket
+  alias PlanningPoker.User
+  alias PlanningPoker.Repo
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @required_fields ~w(name, owner_id deck_id)
   @optional_fields ~w()
@@ -21,5 +25,14 @@ defmodule PlanningPoker.Game do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+  end
+
+  def preload(model) do
+    Repo.preload(model, [
+      :owner,
+      :deck,
+      users: from(u in User, order_by: u.name),
+      tickets: from(t in Ticket, order_by: t.id)
+    ])
   end
 end
