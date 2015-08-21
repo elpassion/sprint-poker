@@ -20,9 +20,19 @@ defmodule PlanningPoker.LobbyChannel do
 
     case message do
       %{"game_id" => game_id} ->
-        game = Repo.get!(Game, game_id) |> Repo.preload([:owner, :deck])
-        socket |> push "game", %{game: game}
-      _ ->
+        case Ecto.UUID.cast(game_id) do
+          {:ok, _} ->
+            case Repo.get(Game, game_id) do
+              nil ->
+                socket |> push "error", %{error: "game not exists"}
+              game ->
+                game = game |> Repo.preload([:owner, :deck])
+                socket |> push "game", %{game: game}
+            end
+          _ ->
+            socket |> push "error", %{error: "wrong game uuid"}
+        end
+      _ -> # nothing
     end
 
     {:noreply, socket}

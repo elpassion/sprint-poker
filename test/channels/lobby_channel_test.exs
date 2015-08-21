@@ -35,9 +35,11 @@ defmodule PlanningPoker.LobbyChannelTest do
   test "joining lobby sends game" do
     user = %User{name: "test user"} |> Repo.insert!
     deck = %Deck{name: "test deck"} |> Repo.insert!
-    game = %Game{name: "test game", owner_id: user.id, deck_id: deck.id} |> Repo.insert! |> Repo.preload([:owner, :deck])
+    game = %Game{name: "test game", owner_id: user.id, deck_id: deck.id} |> Repo.insert!
 
     socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby", %{"game_id" => game.id})
+
+    game = game |> Repo.preload([:owner, :deck])
 
     game_response = %{"game": game}
     assert_push "game", ^game_response
