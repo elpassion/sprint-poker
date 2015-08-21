@@ -29,7 +29,7 @@ defmodule PlanningPoker.GameChannel do
     Repo.get_by(GameUser, game_id: game.id, user_id: user.id)
     |> Repo.delete!
 
-    game = game |> Repo.preload([:owner, :users])
+    game = game |> Repo.preload([:owner, :deck, :users, :tickets])
     socket |> broadcast "game", %{game: game}
   end
 
