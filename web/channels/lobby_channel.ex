@@ -46,7 +46,7 @@ defmodule PlanningPoker.LobbyChannel do
 
     case changeset do
       {:error, errors} ->
-        IO.inspect errors
+        raise errors
       _ ->
         user = changeset |> Repo.update!
     end
@@ -64,7 +64,7 @@ defmodule PlanningPoker.LobbyChannel do
 
     case changeset do
       {:error, errors} ->
-        IO.inspect errors
+        raise errors
       _ ->
         game = changeset |> Repo.insert!
     end
