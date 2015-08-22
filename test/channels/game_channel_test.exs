@@ -30,26 +30,28 @@ defmodule PlanningPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  # test "leave game broadcast game" do
-  #   user = %User{name: "test user"} |> Repo.insert!
-  #   deck = %Deck{name: "test deck"} |> Repo.insert!
-  #   game = %Game{name: "test game", owner_id: user.id, deck_id: deck.id} |> Repo.insert!
-  #
-  #   assert [] = Repo.all(GameUser)
-  #
-  #   {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
-  #
-  #   assert [game_user] = Repo.all(GameUser)
-  #
-  #   socket |> leave
-  #
-  #   assert [] = Repo.all(GameUser)
-  #
-  #   game = Repo.get(Game, game.id) |> Repo.preload([:owner, :deck, :users])
-  #
-  #   game_response = %{"game": game}
-  #   assert_broadcast "game", ^game_response
-  # end
+  test "leave game broadcast game" do
+    user = %User{name: "test user"} |> Repo.insert!
+    deck = %Deck{name: "test deck"} |> Repo.insert!
+    game = %Game{name: "test game", owner_id: user.id, deck_id: deck.id} |> Repo.insert!
+
+
+    assert [] = Repo.all(GameUser)
+
+    {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
+    Process.unlink(socket.channel_pid)
+
+    assert [game_user] = Repo.all(GameUser)
+
+    socket |> close
+
+    assert [] = Repo.all(GameUser)
+
+    game = Repo.get(Game, game.id) |> Game.preload
+
+    game_response = %{"game": game}
+    assert_broadcast "game", ^game_response
+  end
 
   test "create_ticket adds ticket and broadcast game with new ticket" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
