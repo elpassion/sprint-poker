@@ -36,4 +36,12 @@ defmodule PlanningPoker.Game do
       tickets: from(t in Ticket, order_by: t.id)
     ])
   end
+
+  def get(id, opts \\ []) do
+    case Ecto.UUID.cast(id) do
+      {:ok, _} -> super(id, opts)
+      _ ->
+    end
+  end
+
 end
