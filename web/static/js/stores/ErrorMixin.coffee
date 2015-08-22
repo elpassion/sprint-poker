@@ -12,6 +12,7 @@ ErrorMixin =
         switch error.code
           when "GAME_ERR"
             @errors.push error.message
+            @currentGame = null
             @errorCallback()
             @emit()
           else console.log(error)
