@@ -41,7 +41,7 @@ defmodule PlanningPoker.GameChannelTest do
     {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
     Process.unlink(socket.channel_pid)
 
-    assert [game_user] = Repo.all(GameUser)
+    assert [_] = Repo.all(GameUser)
 
     socket |> close
 
