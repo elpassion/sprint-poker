@@ -49,6 +49,7 @@ Store = Reflux.createStore
     @trigger @getState()
 
   onJoin: (channel, gameId) ->
+    return if @channel && @channel.topic == channel
     @channel = @socket.channel(channel, {game_id: gameId})
     @channel.join()
     event() for event in @channelEvents
