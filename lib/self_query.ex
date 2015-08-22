@@ -42,13 +42,21 @@ defmodule SelfQuery do
 
       defoverridable [
         all: 0,
+        get: 1,
         get: 2,
+        get!: 1,
         get!: 2,
+        get_by: 1,
         get_by: 2,
+        get_by!: 1,
         get_by!: 2,
+        one: 1,
         one: 2,
+        one!: 1,
         one!: 2,
+        update_all: 1,
         update_all: 2,
+        delete_all: 1,
         delete_all: 2
       ]
     end
