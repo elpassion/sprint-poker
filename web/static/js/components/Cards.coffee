@@ -4,15 +4,22 @@ Reflux = require 'reflux'
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
 
-Template = require '../templates/Cards.rt'
-
 Errors = React.createClass
   mixins: [
     Reflux.connect(Store)
   ]
 
   render: ->
-    Template.apply(this)
+    <form>
+      { for card in @state.game.deck.cards
+        <label>
+          <input type="radio" name="cards" value={card}/>
+          &nbsp;
+          <span>{card}</span>
+          &nbsp;
+        </label>
+      }
+    </form>
 
 module.exports = Errors
 

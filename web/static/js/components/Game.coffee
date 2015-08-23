@@ -6,6 +6,7 @@ GameNavBar = require './GameNavBar'
 GameTickets = require './GameTickets'
 GameTicketsOwner = require './GameTicketsOwner'
 GameUsers = require './GameUsers'
+Cards = require './Cards'
 
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
@@ -26,6 +27,9 @@ Game = React.createClass
           <div className="lobby-content row center-xs">
             <div className="lobby-container container">
               <div className="row">
+                <div className="col-xs-8">
+                  <Cards/>
+                </div>
                 <div className="col-xs-8">
                   { if @state.user.id == @state.game.owner.id
                       <GameTicketsOwner/>
