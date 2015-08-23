@@ -12,10 +12,10 @@ Errors = React.createClass
   render: ->
     <form>
       { for card in @state.game.deck.cards
-        <label>
-          <input type="radio" name="cards" value={card}/>
+        <label key={ card }>
+          <input type="radio" name="cards" value={ card }/>
           &nbsp;
-          <span>{card}</span>
+          <span>{ card }</span>
           &nbsp;
         </label>
       }
