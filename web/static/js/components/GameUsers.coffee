@@ -31,7 +31,7 @@ GameUsers = React.createClass
                 <span>&nbsp;YOU</span>
               }
             </td>
-            { if @state.voting.curentTicket
+            { if @state.voting.currentTicketIndex != null
               <td className="owner-column points">
                 { @state.voting.votes[user.id] || 'waiting ...' }
               </td>
