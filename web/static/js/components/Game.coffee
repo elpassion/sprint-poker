@@ -8,6 +8,7 @@ GameTicketsOwner = require './GameTicketsOwner'
 GameUsers = require './GameUsers'
 Cards = require './Cards'
 GameControl = require './GameControl'
+GameControlOwner = require './GameControlOwner'
 
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
@@ -30,7 +31,9 @@ Game = React.createClass
               <div className="row">
                 <div className="col-xs-8">
                   { if @state.user.id == @state.game.owner.id
-                    <GameControl/>
+                      <GameControlOwner/>
+                    else
+                      <GameControl/>
                   }
                   <Cards/>
                 </div>

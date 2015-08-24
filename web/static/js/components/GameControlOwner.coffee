@@ -4,7 +4,7 @@ Reflux = require 'reflux'
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
 
-GameControl = React.createClass
+GameControlOwner = React.createClass
   mixins: [
     Reflux.connect(Store)
   ]
@@ -26,13 +26,25 @@ GameControl = React.createClass
                     <td className="name-column">
                       { @state.game.tickets[@state.voting.currentTicketIndex].name }
                     </td>
+                    <td className="delete-column">
+                      <input type="button" value="PREVIOUS" onClick={ null }/>
+                    </td>
+                    <td className="delete-column">
+                      <input type="button" value="NEXT" onClick={ null }/>
+                    </td>
                   </tr>
                 </table>
+              </td>
+            </tr>
+          else
+            <tr>
+              <td className="delete-column">
+                <input type="button" value="Start" onClick={ @onStartVotingClick }/>
               </td>
             </tr>
         }
       </tbody>
     </table>
 
-module.exports = GameControl
+module.exports = GameControlOwner
 

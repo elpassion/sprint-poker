@@ -23,6 +23,7 @@ Errors = React.createClass
               value={ card }
               onChange={ @onCardChange }
               selected={ @state.voting.points == card }
+              disabled={ @state.voting.currentTicketIndex == null }
             />
             &nbsp;
             <span>{ card }</span>
