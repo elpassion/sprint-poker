@@ -24,14 +24,15 @@ GameUsers = React.createClass
           <tr key={user.id}>
             <td className="name-column">
               {user.name}
-            </td>
-            <td className="owner-column">
               {if user.id == @state.game.owner.id
-                "OWNER"
+                <span>&nbsp;OWNER</span>
               }
               {if user.id == @state.user.id
-                "YOU"
+                <span>&nbsp;YOU</span>
               }
+            </td>
+            <td className="owner-column points">
+              XXL
             </td>
           </tr>
         }
