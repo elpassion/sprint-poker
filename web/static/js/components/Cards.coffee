@@ -9,17 +9,28 @@ Errors = React.createClass
     Reflux.connect(Store)
   ]
 
+  onCardChange: (e) ->
+    Actions.vote(e.target.value)
+
   render: ->
-    <form>
-      { for card in @state.game.deck.cards
-        <label key={ card }>
-          <input type="radio" name="cards" value={ card }/>
-          &nbsp;
-          <span>{ card }</span>
-          &nbsp;
-        </label>
-      }
-    </form>
+    <div className="full-width">
+      <form>
+        { for card in @state.game.deck.cards
+          <label key={ card }>
+            <input
+              type="radio"
+              name="cards"
+              value={ card }
+              onChange={ @onCardChange }
+              selected={ @state.voting.points == card }
+            />
+            &nbsp;
+            <span>{ card }</span>
+            &nbsp;
+          </label>
+        }
+      </form>
+    </div>
 
 module.exports = Errors
 

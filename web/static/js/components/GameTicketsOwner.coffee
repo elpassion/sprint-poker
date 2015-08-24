@@ -38,7 +38,7 @@ GameTickets = React.createClass
       </caption>
       <tbody>
         { for ticket in @state.game.tickets
-          <tr>
+          <tr key={ ticket.id }>
             <td>
               <form>
                 <table className="full-width">

@@ -31,9 +31,11 @@ GameUsers = React.createClass
                 <span>&nbsp;YOU</span>
               }
             </td>
-            <td className="owner-column points">
-              XXL
-            </td>
+            { if @state.voting.curentTicket
+              <td className="owner-column points">
+                { @state.voting.votes[user.id] || 'waiting ...' }
+              </td>
+            }
           </tr>
         }
       </tbody>

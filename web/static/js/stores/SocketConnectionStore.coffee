@@ -8,6 +8,7 @@ AuthMixin  = require './AuthMixin'
 DeckMixin  = require './DeckMixin'
 TicketMixin  = require './TicketMixin'
 ErrorMixin  = require './ErrorMixin'
+VotingMixin = require './VotingMixin'
 
 Actions = Reflux.createActions _.merge
   connect: {}
@@ -17,6 +18,7 @@ Actions = Reflux.createActions _.merge
   GameMixin.actions
   TicketMixin.actions
   ErrorMixin.actions
+  VotingMixin.actions
 
 Store = Reflux.createStore
   mixins: [
@@ -26,6 +28,7 @@ Store = Reflux.createStore
     DeckMixin
     TicketMixin
     ErrorMixin
+    VotingMixin
   ]
 
   listenables: [ Actions ]
@@ -44,6 +47,7 @@ Store = Reflux.createStore
     currentGame: @currentGame
     newTicket: @newTicket
     errors: @errors
+    voting: @voting
 
   emit: ->
     @trigger @getState()
