@@ -120,4 +120,27 @@ defmodule PlanningPoker.GameChannel do
     end
     {:noreply, socket}
   end
+
+  def handle_in("voting_voted", _message, socket) do
+    user = Repo.get!(User, socket.assigns.user_id)
+    socket |> broadcast "voting_voted", %{user_id: user.id}
+    {:noreply, socket}
+  end
+
+  def handle_in("voting_finish", _message, socket) do
+    user = Repo.get!(User, socket.assigns.user_id)
+    "game:" <> game_id = socket.topic
+    game = Repo.get!(Game, game_id)
+
+    if game.owner_id == user.id do
+      socket |> broadcast "voting_finish", %{}
+    end
+    {:noreply, socket}
+  end
+
+  def handle_in("voting_points", message, socket) do
+    user = Repo.get!(User, socket.assigns.user_id)
+    socket |> broadcast "voting_points", %{user_id: user.id, points: message["points"]}
+    {:noreply, socket}
+  end
 end
