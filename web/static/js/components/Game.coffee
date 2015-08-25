@@ -9,7 +9,7 @@ GameUsers = require './GameUsers'
 Cards = require './Cards'
 GameCurrentTicket = require './GameCurrentTicket'
 GameCurrentTicketOwner = require './GameCurrentTicketOwner'
-GameOwnerPoints = require './GameOwnerPoints'
+GameOwnerControls = require './GameOwnerControls'
 
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
@@ -31,11 +31,7 @@ Game = React.createClass
             <div className="lobby-container container">
               <div className="row">
                 <div className="col-xs-8">
-                  { if @state.user.id == @state.game.owner.id
-                      <GameCurrentTicketOwner/>
-                    else
-                      <GameCurrentTicket/>
-                  }
+                  <GameCurrentTicket/>
                   <Cards/>
                 </div>
                 <div className="col-xs-8">
@@ -47,8 +43,8 @@ Game = React.createClass
                 </div>
                 <div className="col-xs-4">
                   <GameUsers/>
-                  { if @state.user.id == @state.game.owner.id && @state.voting.currentTicketIndex != null
-                    <GameOwnerPoints/>
+                  { if @state.user.id == @state.game.owner.id
+                    <GameOwnerControls/>
                   }
                 </div>
               </div>
