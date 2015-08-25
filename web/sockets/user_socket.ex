@@ -5,7 +5,7 @@ defmodule PlanningPoker.UserSocket do
 
   ## Channels
   channel "lobby", PlanningPoker.LobbyChannel
-  channel "planning:*", PlanningPoker.GameChannel
+  channel "game:*", PlanningPoker.GameChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

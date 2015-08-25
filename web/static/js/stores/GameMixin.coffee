@@ -8,15 +8,22 @@ GameMixin =
   init: ->
     @game = {
       errors: {}
-      deck_id: 1
+      users: []
+      tickets: []
+      owner: {}
+      deck: {
+        id: 1
+      }
     }
 
     @channelEvents ||= []
     @channelEvents.push =>
       @channel.on "game", (game) =>
-        @game = _.merge(@game, game.game)
-        @createGameCallback(@game.id)
-        @createGameCallback = nil
+        @game = game.game
+        if @createGameCallback
+          @createGameCallback(@game.id)
+          @createGameCallback = null
+        @emit()
 
   onChangeGameName: (name) ->
     @game.name = name
@@ -27,7 +34,7 @@ GameMixin =
     @channel.push('create_game', @game)
 
   onChangeGameDeckId: (deck_id) ->
-    @game.deck_id = deck_id
+    @game.deck.id = deck_id
     @emit()
 
   onValidateGameName: ->
@@ -39,6 +46,7 @@ GameMixin =
     @game.errors.name = 'Session Title is too long' if @game.name.length > 100
 
     @emit()
+
 
 module.exports = GameMixin
 

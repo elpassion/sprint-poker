@@ -6,8 +6,9 @@ defmodule PlanningPoker.Repo.Migrations.CreateGameUser do
       add :game_id, references(:games, type: :uuid), null: false
       add :user_id, references(:users, type: :uuid), null: false
 
+
       timestamps
     end
-
+    unique_index(:game_user, [:game_id, :user_id])
   end
 end

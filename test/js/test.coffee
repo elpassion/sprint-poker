@@ -1,9 +1,9 @@
 React = require('react')
-PlanningPokerReactApp = require('../../web/static/js/components/PlanningPokerReactApp')
+PlanningPokerApp = require('../../web/static/js/components/PlanningPokerApp')
 TestUtils = require('react/lib/ReactTestUtils')
 
-describe 'PlanningPokerReactApp', ->
+describe 'PlanningPokerApp', ->
   it 'renders', ->
-    element = TestUtils.renderIntoDocument(<PlanningPokerReactApp />)
+    element = TestUtils.renderIntoDocument(<PlanningPokerApp />)
     expect(element).toBeTruthy()
 

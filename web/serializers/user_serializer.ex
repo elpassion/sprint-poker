@@ -3,7 +3,8 @@ defmodule PlanningPoker.UserSerializer do
     def encode(user, options) do
       %{
         id: user.id,
-        name: user.name
+        name: user.name,
+        errors: %{}
       } |> Poison.Encoder.encode(options)
     end
   end

@@ -3,11 +3,27 @@ defmodule PlanningPoker.GameSerializer do
     def encode(game, options) do
       hash =  %{
         id: game.id,
-        name: game.name
+        name: game.name,
+        users: [],
+        tickets: [],
+        owner: %{},
+        errors: %{}
       }
 
       if Ecto.Association.loaded?(game.owner) do
         hash = hash |> Dict.put(:owner, game.owner)
+      end
+
+      if Ecto.Association.loaded?(game.users) do
+        hash = hash |> Dict.put(:users, game.users)
+      end
+
+      if Ecto.Association.loaded?(game.tickets) do
+        hash = hash |> Dict.put(:tickets, game.tickets)
+      end
+
+      if Ecto.Association.loaded?(game.deck) do
+        hash = hash |> Dict.put(:deck, game.deck)
       end
 
       hash |> Poison.Encoder.encode(options)

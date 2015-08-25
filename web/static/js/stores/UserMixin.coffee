@@ -11,7 +11,7 @@ UserMixin =
     @channelEvents ||= []
     @channelEvents.push =>
       @channel.on "user", (user) =>
-        @user = _.merge(@user, user.user)
+        @user = user.user
         @emit()
 
   onChangeUserName: (name) ->
@@ -19,7 +19,7 @@ UserMixin =
     @emit()
 
   onSubmitUserName: ->
-    @channel.push('change_user_name', @user)
+    @channel.push('update_user', {user: @user})
 
   onValidateUserName: ->
     @user.errors = {}

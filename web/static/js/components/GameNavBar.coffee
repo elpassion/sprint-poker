@@ -1,18 +1,18 @@
 React = require 'react'
+Reflux = require 'reflux'
 smallLogo = require '../../assets/images/logo_small.png'
 
-LobbyNavbar = React.createClass
+Store = require '../stores/SocketConnectionStore'
+Actions = Store.Actions
 
-  propTypes:
-    roomName: React.PropTypes.string.isRequired
-    roomUUID: React.PropTypes.string.isRequired
 
-  defaultProps:
-    roomName: ""
-    roomUUID: ""
+GameNavBar = React.createClass
+  mixins: [
+    Reflux.connect(Store)
+  ]
 
-  shouldComponentUpdate: ->
-    true
+  selectAllInput: (e) ->
+    e.target.setSelectionRange(0, e.target.value.length)
 
   render: ->
     <nav className="lobby-navbar row center-xs middle-xs">
@@ -21,20 +21,19 @@ LobbyNavbar = React.createClass
           <img className="logo" src={smallLogo} alt="Planning Poker"/>
           <div className="separator"></div>
           <div className="project-name">
-            <span className="project">PROJECT:</span>
-            <span className="name">{this.props.roomName}</span>
+            <span className="project">SESSION NAME:</span>
+            <span className="name">{@state.game.name}</span>
           </div>
           <div className="invite simple-row middle-xs">
             <span className="invite-text">INVITE PEOPLE:</span>
             <div className="invite-link simple-row">
-              <span className="link">{document.URL}</span>
-              <a href="#" className="addon">
-                CTRL + C
-              </a>
+              <input onClick={@selectAllInput} value={document.URL} disabled/>
+              <a href="#" className="addon">CTRL + C</a>
             </div>
           </div>
         </div>
       </div>
     </nav>
 
-module.exports = LobbyNavbar
+module.exports = GameNavBar
+
