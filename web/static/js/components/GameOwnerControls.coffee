@@ -15,18 +15,35 @@ GameOwnerControls = React.createClass
   onStartVotingClick: ->
     Actions.startVoting()
 
+  onNextClick: ->
+    Actions.startVoting()
+
+  onVoteAgainClick: ->
+    Actions.startVoting(@state.gameState.current_ticket_index)
+
   onTicketPointsChange: (e) ->
     Actions.changeTicketPoints(e.target.value)
 
   render: ->
-    if @state.gameState.name != "none"
-      <table className="users-list full-width">
-        <tbody>
-          <tr>
-            <td className="name-column">
+    <table className="users-list full-width">
+      <tbody>
+        <tr>
+          <td className="name-column">
+            { if @state.gameState.name == "none"
+              <input type="button" value="Start" onClick={ @onStartVotingClick }/>
+            }
+            { if @state.gameState.name == "voting"
               <input type="button" value="Finish" onClick={ @onFinishVotingClick }/>
-            </td>
-            <td className="owner-column points">
+            }
+            { if @state.gameState.name == "finished"
+              <input type="button" value="Next" onClick={ @onNextClick }/>
+            }
+            { if @state.gameState.name == "finished"
+              <input type="button" value="Vote Again" onClick={ @onVoteAgainClick }/>
+            }
+          </td>
+          <td className="name-column">
+            { if @state.gameState.name == "finished"
               <select className="simple-row full-width"
                 value={ @state.game.tickets[@state.gameState.current_ticket_index].points }
                 onChange={ @onTicketPointsChange }
@@ -42,12 +59,11 @@ GameOwnerControls = React.createClass
                     </option>
                 }
               </select>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    else
-      <input type="button" value="Start" onClick={ @onStartVotingClick }/>
+            }
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
 module.exports = GameOwnerControls
 
