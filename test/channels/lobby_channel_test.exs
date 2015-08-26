@@ -48,7 +48,7 @@ defmodule PlanningPoker.LobbyChannelTest do
   end
 
 
-  test "sending update_user resends updated user" do
+  test "'user:update' resends updated user" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
 
@@ -58,7 +58,7 @@ defmodule PlanningPoker.LobbyChannelTest do
     assert_push "user", ^change_user_name_response
   end
 
-  test "sending create_game resends new game with owner_id and name" do
+  test "'game:create' resends new game with owner_id and name" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
 
