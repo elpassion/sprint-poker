@@ -21,9 +21,12 @@ defmodule PlanningPoker.State do
 
   def hide_votes(state, current_user) do
     unless state.name == "finished" do
-      new_votes = Enum.reduce state.votes, %{}, fn h, acc ->
-        {key, value} = h
-        Map.put(acc, key, (if key == current_user.id, do: value, else: "voted"))
+      new_votes = for {key, value} <- state.votes, into: %{} do
+        if key == current_user.id do
+          {key,  value}
+        else
+          {key, "voted"}
+        end
       end
 
       state = %{state | votes: new_votes}

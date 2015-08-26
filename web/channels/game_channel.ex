@@ -48,13 +48,11 @@ defmodule PlanningPoker.GameChannel do
     socket |> broadcast "game", %{game: game}
 
     if game.state do
-      IO.inspect("old state")
       state = Repo.get_by(State, game_id: game.id)
-      socket |> push "state", %{state: State.hide_votes(state, user) }
+      socket |> push "state", %{ state: State.hide_votes(state, user) }
     else
-      IO.inspect("new state")
       state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
-      socket |> push "state", %{state: State.hide.votes(state, user) }
+      socket |> push "state", %{ state: State.hide_votes(state, user) }
     end
 
     {:noreply, socket}
@@ -135,7 +133,7 @@ defmodule PlanningPoker.GameChannel do
           state = changeset |> Repo.update!
       end
 
-      socket |> broadcast "state", %{ state: State.hide_votes(state, user) }
+      socket |> broadcast "state", %{ state: state }
     end
     {:noreply, socket}
   end
@@ -144,8 +142,6 @@ defmodule PlanningPoker.GameChannel do
     user = Repo.get!(User, socket.assigns.user_id)
     "game:" <> game_id = socket.topic
     game = Repo.get!(Game, game_id) |> Repo.preload [:state]
-
-    IO.inspect message
 
     changeset = State.changeset(game.state, %{ votes: Dict.put(game.state.votes, user.id, message["vote"]["points"]) } )
 
@@ -156,7 +152,14 @@ defmodule PlanningPoker.GameChannel do
         state = changeset |> Repo.update!
     end
 
-    socket |> broadcast "state", %{ state: State.hide_votes(state, user) }
+    socket |> broadcast "state", %{ state: state }
+    {:noreply, socket}
+  end
+
+  intercept ["state"]
+  def handle_out("state", message, socket) do
+    user = Repo.get!(User, socket.assigns.user_id)
+    socket |> push "state", %{ state: State.hide_votes(message.state, user) }
     {:noreply, socket}
   end
 
