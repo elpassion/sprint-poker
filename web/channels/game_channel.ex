@@ -35,7 +35,11 @@ defmodule PlanningPoker.GameChannel do
     game = Repo.get!(Game, game_id)
     user = Repo.get!(User, socket.assigns.user_id)
 
-    Repo.get_by(GameUser, game_id: game.id, user_id: user.id) |> Repo.delete!
+    game_user = Repo.get_by(GameUser, game_id: game.id, user_id: user.id)
+
+    if game_user do
+      game_user |> Repo.delete!
+    end
 
     game = game |> Game.preload
     socket |> broadcast "game", %{game: game}
