@@ -14,7 +14,6 @@ StateMixin =
     @channelEvents ||= []
     @channelEvents.push =>
       @channel.on "state", (state) =>
-        console.log(state)
         @gameState = state.state
         @emit()
 
