@@ -42,7 +42,7 @@ Game = React.createClass
                   }
                 </div>
                 <div className="col-xs-4">
-                  <GameUsers/>
+                  <GameUsers disabled={@state.gameState.name != 'voting' }/>
                   { if @state.user.id == @state.game.owner.id
                     <GameOwnerControls/>
                   }

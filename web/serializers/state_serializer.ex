@@ -2,7 +2,7 @@ defimpl Poison.Encoder, for: PlanningPoker.State do
   def encode(state, options) do
     hash = %{
       name: state.name,
-      current_ticket_index: nil,
+      current_ticket_index: state.current_ticket_index,
       votes: %{}
     }
 

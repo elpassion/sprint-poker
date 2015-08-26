@@ -19,7 +19,6 @@ Actions = Reflux.createActions _.merge
   GameMixin.actions
   TicketMixin.actions
   ErrorMixin.actions
-  VotingMixin.actions
   StateMixin.actions
 
 Store = Reflux.createStore
@@ -30,7 +29,6 @@ Store = Reflux.createStore
     DeckMixin
     TicketMixin
     ErrorMixin
-    VotingMixin
     StateMixin
   ]
 
@@ -50,8 +48,8 @@ Store = Reflux.createStore
     currentGame: @currentGame
     newTicket: @newTicket
     errors: @errors
-    voting: @voting
     gameState: @gameState
+    userPoints: @userPoints
 
   emit: ->
     @trigger @getState()

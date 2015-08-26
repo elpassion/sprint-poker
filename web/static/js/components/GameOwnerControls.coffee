@@ -16,7 +16,7 @@ GameOwnerControls = React.createClass
     Actions.startVoting()
 
   render: ->
-    if @state.voting.currentTicketIndex != null
+    if @state.gameState.name != "none"
       <table className="users-list full-width">
         <tbody>
           <tr>

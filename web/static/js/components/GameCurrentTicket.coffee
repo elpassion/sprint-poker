@@ -12,16 +12,16 @@ GameCurrentTicket = React.createClass
   render: ->
     <table className="tickets-list full-width">
       <tbody>
-        { if @state.voting.currentTicketIndex != null
+        { if @state.gameState.name != 'none'
             <tr>
               <td>
                 <table className="full-width">
                   <tr>
                     <td className="index-column">
-                      { @state.voting.currentTicketIndex + 1 }
+                      { @state.gameState.current_ticket_index + 1 }
                     </td>
                     <td className="name-column">
-                      { @state.game.tickets[@state.voting.currentTicketIndex].name }
+                      { @state.game.tickets[@state.gameState.current_ticket_index].name }
                     </td>
                   </tr>
                 </table>
