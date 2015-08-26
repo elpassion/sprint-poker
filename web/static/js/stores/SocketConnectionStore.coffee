@@ -48,7 +48,6 @@ Store = Reflux.createStore
     newTicket: @newTicket
     errors: @errors
     gameState: @gameState
-    userPoints: @userPoints
 
   emit: ->
     @trigger @getState()
