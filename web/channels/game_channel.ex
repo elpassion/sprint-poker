@@ -52,7 +52,7 @@ defmodule PlanningPoker.GameChannel do
     {:noreply, socket}
   end
 
-  def handle_in("create_ticket", message, socket) do
+  def handle_in("ticket:create", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
     "game:" <> game_id = socket.topic
     game = Repo.get!(Game, game_id)
@@ -76,7 +76,7 @@ defmodule PlanningPoker.GameChannel do
     {:noreply, socket}
   end
 
-  def handle_in("delete_ticket", message, socket) do
+  def handle_in("ticket:delete", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
     "game:" <> game_id = socket.topic
     game = Repo.get!(Game, game_id)
@@ -90,7 +90,7 @@ defmodule PlanningPoker.GameChannel do
     {:noreply, socket}
   end
 
-  def handle_in("update_ticket", message, socket) do
+  def handle_in("ticket:update", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
     "game:" <> game_id = socket.topic
     game = Repo.get!(Game, game_id)
@@ -112,7 +112,7 @@ defmodule PlanningPoker.GameChannel do
     {:noreply, socket}
   end
 
-  def handle_in("update_state", message, socket) do
+  def handle_in("state:update", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
     "game:" <> game_id = socket.topic
     game = Repo.get!(Game, game_id) |> Repo.preload [:state]
@@ -132,7 +132,7 @@ defmodule PlanningPoker.GameChannel do
     {:noreply, socket}
   end
 
-  def handle_in("update_state_vote", message, socket) do
+  def handle_in("state:update:vote", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
     "game:" <> game_id = socket.topic
     game = Repo.get!(Game, game_id) |> Repo.preload [:state]

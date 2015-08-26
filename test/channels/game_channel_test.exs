@@ -65,7 +65,7 @@ defmodule PlanningPoker.GameChannelTest do
 
     assert [] = Repo.all(Ticket)
 
-    socket |> push "create_ticket", %{"ticket" => %{"name" => "new test ticket"}}
+    socket |> push "ticket:create", %{"ticket" => %{"name" => "new test ticket"}}
 
     game = Repo.get(Game, game.id) |> Game.preload
 
@@ -87,7 +87,7 @@ defmodule PlanningPoker.GameChannelTest do
 
     assert [ticket] = Repo.all(Ticket)
 
-    socket |> push "delete_ticket", %{"ticket" => %{"id" => ticket.id}}
+    socket |> push "ticket:delete", %{"ticket" => %{"id" => ticket.id}}
 
     game = Repo.get(Game, game.id) |> Game.preload
 
@@ -108,7 +108,7 @@ defmodule PlanningPoker.GameChannelTest do
 
     assert [ticket] = Repo.all(Ticket)
 
-    socket |> push "update_ticket", %{"ticket" => %{"id" => ticket.id, "name" => "new name"}}
+    socket |> push "ticket:update", %{"ticket" => %{"id" => ticket.id, "name" => "new name"}}
     game = Repo.get(Game, game.id) |> Game.preload
 
     [ticket] = Repo.all(Ticket)

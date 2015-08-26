@@ -34,7 +34,7 @@ defmodule PlanningPoker.LobbyChannel do
     {:noreply, socket}
   end
 
-  def handle_in("update_user", message, socket) do
+  def handle_in("user:update", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
     changeset = User.changeset(user, %{
       name: message["user"]["name"]
@@ -51,7 +51,7 @@ defmodule PlanningPoker.LobbyChannel do
     {:noreply, socket}
   end
 
-  def handle_in("create_game", message, socket) do
+  def handle_in("game:create", message, socket) do
     changeset = Game.changeset(%Game{}, %{
       name: message["name"],
       owner_id: Repo.get!(User, socket.assigns.user_id).id,
@@ -78,13 +78,4 @@ defmodule PlanningPoker.LobbyChannel do
     socket |> push "game", %{game: game}
     {:noreply, socket}
   end
-
-  def handle_in("game_info", message, socket) do
-    game = Repo.get!(Game, message["game_id"])
-
-    socket |> push "game", %{game: game}
-
-    {:noreply, socket}
-  end
-
 end
