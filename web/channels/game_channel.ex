@@ -45,15 +45,9 @@ defmodule PlanningPoker.GameChannel do
     user = Repo.get!(User, socket.assigns.user_id)
     "game:" <> game_id = socket.topic
     game = Repo.get!(Game, game_id) |> Game.preload
-    socket |> broadcast "game", %{game: game}
 
-    if game.state do
-      state = Repo.get_by(State, game_id: game.id)
-      socket |> push "state", %{ state: State.hide_votes(state, user) }
-    else
-      state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
-      socket |> push "state", %{ state: State.hide_votes(state, user) }
-    end
+    socket |> broadcast "game", %{game: game}
+    socket |> push "state", %{ state: State.hide_votes(game.state, user) }
 
     {:noreply, socket}
   end

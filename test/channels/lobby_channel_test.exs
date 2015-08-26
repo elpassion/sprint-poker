@@ -7,6 +7,7 @@ defmodule PlanningPoker.LobbyChannelTest do
   alias PlanningPoker.Repo
   alias PlanningPoker.Game
   alias PlanningPoker.Deck
+  alias PlanningPoker.State
 
   test "joining lobby sends auth_token" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
@@ -36,6 +37,7 @@ defmodule PlanningPoker.LobbyChannelTest do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
     socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby", %{"game_id" => game.id})
 

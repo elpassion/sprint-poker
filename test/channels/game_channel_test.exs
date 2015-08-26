@@ -9,11 +9,13 @@ defmodule PlanningPoker.GameChannelTest do
   alias PlanningPoker.Deck
   alias PlanningPoker.GameUser
   alias PlanningPoker.Ticket
+  alias PlanningPoker.State
 
   test "joining game add record and broadcast game with new user" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
     assert [] = Repo.all(GameUser)
 
@@ -25,8 +27,8 @@ defmodule PlanningPoker.GameChannelTest do
     assert game_user.game_id == game.id
     assert game_user.user_id == user.id
 
-    game_response = %{"game": game}
     assert user in game.users
+    game_response = %{"game": game}
     assert_broadcast "game", ^game_response
   end
 
@@ -34,7 +36,7 @@ defmodule PlanningPoker.GameChannelTest do
     user = %User{name: "test user"} |> Repo.insert!
     deck = %Deck{name: "test deck"} |> Repo.insert!
     game = %Game{name: "test game", owner_id: user.id, deck_id: deck.id} |> Repo.insert!
-
+    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
     assert [] = Repo.all(GameUser)
 
@@ -57,6 +59,7 @@ defmodule PlanningPoker.GameChannelTest do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
@@ -77,6 +80,7 @@ defmodule PlanningPoker.GameChannelTest do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
     ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
@@ -97,6 +101,7 @@ defmodule PlanningPoker.GameChannelTest do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
     ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
@@ -112,6 +117,5 @@ defmodule PlanningPoker.GameChannelTest do
     game_response = %{"game": game}
     assert_broadcast "game", ^game_response
   end
-
 end
 

@@ -5,6 +5,7 @@ defmodule PlanningPoker.LobbyChannel do
   alias PlanningPoker.User
   alias PlanningPoker.Game
   alias PlanningPoker.Deck
+  alias PlanningPoker.State
 
   def join("lobby", message, socket) do
     send(self, {:after_join, message})
@@ -62,6 +63,14 @@ defmodule PlanningPoker.LobbyChannel do
         raise errors
       _ ->
         game = changeset |> Repo.insert!
+        state_changeset = State.changeset(%State{}, %{name: "none", game_id: game.id})
+
+        case state_changeset do
+          {:error, errors} ->
+            raise errors
+          _ ->
+            state_changeset |> Repo.insert!
+        end
     end
 
     game = game |> Repo.preload([:owner, :deck])
