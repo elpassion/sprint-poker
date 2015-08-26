@@ -19,8 +19,8 @@ StateMixin =
         @emit()
 
   onVote: (val) ->
-    @userPoints = val
-    @channel.push "voting_voted", {}
+    @gameState.votes[@user.id] = val
+    @channel.push "update_state_vote", { vote: { points: val } }
     @emit()
 
   onStartVoting: ->
@@ -30,7 +30,7 @@ StateMixin =
     @emit()
 
   onFinishVoting: ->
-    @channel.push "voting_finish", {}
+    @channel.push "update_state", { state: { name: 'finished' } }
 
 
 module.exports = StateMixin

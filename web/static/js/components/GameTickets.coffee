@@ -24,7 +24,7 @@ GameTickets = React.createClass
           <tr key={ ticket.id }>
             <td>
               <table className="full-width">
-                <tr className={ @state.voting.current_ticket_index == i ? "selected" }>
+                <tr className={ @state.gameState.current_ticket_index == i ? "selected" }>
                   <td className="index-column">
                     { i + 1 }
                   </td>

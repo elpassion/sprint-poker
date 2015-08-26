@@ -8,7 +8,6 @@ AuthMixin  = require './AuthMixin'
 DeckMixin  = require './DeckMixin'
 TicketMixin  = require './TicketMixin'
 ErrorMixin  = require './ErrorMixin'
-VotingMixin = require './VotingMixin'
 StateMixin = require './StateMixin'
 
 Actions = Reflux.createActions _.merge

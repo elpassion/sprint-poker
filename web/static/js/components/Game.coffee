@@ -32,7 +32,7 @@ Game = React.createClass
               <div className="row">
                 <div className="col-xs-8">
                   <GameCurrentTicket/>
-                  <Cards/>
+                  <Cards disabled={ @state.gameState.name != 'voting' }/>
                 </div>
                 <div className="col-xs-8">
                   { if @state.user.id == @state.game.owner.id
@@ -42,7 +42,7 @@ Game = React.createClass
                   }
                 </div>
                 <div className="col-xs-4">
-                  <GameUsers disabled={@state.gameState.name != 'voting' }/>
+                  <GameUsers/>
                   { if @state.user.id == @state.game.owner.id
                     <GameOwnerControls/>
                   }

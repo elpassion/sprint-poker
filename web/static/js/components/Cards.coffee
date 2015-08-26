@@ -22,7 +22,7 @@ Errors = React.createClass
               name="cards"
               value={ card }
               onChange={ @onCardChange }
-              selected={ @userPoints == card }
+              checked={ @state.gameState.votes[@state.user.id] == card }
               disabled={ @props.disabled }
             />
             &nbsp;
