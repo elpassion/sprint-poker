@@ -58,5 +58,48 @@ defmodule PlanningPoker.TicketTest do
     assert ticket.game == game
   end
 
+  test "empty ticket changeset is not valid" do
+    changeset = %Ticket{} |> Ticket.changeset(%{})
 
+    refute changeset.valid?
+  end
+
+  test "ticket changeset without name is not valid" do
+    user = %User{} |> Repo.insert!
+    deck = %Deck{name: "test deck"} |> Repo.insert!
+
+    changeset = %Ticket{} |> Ticket.changeset(%{
+      name: "sample name",
+      owner_id: user.id,
+      deck_id: deck.id
+    })
+
+    refute changeset.valid?
+  end
+
+  test "ticket changeset without game is not valid" do
+    changeset = %Ticket{} |> Ticket.changeset(%{
+      name: "test name"
+    })
+    refute changeset.valid?
+  end
+
+  test "ticket with name and game is valid" do
+    user = %User{} |> Repo.insert!
+    deck = %Deck{name: "test deck"} |> Repo.insert!
+
+    game = %Game{
+      name: "sample name",
+      owner_id: user.id,
+      deck_id: deck.id
+    } |> Repo.insert!
+
+
+    changeset = %Ticket{} |> Ticket.changeset(%{
+      name: "test name",
+      game_id: game.id
+    })
+
+    assert changeset.valid?
+  end
 end
