@@ -104,10 +104,8 @@ defmodule PlanningPoker.GameChannel do
     game = Repo.get!(Game, game_id)
     ticket = Repo.get!(Ticket, message["ticket"]["id"])
 
-    if game.owner_id == user.id && ticket.name != message["ticket"]["name"] do
-      changeset = Ticket.changeset(ticket, %{
-        name: message["ticket"]["name"]
-      })
+    if game.owner_id == user.id && ticket.name do
+      changeset = Ticket.changeset(ticket, message["ticket"])
 
       case changeset do
         {:error, errors} ->

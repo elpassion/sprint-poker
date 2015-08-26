@@ -5,6 +5,7 @@ TicketMixin =
     deleteTicket: {}
     changeTicketName: {}
     submitTicketName: {}
+    changeTicketPoints: {}
 
   init: ->
     @newTicket = {}
@@ -27,6 +28,12 @@ TicketMixin =
     i = _.findIndex @game.tickets, (ticket) ->
       String(ticket.id) == String(id)
     @game.tickets[i].name = name
+    @emit()
+
+  onChangeTicketPoints: (points) ->
+    ticket = @game.tickets[@gameState.current_ticket_index]
+    ticket.points = points
+    @channel.push('update_ticket', {ticket: {id: ticket.id, points: points }})
     @emit()
 
   onSubmitTicketName: (id, name) ->

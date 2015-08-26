@@ -15,6 +15,9 @@ GameOwnerControls = React.createClass
   onStartVotingClick: ->
     Actions.startVoting()
 
+  onTicketPointsChange: (e) ->
+    Actions.changeTicketPoints(e.target.value)
+
   render: ->
     if @state.gameState.name != "none"
       <table className="users-list full-width">
@@ -25,10 +28,11 @@ GameOwnerControls = React.createClass
             </td>
             <td className="owner-column points">
               <select className="simple-row full-width"
-                value={ @state.game.deck.id }
-                onChange={ @onChangeGameDeck }
+                value={ @state.game.tickets[@state.gameState.current_ticket_index].points }
+                onChange={ @onTicketPointsChange }
                 disabled={ @props.disabled }
               >
+                <option value="" key=""> - </option>
                 {
                   for card in @state.game.deck.cards
                     <option
