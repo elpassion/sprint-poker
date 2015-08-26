@@ -6,6 +6,7 @@ defmodule PlanningPoker.GameChannel do
   alias PlanningPoker.Game
   alias PlanningPoker.GameUser
   alias PlanningPoker.Ticket
+  alias PlanningPoker.State
 
   def join("game:" <> game_id, message, socket) do
     game = Repo.get!(Game, game_id)
@@ -43,8 +44,17 @@ defmodule PlanningPoker.GameChannel do
   def handle_info({:after_join, _message}, socket) do
     "game:" <> game_id = socket.topic
     game = Repo.get!(Game, game_id) |> Game.preload
-
     socket |> broadcast "game", %{game: game}
+
+    if game.state do
+      state = Repo.get_by(State, game_id: game.id)
+      IO.inspect state
+      socket |> push "state", %{state: state}
+    else
+      # state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
+      #socket |> push "state", %{state: state}
+    end
+
     {:noreply, socket}
   end
 
@@ -143,4 +153,26 @@ defmodule PlanningPoker.GameChannel do
     socket |> broadcast "voting_points", %{user_id: user.id, points: message["points"]}
     {:noreply, socket}
   end
+
+  def handle_in("update_state", message, socket) do
+    user = Repo.get!(User, socket.assigns.user_id)
+    "game:" <> game_id = socket.topic
+    game = Repo.get!(Game, game_id)
+
+    if game.owner_id == user.id do
+      state = Repo.get!(State, message["state"]["id"])
+      changeset = State.changeset(state, message["state"])
+
+      case changeset do
+        {:error, errors} ->
+          raise errors
+        _ ->
+          changeset |> Repo.update!
+      end
+
+      socket |> broadcast "state", state
+    end
+    {:noreply, socket}
+  end
+
 end
