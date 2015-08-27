@@ -19,7 +19,7 @@ GameOwnerControls = React.createClass
     Actions.startVoting()
 
   onVoteAgainClick: ->
-    Actions.startVoting(@state.gameState.current_ticket_index)
+    Actions.startVoting(@state.gameState.currentTicketIndex)
 
   onTicketPointsChange: (e) ->
     Actions.changeTicketPoints(e.target.value)
@@ -45,7 +45,7 @@ GameOwnerControls = React.createClass
           <td className="name-column">
             { if @state.gameState.name == "finished"
               <select className="simple-row full-width"
-                value={ @state.game.tickets[@state.gameState.current_ticket_index].points }
+                value={ @state.game.tickets[@state.gameState.currentTicketIndex].points }
                 onChange={ @onTicketPointsChange }
                 disabled={ @props.disabled }
               >

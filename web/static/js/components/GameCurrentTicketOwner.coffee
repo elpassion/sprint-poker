@@ -15,16 +15,16 @@ GameCurrentTicketOwner = React.createClass
   render: ->
     <table className="tickets-list full-width">
       <tbody>
-        { if @state.voting.current_ticket_index != null
+        { if @state.voting.currentTicketIndex != null
             <tr>
               <td>
                 <table className="full-width">
                   <tr>
                     <td className="index-column">
-                      { @state.game.tickets[@state.voting.current_ticket_index].id }
+                      { @state.game.tickets[@state.voting.currentTicketIndex].id }
                     </td>
                     <td className="name-column">
-                      { @state.game.tickets[@state.voting.current_ticket_index].name }
+                      { @state.game.tickets[@state.voting.currentTicketIndex].name }
                     </td>
                     <td className="delete-column">
                       <input type="button" value="PREVIOUS" onClick={ null }/>

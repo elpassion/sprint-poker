@@ -18,10 +18,10 @@ GameCurrentTicket = React.createClass
                 <table className="full-width">
                   <tr>
                     <td className="index-column">
-                      { @state.gameState.current_ticket_index + 1 }
+                      { @state.gameState.currentTicketIndex + 1 }
                     </td>
                     <td className="name-column">
-                      { @state.game.tickets[@state.gameState.current_ticket_index].name }
+                      { @state.game.tickets[@state.gameState.currentTicketIndex].name }
                     </td>
                   </tr>
                 </table>
