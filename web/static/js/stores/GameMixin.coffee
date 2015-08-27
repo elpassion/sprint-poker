@@ -19,7 +19,6 @@ GameMixin =
     @channelEvents ||= []
     @channelEvents.push =>
       @channel.on "game", (game) =>
-        console.log(game)
         @game = game.game
         if @createGameCallback
           @createGameCallback(@game.id)
