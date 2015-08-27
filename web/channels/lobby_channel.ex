@@ -3,9 +3,10 @@ defmodule PlanningPoker.LobbyChannel do
 
   alias PlanningPoker.Repo
   alias PlanningPoker.User
-  alias PlanningPoker.Game
   alias PlanningPoker.Deck
-  alias PlanningPoker.State
+
+  alias PlanningPoker.GameOperations
+  alias PlanningPoker.UserOperations
 
   def join("lobby", message, socket) do
     send(self, {:after_join, message})
@@ -19,16 +20,11 @@ defmodule PlanningPoker.LobbyChannel do
     socket |> push "user", %{user: user}
     socket |> push "decks", %{decks: Repo.all(Deck)}
 
-    case message do
-      %{"game_id" => game_id} ->
-        case Game.get(game_id) do
-          nil ->
-            socket |> push "error", %{code: "GAME_ERR", message: "Game not exists"}
-          game ->
-            game = game |> Repo.preload([:owner, :deck])
-            socket |> push "game", %{game: game}
-        end
-      _ -> # nothing
+    case GameOperations.find(message["game_id"]) do
+      nil ->
+        socket |> push "error", %{code: "GAME_ERR", message: "Game not exists"}
+      game ->
+        socket |> push "game", %{game: game}
     end
 
     {:noreply, socket}
@@ -36,44 +32,15 @@ defmodule PlanningPoker.LobbyChannel do
 
   def handle_in("user:update", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
-    changeset = User.changeset(user, %{
-      name: message["user"]["name"]
-    })
-
-    case changeset do
-      {:error, errors} ->
-        raise errors
-      _ ->
-        user = changeset |> Repo.update!
-    end
+    user = UserOperations.update(user, message["user"])
 
     socket |> push "user", %{user: user}
     {:noreply, socket}
   end
 
   def handle_in("game:create", message, socket) do
-    changeset = Game.changeset(%Game{}, %{
-      name: message["name"],
-      owner_id: Repo.get!(User, socket.assigns.user_id).id,
-      deck_id: Repo.get!(Deck, message["deck"]["id"]).id
-    })
-
-    case changeset do
-      {:error, errors} ->
-        raise errors
-      _ ->
-        game = changeset |> Repo.insert!
-        state_changeset = State.changeset(%State{}, %{name: "none", game_id: game.id})
-
-        case state_changeset do
-          {:error, errors} ->
-            raise errors
-          _ ->
-            state_changeset |> Repo.insert!
-        end
-    end
-
-    game = game |> Repo.preload([:owner, :deck])
+    user = Repo.get!(User, socket.assigns.user_id)
+    game = GameOperations.create(message, user) |> Repo.preload([:owner, :deck])
 
     socket |> push "game", %{game: game}
     {:noreply, socket}
