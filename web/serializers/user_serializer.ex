@@ -1,9 +1,15 @@
 defimpl Poison.Encoder, for: PlanningPoker.User do
   def encode(user, options) do
-    %{
+    hash = %{
       id: user.id,
       name: user.name,
       errors: %{}
-    } |> Poison.Encoder.encode(options)
+    }
+
+    if user.state do
+      hash = hash |> Dict.put(:state, user.state)
+    end
+
+    hash |> Poison.Encoder.encode(options)
   end
 end

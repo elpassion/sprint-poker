@@ -3,27 +3,19 @@ defmodule PlanningPoker.UserOperations do
   alias PlanningPoker.Repo
   alias PlanningPoker.User
 
-  def connect(user, game) do
-    unless Repo.get_by(GameUser, game_id: game.id, user_id: user.id) do
-      changeset = GameUser.changeset(%GameUser{}, %{
-        game_id: game.id,
-        user_id: user.id
-      })
+  alias PlanningPoker.GameUserOperations
 
-      case changeset do
-        {:error, errors} ->
-          raise errors
-        _ ->
-          changeset |> Repo.insert!
-      end
+  def connect(user, game) do
+    case Repo.get_by(GameUser, game_id: game.id, user_id: user.id) do
+      nil -> GameUserOperations.create(game, user)
+      game_user -> GameUserOperations.update_state(game_user, "connected")
     end
   end
 
   def disconnect(user, game) do
     game_user = Repo.get_by(GameUser, game_id: game.id, user_id: user.id)
-
     if game_user do
-      game_user |> Repo.delete!
+      GameUserOperations.update_state(game_user, "disconnected")
     end
   end
 

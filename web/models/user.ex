@@ -8,7 +8,10 @@ defmodule PlanningPoker.User do
   schema "users" do
     field :name, :string
     field :auth_token, Ecto.UUID, autogenerate: true
+    field :state, :string, virtual: true
 
+    has_many :game_user, PlanningPoker.GameUser
+    has_many :games, through: [:game_user, :game]
     timestamps
   end
 

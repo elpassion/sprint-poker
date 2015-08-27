@@ -1,4 +1,7 @@
 defimpl Poison.Encoder, for: PlanningPoker.Game do
+  alias PlanningPoker.Repo
+  alias PlanningPoker.GameUser
+
   def encode(game, options) do
     hash =  %{
       id: game.id,
@@ -14,7 +17,16 @@ defimpl Poison.Encoder, for: PlanningPoker.Game do
     end
 
     if Ecto.Association.loaded?(game.users) do
-      hash = hash |> Dict.put(:users, game.users)
+      users = for user <- game.users, into: [] do
+        game_user = Repo.get_by(GameUser, user_id: user.id, game_id: game.id)
+        if game_user do
+          %{ user | state: game_user.state }
+        else
+          user
+        end
+      end
+
+      hash = hash |> Dict.put(:users, users)
     end
 
     if Ecto.Association.loaded?(game.tickets) do

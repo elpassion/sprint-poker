@@ -24,6 +24,8 @@ defmodule PlanningPoker.GameChannelTest do
     game = Repo.get(Game, game.id) |> Game.preload
 
     [game_user] = Repo.all(GameUser)
+
+    assert game_user.state == "connected"
     assert game_user.game_id == game.id
     assert game_user.user_id == user.id
 
@@ -42,16 +44,24 @@ defmodule PlanningPoker.GameChannelTest do
     game = %Game{name: "test game", owner_id: user.id, deck_id: deck.id} |> Repo.insert!
     _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
-    assert [] = Repo.all(GameUser)
+    [] = Repo.all(GameUser)
 
     {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
     Process.unlink(socket.channel_pid)
 
-    assert [_] = Repo.all(GameUser)
+    [game_user] = Repo.all(GameUser)
+
+    assert game_user.state == "connected"
+    assert game_user.game_id == game.id
+    assert game_user.user_id == user.id
 
     socket |> close
 
-    assert [] = Repo.all(GameUser)
+    [game_user] = Repo.all(GameUser)
+
+    assert game_user.state == "disconnected"
+    assert game_user.game_id == game.id
+    assert game_user.user_id == user.id
 
     game = Repo.get(Game, game.id) |> Game.preload
 

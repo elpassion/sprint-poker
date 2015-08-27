@@ -22,7 +22,7 @@ GameUsers = React.createClass
       <tbody>
         { for user in @state.game.users
           <tr key={user.id}>
-            <td className="name-column">
+            <td className={"name-column #{user.state}"}>
               {user.name}
               {if user.id == @state.game.owner.id
                 <span>&nbsp;OWNER</span>
