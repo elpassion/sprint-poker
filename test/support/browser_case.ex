@@ -10,7 +10,8 @@ defmodule PlanningPoker.BrowserCase do
         port = PlanningPoker.Endpoint.config(:http)[:port]
         PlanningPoker.start(:nothing,:nothing)
 
-        {:ok, _} = TucoTuco.start_session :test_browser, :test_session, :firefox
+        {:ok, _} = TucoTuco.start_session :test_browser, :guest_session, :firefox
+        {:ok, _} = TucoTuco.start_session :test_browser, :owner_session, :firefox
         TucoTuco.app_root "http://localhost:#{port}"
 
         on_exit fn -> TucoTuco.stop end
@@ -23,7 +24,6 @@ defmodule PlanningPoker.BrowserCase do
     unless tags[:async] do
       Ecto.Adapters.SQL.restart_test_transaction(PlanningPoker.Repo, [])
     end
-
     :ok
   end
 end

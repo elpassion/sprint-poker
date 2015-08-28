@@ -2,8 +2,7 @@ defimpl Poison.Encoder, for: PlanningPoker.User do
   def encode(user, options) do
     hash = %{
       id: user.id,
-      name: user.name,
-      errors: %{}
+      name: user.name
     }
 
     if user.state do

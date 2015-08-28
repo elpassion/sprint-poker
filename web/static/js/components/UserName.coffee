@@ -34,8 +34,8 @@ UserName = React.createClass
           onKeyDown={ @onSubmitUserName }
           onBlur={ @onBlurUserName }
         />
-        {if @state.user.errors.name
-          <span>{ @state.user.errors.name }</span>
+        {if @state.errors.user.name
+          <span>{ @state.errors.user.name }</span>
         }
       </label>
     </div>

@@ -17,6 +17,7 @@ GameDeck = React.createClass
       <label className="col-xs-12 start-xs">
         <span className="simple-row">Session Deck:</span>
           <select className="simple-row full-width"
+            name="game_deck"
             value={ @state.game.deck.id }
             onChange={ @onChangeGameDeck }
             disabled={ @props.disabled }

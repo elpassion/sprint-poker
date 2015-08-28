@@ -13,10 +13,10 @@ Errors = React.createClass
     Actions.dissmissErrors()
 
   render: ->
-    if @state.errors.length > 0
+    if @state.errors.popup.length > 0
       <div className="session-form-container row">
         <ul>
-          { for error in @state.errors
+          { for error in @state.errors.popup
             <li>
               { error }
             </li>

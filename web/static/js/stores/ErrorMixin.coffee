@@ -4,14 +4,18 @@ ErrorMixin =
     dissmissErrors: {}
 
   init: ->
-    @errors = []
+    @errors = {
+      popup: []
+      game: {}
+      user: {}
+    }
 
     @channelEvents ||= []
     @channelEvents.push =>
       @channel.on "error", (error) =>
         switch error.code
           when "GAME_ERR"
-            @errors.push error.message
+            @errors.popup.push error.message
             @currentGame = null
             @errorCallback()
             @emit()
@@ -21,7 +25,7 @@ ErrorMixin =
     @errorCallback = fn
 
   onDissmissErrors: ->
-    @errors = []
+    @errors.popup = []
     @emit()
 
 module.exports = ErrorMixin
