@@ -2,23 +2,43 @@ defmodule PlanningPoker.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :planning_poker,
-     version: "0.0.1",
-     elixir: "~> 1.0",
-     elixirc_paths: elixirc_paths(Mix.env),
-     compilers: [:phoenix] ++ Mix.compilers,
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps]
+    [
+      app: :planning_poker,
+      version: "0.0.1",
+      elixir: "~> 1.0",
+      elixirc_paths: elixirc_paths(Mix.env),
+      compilers: [:phoenix] ++ Mix.compilers,
+      build_embedded: Mix.env == :prod,
+      start_permanent: Mix.env == :prod,
+      deps: deps
+   ]
   end
 
   # Configuration for the OTP application
   #
   # Type `mix help compile.app` for more information
   def application do
-    [mod: {PlanningPoker, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex, :poison, :rollbax]]
+    [
+      mod: {PlanningPoker, []},
+      applications: applications(Mix.env)
+    ]
+  end
+
+  defp applications do
+     ~w(
+       phoenix phoenix_html cowboy logger
+       phoenix_ecto postgrex poison rollbax
+      tuco_tuco
+       )a
+  end
+
+  defp applications :test do
+    IO.inspect "test"
+    applications ++ ~w(tuco_tuco)a
+  end
+
+  defp applications _ do
+    applications
   end
 
   # Specifies which paths to compile per environment
@@ -29,15 +49,19 @@ defmodule PlanningPoker.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "~> 0.17.1"},
-     {:phoenix_ecto, "~> 1.1"},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.0"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:poison, "~> 1.4.0"},
-     {:cowboy, "~> 1.0"},
-     {:plug_cors, "~> 0.7.3"},
-     {:inflex, "~> 1.4.1"},
-     {:rollbax, "~> 0.0.1"}]
+    [
+      {:phoenix, "~> 0.17.1"},
+      {:phoenix_ecto, "~> 1.1"},
+      {:postgrex, ">= 0.0.0"},
+      {:phoenix_html, "~> 2.0"},
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:poison, "~> 1.4.0"},
+      {:cowboy, "~> 1.0"},
+      {:plug_cors, "~> 0.7.3"},
+      {:inflex, "~> 1.4.1"},
+      {:rollbax, "~> 0.0.1"},
+      {:tuco_tuco, github: "fazibear/tuco_tuco"},
+      {:webdriver, path: "/Users/fazibear/dev/elixir-webdriver", override: true}
+    ]
   end
 end
