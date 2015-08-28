@@ -17,7 +17,7 @@ before_install:
 script:
   - webpack -t
   - mix test
-  - node_modules/.bin/karma start
+  - karma start
 
 deploy:
   provider: heroku
