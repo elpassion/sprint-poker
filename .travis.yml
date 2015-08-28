@@ -15,6 +15,7 @@ before_install:
   - npm install
 
 script:
+  - webpack -t
   - mix test
   - node_modules/.bin/karma start
 
