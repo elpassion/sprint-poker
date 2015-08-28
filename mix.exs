@@ -28,12 +28,10 @@ defmodule PlanningPoker.Mixfile do
      ~w(
        phoenix phoenix_html cowboy logger
        phoenix_ecto postgrex poison rollbax
-      tuco_tuco
        )a
   end
 
   defp applications :test do
-    IO.inspect "test"
     applications ++ ~w(tuco_tuco)a
   end
 
@@ -60,8 +58,8 @@ defmodule PlanningPoker.Mixfile do
       {:plug_cors, "~> 0.7.3"},
       {:inflex, "~> 1.4.1"},
       {:rollbax, "~> 0.0.1"},
-      {:tuco_tuco, github: "fazibear/tuco_tuco"},
-      {:webdriver, path: "/Users/fazibear/dev/elixir-webdriver", override: true}
+      {:tuco_tuco, "~> 0.7.1"},
+      {:webdriver, github: "fazibear/elixir-webdriver", branch: "update-dependencies", override: true}
     ]
   end
 end

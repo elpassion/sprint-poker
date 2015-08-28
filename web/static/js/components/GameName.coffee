@@ -25,6 +25,7 @@ GameName = React.createClass
         <span className="simple-row">Session Title:</span>
         <input className="simple-row full-width"
           type="text"
+          name="game_name"
           placeholder="Enter Session Title"
           value={ @state.game.name }
           onChange={ @onChangeGameName }

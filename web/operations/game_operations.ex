@@ -21,10 +21,10 @@ defmodule PlanningPoker.GameOperations do
     game
   end
 
-  def find(nil), do: nil
+  def find(nil), do: :no_id
   def find(game_id) do
     case Game.get(game_id) do
-      nil -> nil
+      nil -> :error
       game -> game |> Repo.preload([:owner, :deck])
     end
   end

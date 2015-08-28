@@ -27,6 +27,7 @@ UserName = React.createClass
         <span className="simple-row">Your Nickname:</span>
         <input className="simple-row full-width"
           type="text"
+          name="user_name"
           placeholder="Enter Your Nickname"
           value={ @state.user.name }
           onChange={ @onChangeUserName }
