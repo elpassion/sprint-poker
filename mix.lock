@@ -9,7 +9,7 @@
   "idna": {:hex, :idna, "1.0.2"},
   "inflex": {:hex, :inflex, "1.4.1"},
   "jazz": {:hex, :jazz, "0.2.1"},
-  "phoenix": {:hex, :phoenix, "0.17.1"},
+  "phoenix": {:hex, :phoenix, "1.0.0"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "1.1.0"},
   "phoenix_html": {:hex, :phoenix_html, "2.1.2"},
   "phoenix_live_reload": {:hex, :phoenix_live_reload, "1.0.0"},
