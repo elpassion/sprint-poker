@@ -10,9 +10,7 @@ GameMixin =
       users: []
       tickets: []
       owner: {}
-      deck: {
-        id: 1
-      }
+      deck: {}
     }
 
     @channelEvents ||= []

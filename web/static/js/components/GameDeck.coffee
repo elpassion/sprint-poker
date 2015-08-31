@@ -12,6 +12,10 @@ GameDeck = React.createClass
   onChangeGameDeck: (e) ->
     Actions.changeGameDeckId(e.target.value)
 
+  componentDidUpdate: ->
+    if @state.game.deck.id != null && @state.decks.length != 0
+      @state.game.deck.id = @state.decks[0].id
+
   render: ->
     <div className="form-group row">
       <label className="col-xs-12 start-xs">
