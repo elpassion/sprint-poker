@@ -34,8 +34,14 @@ Store = Reflux.createStore
   listenables: [ Actions ]
 
   init: ->
-    @socket = new Socket("/ws")
     @currentGame = null
+    @socket = new Socket("/ws")
+    @socket.onOpen (ev)  =>
+      @errors.socket = null
+      @emit()
+    @socket.onError (ev) =>
+      @errors.socket = 'Server connection error'
+      @emit()
 
   getInitialState: ->
     @getState()
