@@ -27,6 +27,7 @@ GameNewTicketOwner = React.createClass
               </td>
               <td className="name-column" colSpan="2">
                 <input
+                  name="new_ticket"
                   className="full-width"
                   type="text"
                   placeholder="enter your ticket name here"

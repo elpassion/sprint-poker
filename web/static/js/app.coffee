@@ -1,6 +1,4 @@
-require 'flexboxgrid'
-require 'normalize.css'
-require '../css/app.sass'
+require 'bootstrap-sass!./../../../bootstrap-sass.config.js'
 
 React = require 'react'
 { Router, Route, Redirect } = require 'react-router'
