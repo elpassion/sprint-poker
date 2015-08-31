@@ -13,7 +13,7 @@ GameDeck = React.createClass
     Actions.changeGameDeckId(e.target.value)
 
   componentDidUpdate: ->
-    if @state.game.deck.id != null && @state.decks.length != 0
+    if @state.game.deck.id == undefined && @state.decks.length != 0
       @state.game.deck.id = @state.decks[0].id
 
   render: ->
