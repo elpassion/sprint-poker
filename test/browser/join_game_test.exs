@@ -16,10 +16,8 @@ defmodule PlanningPoker.JoinGameTest do
 
     Page.has_xpath? @game_url_xpath
 
-    room_url = Element.attribute(
-      Finder.find(:xpath, @game_url_xpath),
-      :value
-    )
+    room_url = Finder.find(:xpath, @game_url_xpath)
+    |> Element.attribute(:value)
 
     {:ok, room_url: room_url}
   end
@@ -27,12 +25,10 @@ defmodule PlanningPoker.JoinGameTest do
   test "join page has session name", context do
     visit context[:room_url]
     assert Page.has_text? "Join session ?"
-    assert Page.has_xpath? @game_name_xpath
+    Page.has_xpath? @game_name_xpath
 
-    session_name = Element.attribute(
-      Finder.find(:xpath, @game_name_xpath),
-      :value
-    )
+    session_name = Finder.find(:xpath, @game_name_xpath)
+    |> Element.attribute(:value)
 
     assert session_name == "Test Game"
   end
@@ -40,12 +36,10 @@ defmodule PlanningPoker.JoinGameTest do
   test "join page has session owner", context do
     visit context[:room_url]
     assert Page.has_text? "Join session ?"
-    assert Page.has_xpath? @game_owner_xpath
+    Page.has_xpath? @game_owner_xpath
 
-    owner_name = Element.attribute(
-      Finder.find(:xpath, @game_owner_xpath),
-      :value
-    )
+    owner_name = Finder.find(:xpath, @game_owner_xpath)
+    |> Element.attribute(:value)
 
     assert owner_name == "Test Owner User"
   end
@@ -53,25 +47,23 @@ defmodule PlanningPoker.JoinGameTest do
   test "join page has session deck", context do
     visit context[:room_url]
     assert Page.has_text? "Join session ?"
-    assert Page.has_xpath? @game_deck_xpath
+    Page.has_xpath? @game_deck_xpath
 
-    deck_name = Element.attribute(
-      Finder.find(:xpath, @game_deck_xpath),
-      :value
-    )
+    deck_name = Finder.find(:xpath, @game_deck_xpath)
+    |> Element.attribute(:value)
 
     assert deck_name == "2"
   end
 
-  test "join page has user owner", context do
+  test "join page has user name", context do
     visit context[:room_url]
     assert Page.has_text? "Join session ?"
-    assert Page.has_xpath? @game_user_xpath
+    Page.has_xpath? @game_user_xpath
 
-    user_name = Element.attribute(
-      Finder.find(:xpath, @game_user_xpath),
-      :value
-    )
+    user_name = Finder.find(:xpath, @game_user_xpath)
+    |> Element.attribute(:value)
+
+    save_screenshot "bang.png"
 
     assert user_name == "Test Owner User"
   end
