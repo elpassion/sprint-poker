@@ -54,7 +54,7 @@ module.exports = {
     // "panels": true,
     // "wells": true,
     // "responsive-embed": true,
-    // "close": true,
+    "close": true,
     //
     // "modals": true,
     // "tooltip": true,
