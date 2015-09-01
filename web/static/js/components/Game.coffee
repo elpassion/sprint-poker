@@ -10,6 +10,7 @@ Cards = require './Cards'
 GameCurrentTicket = require './GameCurrentTicket'
 GameCurrentTicketOwner = require './GameCurrentTicketOwner'
 GameOwnerControls = require './GameOwnerControls'
+Errors = require './Errors'
 
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
@@ -28,6 +29,7 @@ Game = React.createClass
       <div className="container">
         <div className="row">
           <div className="col-md-8">
+            <Errors/>
             <GameCurrentTicket/>
             <Cards disabled={ @state.gameState.name != 'voting' }/>
             { if @state.user.id == @state.game.owner.id
