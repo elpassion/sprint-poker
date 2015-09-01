@@ -16,6 +16,11 @@ GameNewTicketOwner = React.createClass
     Actions.submitNewTicket()
     e.preventDefault()
 
+  onNewTicketKeyDown: (e) ->
+    if e.which == 13
+      Actions.submitNewTicket()
+      e.preventDefault()
+
   render: ->
     <tr>
       <th>
@@ -29,6 +34,7 @@ GameNewTicketOwner = React.createClass
           placeholder="enter your ticket name here"
           value={ @state.newTicket.name }
           onChange={ @onNewTicketChange }
+          onKeyDown={ @onNewTicketKeyDown }
         />
       </td>
       <td></td>

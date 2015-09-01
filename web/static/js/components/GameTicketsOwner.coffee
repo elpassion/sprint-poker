@@ -19,6 +19,7 @@ GameTickets = React.createClass
     Actions.changeTicketName(e.target.dataset.id, e.target.value)
 
   onSubmitTicketName: (e) ->
+    console.log e
     if e.which == 13
       Actions.submitTicketName(e.target.dataset.id, e.target.value)
       e.preventDefault()
