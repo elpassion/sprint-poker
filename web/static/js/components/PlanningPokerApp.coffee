@@ -16,10 +16,7 @@ PlanningPokerApp = React.createClass
       @transitionTo "/"
 
   render: ->
-    <div className='main row center-xs middle-xs'>
-      { if @state.errors.socket != null
-        <div className="errors col-xs-12 col-md-6">{ @state.errors.socket }</div>
-      }
+    <div className="container">
       { this.props.children }
     </div>
 

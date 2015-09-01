@@ -1,153 +1,51 @@
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600&subset=latin,latin-ext)
+.center-block
+  float: none !important
 
-@import 'partials/distances'
-@import 'partials/colors'
-
-@import 'partials/buttons'
-@import 'partials/forms'
-@import 'partials/helper-classes'
-
-@import 'NewSession'
-@import 'Sessions'
-@import 'SessionLobby'
-
-*
-  box-sizing: border-box
-
-html
-  font-family: 'Source Sans Pro', sans-serif
+body
   font-weight: 300
-  color: $dark-gray
-
-html,
-body,
-.main
-  background-color: $background-white
-  margin: 0
-  padding: 0
-
-.tickets-list
-  caption
-    text-align: left
-    color: #222222
-    font-size: 20px
-    font-weight: 600
-    margin-bottom: 25px
-
-    .counter
-      color: #bebebe
-      font-weight: 400
-
-  > tbody
-    > tr
-      border-bottom: 1px solid #eeeeee
-
-      &:first-of-type
-        border-top: 1px solid #eeeeee
-
-  tr.selected
-    border: 1px solid red
-  tr
-    height: 50px
-
-    &:nth-child(even)
-      background-color: #f4f4f4
-
-    .index-column
-      color: #888888
-      font-size: 14px
-      font-weight: 400
-      width: 50px
-
-    .name-column
-      text-align: left
-      color:  #222222
-      font-size: 14px
-      font-weight: 400
-      padding:
-        left: 10px
-        right: 10px
-
-      input
-        background: none
-        border: none
-        outline: none
 
 
-    .estimation-column
-      background-color: #fff
-      color: #ff7743
-      font-size: 16px
-      font-weight: 600
-      width: 100px
-      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.04)
+.logo
+  margin: 20px 0 40px 0
 
-    .delete-column
-      font-weight: 600
-      color: #aaaaaa
-      width: 100px
-
-      a,
-      input
-        display: block
-        height: 100%
-        width: 100%
-        background: none
-        border: none
-        outline: none
-        line-height: 44px
-        color:  #aaaaaa
-        font-size: 12px
-        font-weight: 700
-        text-decoration: none
-
-        &:hover
-          color: #ff7743
-
-.users-list
-  > tbody
-    > tr
-      border-bottom: 1px solid #eeeeee
-
-      &:first-of-type
-        border-top: 1px solid #eeeeee
-
-  caption
-    text-align: left
-    color: #222222
-    font-size: 20px
-    font-weight: 600
-    margin-bottom: 25px
-
-    .counter
-      color: #bebebe
-      font-weight: 400
-
-  tr
-    height: 51px
-    font-size: 14px
-    color: #444444
-
-    .points
-      background-color: rgba(255, 255, 255, 0.8)
-      color: #ff4947
-
-    .name-column.disconnected
-      color: #aaa
-
-    .name-column
-      text-align: left
-      font-size: 14px
-      font-weight: 400
-      padding:
-        left: 10px
-        right: 10px
-
-    .owner-column
-      width: 100px
-      font-weight: 700
-
-.errors
-  border: 1px solid red
-  padding: 10px
+.form
   margin: 10px
+  padding: 40px
+  background-color: #fff
+  border: 1px solid #e7e7e7
+
+  .error
+    color: $brand-danger
+
+  p
+    padding: 0 10px
+    margin-bottom: 30px
+
+  label
+    font-size: 12px
+    letter-spacing: 2.4px
+    text-transform: uppercase
+    font-weight: 300
+
+  select, input
+    font-size: 14px
+    padding: 15px
+
+.btn-big-red
+  background: linear-gradient(90deg, #ff4048 0%, #ff8042 100%)
+  outline: none
+  border: none
+  border-radius: 2px
+  text-transform: uppercase
+  font-size: 18px
+  letter-spacing: 2px
+  font-weight: 500
+  color: #FFF
+  padding: 20px
+  width: 100%
+
+  &:hover,
+  &:focus
+    background: linear-gradient(90deg, #ff4048 0%, #ff8042 100%)
+    color: #FFF
+

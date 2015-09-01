@@ -1,9 +1,8 @@
 module.exports = {
-  preBootstrapCustomizations: "web/static/css/pre-bootstrap-customizations.scss",
-  bootstrapCustomizations: "web/static/css/bootstrap-customizations.scss",
-
-  mainSass: "web/static/css/app.scss",
-  verbose: true,
+  //preBootstrapCustomizations: "web/static/css/pre-bootstrap-customizations.sass",
+  bootstrapCustomizations: "web/static/css/variables.sass",
+  mainSass: "web/static/css/app.sass",
+  verbose: false,
   debug: false,
 
   scripts: {

@@ -17,30 +17,29 @@ GameDeck = React.createClass
       @state.game.deck.id = @state.decks[0].id
 
   render: ->
-    <div className="form-group row">
-      <label className="col-xs-12 start-xs">
-        <span className="simple-row">Session Deck:</span>
-          <select className="simple-row full-width"
-            name="game_deck"
-            value={ @state.game.deck.id }
-            onChange={ @onChangeGameDeck }
-            disabled={ @props.disabled }
-          >
-            {
-              for option in @state.decks
-                <option
-                  value={ option.id }
-                  key={ option.id }>
+    <div className="form-group">
+      <label for="game_deck">Session Deck:</label>
+      <select
+        className="form-control"
+        name="game_deck"
+        value={ @state.game.deck.id }
+        onChange={ @onChangeGameDeck }
+        disabled={ @props.disabled }
+      >
+        {
+          for option in @state.decks
+            <option
+              value={ option.id }
+              key={ option.id }>
 
-                  { option.name } ({ _.take(option.cards,5).join(', ') }
-                  { if option.cards.length > 5
-                    ', ...'
-                  }
-                  )
-                </option>
-            }
-          </select>
-      </label>
+              { option.name } ({ _.take(option.cards,5).join(', ') }
+              { if option.cards.length > 5
+                ', ...'
+              }
+              )
+            </option>
+        }
+      </select>
     </div>
 
 module.exports = GameDeck
