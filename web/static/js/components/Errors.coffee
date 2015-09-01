@@ -14,7 +14,7 @@ Errors = React.createClass
 
   render: ->
     <div>
-      { if @state.errors.socket != null
+      { if @state.errors.socket != null && @state.errors.socket != undefined
         <div className="alert alert-danger">
           { @state.errors.socket}
         </div>
