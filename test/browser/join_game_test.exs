@@ -80,6 +80,8 @@ defmodule PlanningPoker.JoinGameTest do
     visit context[:room_url]
     assert Page.has_text? "Join session ?"
     click_button "Join Session"
+    Page.has_text? "Test Game"
+
     refute Page.has_text? "Session Title Cant be blank"
     refute Page.has_text? "Your Nickname Cant be blank"
     assert Page.has_text? "Test Game"
