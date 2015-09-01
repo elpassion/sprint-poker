@@ -34,7 +34,7 @@ body
 .label
   margin: 0 1px
 
-.btn-big-red
+button.btn-big-red
   background: linear-gradient(90deg, #ff4048 0%, #ff8042 100%)
   outline: none
   border: none
@@ -52,7 +52,7 @@ body
     background: linear-gradient(90deg, #ff4048 0%, #ff8042 100%)
     color: #FFF
 
-.btn-gray
+button.btn-gray
   border: none
   width: 100%
   height: 100%
@@ -65,7 +65,8 @@ body
   &:hover,
   &:focus
     color: #ff4847
-
+    border: none
+    outline: none
 
 nav.navbar
   border-top: 4px solid #ff4847
@@ -129,3 +130,25 @@ input.input-gray
   &:focus
     border: none
     outline: none
+
+
+.deck
+  &.disabled
+     cursor: not-allowed
+
+  .card
+    margin: 5px
+    width: 110px
+    height: 130px
+    border: 2px solid #eee
+    text-align: center
+    font-size: 50px
+    font-weight: 800
+    line-height: 130px
+    color: #000
+    background: #FFF
+    float: left
+
+    &.selected
+      background: linear-gradient(90deg, #ff4048 0%, #ff8042 100%)
+      color: #FFF
