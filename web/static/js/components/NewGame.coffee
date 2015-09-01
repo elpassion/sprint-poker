@@ -34,20 +34,22 @@ NewGame = React.createClass
     Actions.join('lobby')
 
   render: ->
-    <div className="row col-xs-12 col-md-5 center-block">
-      <div className="logo text-center">
-        <img src={Logo}/>
+    <div className="container">
+      <div className="row col-xs-12 col-md-5 center-block">
+        <div className="logo text-center">
+          <img src={Logo}/>
+        </div>
+        <Errors/>
+        <form className="form" onSubmit={ @onCreateGame }>
+          <p className="text-center">
+            Use online Planning Poker to easy estimate and plan tickets with your team. Your room will only be seen by those you invite.
+          </p>
+          <GameName/>
+          <GameDeck/>
+          <UserName/>
+          <button className="btn btn-big-red" type="submit">Start Session</button>
+        </form>
       </div>
-      <Errors/>
-      <form className="form" onSubmit={ @onCreateGame }>
-        <p className="text-center">
-          Use online Planning Poker to easy estimate and plan tickets with your team. Your room will only be seen by those you invite.
-        </p>
-        <GameName/>
-        <GameDeck/>
-        <UserName/>
-        <button className="btn btn-big-red" type="submit">Start Session</button>
-      </form>
     </div>
 
 module.exports = NewGame

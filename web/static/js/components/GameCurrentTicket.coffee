@@ -10,26 +10,21 @@ GameCurrentTicket = React.createClass
   ]
 
   render: ->
-    <table className="tickets-list full-width">
-      <tbody>
-        { if @state.gameState.name != 'none'
-            <tr>
-              <td>
-                <table className="full-width">
-                  <tr>
-                    <td className="index-column">
-                      { @state.gameState.currentTicketIndex + 1 }
-                    </td>
-                    <td className="name-column">
-                      { @state.game.tickets[@state.gameState.currentTicketIndex].name }
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-        }
-      </tbody>
-    </table>
+    if @state.gameState.name != 'none'
+      <table className="table table-striped">
+        <tbody>
+          <tr>
+            <th>
+              { @state.gameState.currentTicketIndex + 1 }
+            </th>
+            <td>
+              { @state.game.tickets[@state.gameState.currentTicketIndex].name }
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    else
+      <div/>
 
 module.exports = GameCurrentTicket
 

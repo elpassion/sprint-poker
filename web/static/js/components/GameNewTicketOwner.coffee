@@ -18,31 +18,23 @@ GameNewTicketOwner = React.createClass
 
   render: ->
     <tr>
-      <td colSpan="4">
-        <form onSubmit={ @onNewTicketSubmit }>
-          <table className="full-width">
-            <tr>
-              <td className="index-column">
-                -
-              </td>
-              <td className="name-column" colSpan="2">
-                <input
-                  name="new_ticket"
-                  className="full-width"
-                  type="text"
-                  placeholder="enter your ticket name here"
-                  value={ @state.newTicket.name }
-                  onChange={ @onNewTicketChange }
-                />
-              </td>
-              <td className="delete-column">
-                <input type="submit" value="CREATE"/>
-              </td>
-            </tr>
-          </table>
-        </form>
+      <th>
+        -
+      </th>
+      <td>
+        <input
+          className="input-gray"
+          name="new_ticket"
+          type="text"
+          placeholder="enter your ticket name here"
+          value={ @state.newTicket.name }
+          onChange={ @onNewTicketChange }
+        />
       </td>
+      <td></td>
+      <th>
+        <button className="btn btn-gray" onClick={ @onNewTicketSubmit }>CREATE</button>
+      </th>
     </tr>
 
 module.exports = GameNewTicketOwner
-

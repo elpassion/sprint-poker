@@ -25,26 +25,24 @@ GameOwnerControls = React.createClass
     Actions.changeTicketPoints(e.target.value)
 
   render: ->
-    <table className="users-list full-width">
+    <table className="table table-striped">
       <tbody>
         <tr>
-          <td className="name-column">
-            { if @state.gameState.name == "none"
-              <input type="button" value="Start" onClick={ @onStartVotingClick }/>
-            }
-            { if @state.gameState.name == "voting"
-              <input type="button" value="Finish" onClick={ @onFinishVotingClick }/>
-            }
-            { if @state.gameState.name == "finished"
-              <input type="button" value="Next" onClick={ @onNextClick }/>
-            }
-            { if @state.gameState.name == "finished"
-              <input type="button" value="Vote Again" onClick={ @onVoteAgainClick }/>
-            }
-          </td>
-          <td className="name-column">
-            { if @state.gameState.name == "finished"
-              <select className="simple-row full-width"
+          { if @state.gameState.name == "none"
+            <td><button className="btn btn-gray" onClick={ @onStartVotingClick }>START</button></td>
+          }
+          { if @state.gameState.name == "voting"
+           <td><button className="btn btn-gray" onClick={ @onFinishVotingClick }>FINISH</button></td>
+          }
+          { if @state.gameState.name == "finished"
+            <td><button className="btn btn-gray" onClick={ @onNextClick }>NEXT</button></td>
+          }
+          { if @state.gameState.name == "finished"
+            <td><button className="btn btn-gray" onClick={ @onVoteAgainClick }>AGAIN</button></td>
+          }
+          { if @state.gameState.name == "finished"
+            <td className="points">
+              <select className="input-gray"
                 value={ @state.game.tickets[@state.gameState.currentTicketIndex].points }
                 onChange={ @onTicketPointsChange }
                 disabled={ @props.disabled }
@@ -59,12 +57,11 @@ GameOwnerControls = React.createClass
                     </option>
                 }
               </select>
-            }
-          </td>
+            </td>
+          }
         </tr>
       </tbody>
     </table>
-
 module.exports = GameOwnerControls
 
 

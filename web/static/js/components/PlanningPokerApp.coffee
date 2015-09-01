@@ -16,8 +16,6 @@ PlanningPokerApp = React.createClass
       @transitionTo "/"
 
   render: ->
-    <div className="container">
-      { this.props.children }
-    </div>
+    this.props.children
 
 module.exports = PlanningPokerApp

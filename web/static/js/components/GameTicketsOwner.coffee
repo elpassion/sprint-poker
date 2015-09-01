@@ -27,7 +27,7 @@ GameTickets = React.createClass
     Actions.submitTicketName(e.target.dataset.id, e.target.value)
 
   render: ->
-    <table className="tickets-list full-width">
+    <table className="table table-striped">
       <caption>
         <span>
           Tickets list&nbsp;
@@ -38,39 +38,31 @@ GameTickets = React.createClass
       </caption>
       <tbody>
         { for ticket, i in @state.game.tickets
-          <tr key={ ticket.id }>
+          <tr key={ ticket.id } className={ if @state.gameState.currentTicketIndex == i then "danger"}>
+            <th>
+              { i + 1 }
+            </th>
             <td>
-              <form>
-                <table className="full-width">
-                  <tr className={ if @state.gameState.currentTicketIndex == i then "selected"}>
-                    <td className="index-column">
-                      { i + 1 }
-                    </td>
-                    <td className="name-column">
-                      <input
-                        className="full-width"
-                        type="text"
-                        data-id={ ticket.id }
-                        value={ ticket.name }
-                        onChange={ @onChangeTicketName }
-                        onKeyDown={ @onSubmitTicketName }
-                        onBlur={ @onBlurTicketName }
-                      />
-                    </td>
-                    <td className="estimation-column">
-                      { ticket.points }
-                    </td>
-                    <td className="delete-column">
-                      <input type="button" data-id={ticket.id} value="DELETE" onClick={ @onDeleteTicket }/>
-                    </td>
-                  </tr>
-                </table>
-              </form>
+              <input
+                className="input-gray"
+                type="text"
+                data-id={ ticket.id }
+                value={ ticket.name }
+                onChange={ @onChangeTicketName }
+                onKeyDown={ @onSubmitTicketName }
+                onBlur={ @onBlurTicketName }
+              />
             </td>
+            <td className="points text-center">
+              { ticket.points }
+            </td>
+            <th>
+              <button className="btn btn-gray" data-id={ticket.id} onClick={ @onDeleteTicket }>DELETE</button>
+            </th>
           </tr>
         }
         <GameNewTicketOwner/>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
 
 module.exports = GameTickets

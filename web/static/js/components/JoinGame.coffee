@@ -26,30 +26,32 @@ JoinGame = React.createClass
     e.preventDefault()
 
   render: ->
-    <div className="row col-xs-12 col-md-5 center-block">
-      <div className="logo text-center">
-        <img src={Logo}/>
-      </div>
-      <Errors/>
-      <form className="form" onSubmit={ @onJoinGame }>
-        <p className="text-center">
-          Join session ?
-        </p>
-        <div className="form-group">
-          <label for="game_owner">Session Owner:</label>
-          <input className="form-control"
-            name="game_owner"
-            type="text"
-            placeholder="Session Owner"
-            value={ @state.game.owner.name }
-            disabled
-          />
+    <div className="container">
+      <div className="row col-xs-12 col-md-5 center-block">
+        <div className="logo text-center">
+          <img src={Logo}/>
         </div>
-        <GameName disabled={ true }/>
-        <GameDeck disabled={ true }/>
-        <UserName/>
-        <button className="btn btn-big-red" type="submit">Join Session</button>
-      </form>
+        <Errors/>
+        <form className="form" onSubmit={ @onJoinGame }>
+          <p className="text-center">
+            Join session ?
+          </p>
+          <div className="form-group">
+            <label for="game_owner">Session Owner:</label>
+            <input className="form-control"
+              name="game_owner"
+              type="text"
+              placeholder="Session Owner"
+              value={ @state.game.owner.name }
+              disabled
+            />
+          </div>
+          <GameName disabled={ true }/>
+          <GameDeck disabled={ true }/>
+          <UserName/>
+          <button className="btn btn-big-red" type="submit">Join Session</button>
+        </form>
+      </div>
     </div>
 
 module.exports = JoinGame

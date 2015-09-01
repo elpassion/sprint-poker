@@ -10,7 +10,7 @@ GameUsers = React.createClass
   ]
 
   render: ->
-    <table className="users-list full-width">
+    <table className="table table-striped">
       <caption>
         <span>
           Team&nbsp;
@@ -22,17 +22,20 @@ GameUsers = React.createClass
       <tbody>
         { for user in @state.game.users
           <tr key={user.id}>
-            <td className={"name-column #{user.state}"}>
-              {user.name}
-              {if user.id == @state.game.owner.id
-                <span>&nbsp;OWNER</span>
-              }
-              {if user.id == @state.user.id
-                <span>&nbsp;YOU</span>
-              }
+            <td>
+                {user.name}
+                {if user.id == @state.game.owner.id
+                  <span className="label label-default pull-right">OWNER</span>
+                }
+                {if user.id == @state.user.id
+                  <span className="label label-primary pull-right">YOU</span>
+                }
+                {if user.state == 'disconnected'
+                  <span className="label label-danger pull-right">DISCONNECTED</span>
+                }
             </td>
             { if @state.gameState.name != 'none'
-              <td className="owner-column points">
+              <td className="points text-center">
                 { @state.gameState.votes[user.id] || 'waiting ...' }
               </td>
             }
