@@ -33,11 +33,7 @@ GameOwnerControls = React.createClass
                 <td>Final estimation</td>
                 <td className="points">
                   <select className="input-gray"
-                    value={
-                      ticket = _.find @state.game.tickets, (ticket) =>
-                        ticket.id == @state.gameState.currentTicketId
-                      ticket.points
-                    }
+                    value={ @state.game.tickets[@state.gameState.currentTicketId].poits }
                     onChange={ @onTicketPointsChange }
                     disabled={ @props.disabled }
                   >

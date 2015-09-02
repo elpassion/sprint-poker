@@ -10,18 +10,13 @@ GameCurrentTicket = React.createClass
   ]
 
   render: ->
-    idx = _.findIndex @state.game.tickets, (ticket) =>
-      ticket.id == @state.gameState.currentTicketId
+    ticketIdx = Object.keys(@state.game.tickets).indexOf(String(@state.gameState.currentTicketId)) + 1
     if @state.gameState.name != 'none'
       <caption className="current-ticket">
-        <span className="id">
-          { idx + 1 }
-        </span>
-        {
-          @state.game.tickets[idx].name
-        }
+        <span className="id">{ ticketIdx }</span>
+        { @state.game.tickets[@state.gameState.currentTicketId].name }
         <span className="counter">
-          &nbsp;({ idx + 1 }/{ @state.game.tickets.length })
+          &nbsp;({ ticketIdx }/{ Object.keys(@state.game.tickets).length })
         </span>
       </caption>
     else

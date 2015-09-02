@@ -37,10 +37,10 @@ GameTickets = React.createClass
         </span>
       </caption>
       <tbody>
-        { for ticket, i in @state.game.tickets
+        { for ticketId, ticket of @state.game.tickets
           <tr key={ ticket.id } className={ if @state.gameState.currentTicketId == ticket.id then "selected" }>
             <th>
-              { i + 1 }
+              { Object.keys(@state.game.tickets).indexOf(ticketId) + 1 }
             </th>
             <td>
               <input

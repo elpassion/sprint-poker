@@ -19,7 +19,6 @@ defmodule PlanningPoker.Web do
   def model do
     quote do
       use Ecto.Model
-      use SelfQuery
     end
   end
 
