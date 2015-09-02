@@ -11,7 +11,7 @@ defmodule PlanningPoker.State do
 
   @required_fields ~w(game_id name)
   @optional_fields ~w(current_ticket_id votes)
-  @state_names ~w(none voting finished)
+  @state_names ~w(none voting review)
 
   def changeset(model, params \\ :empty) do
     model

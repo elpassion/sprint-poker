@@ -25,10 +25,10 @@ GameUsers = React.createClass
             <td>
               {user.name}
               {if user.id == @state.game.owner.id
-                <span className="label label-default pull-right">Owner</span>
+                <span className="label label-primary pull-right">Owner</span>
               }
               {if user.id == @state.user.id
-                <span className="label label-primary pull-right">You</span>
+                <span className="label label-default pull-right">You</span>
               }
               {if user.state == 'disconnected'
                 <span className="label label-danger pull-right">Disconnected</span>

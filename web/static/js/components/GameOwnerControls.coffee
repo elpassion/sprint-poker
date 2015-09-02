@@ -26,7 +26,7 @@ GameOwnerControls = React.createClass
 
   render: ->
     <div>
-      { if @state.gameState.name == "finished"
+      { if @state.gameState.name == "review"
         <table className="table">
           <tbody>
               <tr>
@@ -62,10 +62,10 @@ GameOwnerControls = React.createClass
       { if @state.gameState.name == "voting"
         <button className="btn btn-gray-border" onClick={ @onFinishVotingClick }>Final Estimation</button>
       }
-      { if @state.gameState.name == "finished"
+      { if @state.gameState.name == "review"
         <button className="btn btn-gray-border" onClick={ @onNextClick }>Next Ticket</button>
       }
-      { if @state.gameState.name == "finished"
+      { if @state.gameState.name == "review"
         <button className="btn btn-gray-border" onClick={ @onVoteAgainClick }>Vote Again</button>
       }
   </div>

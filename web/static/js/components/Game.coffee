@@ -10,6 +10,8 @@ Cards = require './Cards'
 GameCurrentTicket = require './GameCurrentTicket'
 GameOwnerControls = require './GameOwnerControls'
 Errors = require './Errors'
+InfoOwner = require './InfoOwner'
+Info = require './Info'
 
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
@@ -38,6 +40,11 @@ Game = React.createClass
             }
           </div>
           <div className="col-md-4">
+            { if @state.user.id == @state.game.owner.id
+                <InfoOwner/>
+              else
+                <Info/>
+            }
             <GameUsers/>
             { if @state.user.id == @state.game.owner.id
               <GameOwnerControls/>

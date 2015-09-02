@@ -36,7 +36,7 @@ StateMixin =
     @emit()
 
   onFinishVoting: ->
-    @channel.push "state:update", { state: { name: 'finished' } }
+    @channel.push "state:update", { state: { name: 'review' } }
 
 
 module.exports = StateMixin
