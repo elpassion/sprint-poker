@@ -56,7 +56,7 @@ GameOwnerControls = React.createClass
         <button className="btn btn-gray-border" onClick={ @onStartVotingClick }>Start Voting</button>
       }
       { if @state.gameState.name == "voting"
-        <button className="btn btn-gray-border" onClick={ @onFinishVotingClick }>Final Estimation</button>
+        <button className="btn btn-gray-border" onClick={ @onFinishVotingClick }>Review Points</button>
       }
       { if @state.gameState.name == "review"
         <button className="btn btn-gray-border" onClick={ @onNextClick }>Next Ticket</button>
