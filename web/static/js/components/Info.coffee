@@ -11,7 +11,7 @@ Info = React.createClass
 
   info: ->
     if @state.gameState.name == 'none'
-      if @state.game.tickets.length < 1
+      if Object.keys(@state.game.tickets).length < 1
         "Wait for owner to create some tickets."
       else
         "Wait for owner to start voting."

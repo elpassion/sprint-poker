@@ -13,7 +13,7 @@ Info = React.createClass
   ]
 
   info: ->
-    if @state.game.tickets.length == 0
+    if Object.keys(@state.game.tickets).length == 0
       "Please add some tickets to the tickets list."
     else if @state.gameState.name == 'none'
       "Start voting."
