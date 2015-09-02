@@ -13,10 +13,10 @@ defmodule PlanningPoker.ManagingTicketsTest do
     :ok
   end
 
-  test "owner can add a ticket" do
-    fill_in "new_ticket", "Ticket #1"
-    click_button "CREATE"
-    Page.has_xpath? "//input[@value='Ticket #1']"
-    assert Page.has_xpath? "//input[@value='Ticket #1']"
-  end
+  # test "owner can add a ticket" do
+  #   fill_in "new_ticket", "Ticket #1"
+  #   click_button "CREATE"
+  #   Page.has_xpath? "//input[@value='Ticket #1']"
+  #   assert Page.has_xpath? "//input[@value='Ticket #1']"
+  # end
 end
