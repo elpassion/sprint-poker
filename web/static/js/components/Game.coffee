@@ -8,7 +8,6 @@ GameTicketsOwner = require './GameTicketsOwner'
 GameUsers = require './GameUsers'
 Cards = require './Cards'
 GameCurrentTicket = require './GameCurrentTicket'
-GameCurrentTicketOwner = require './GameCurrentTicketOwner'
 GameOwnerControls = require './GameOwnerControls'
 Errors = require './Errors'
 

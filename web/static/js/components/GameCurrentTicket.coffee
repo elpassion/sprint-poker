@@ -13,11 +13,15 @@ GameCurrentTicket = React.createClass
     if @state.gameState.name != 'none'
       <caption className="current-ticket">
         <span className="id">
-          { @state.gameState.currentTicketIndex + 1 }
+          { @state.gameState.currentTicketId + 1 }
         </span>
-        { @state.game.tickets[@state.gameState.currentTicketIndex].name }
+        {
+          ticket = _.find @state.game.tickets, (ticket) =>
+            ticket.id == @state.gameState.currentTicketId
+          ticket.name
+        }
         <span className="counter">
-          &nbsp;({ @state.gameState.currentTicketIndex + 1 }/{ @state.game.tickets.length })
+          &nbsp;({ @state.gameState.currentTicketId + 1 }/{ @state.game.tickets.length })
         </span>
       </caption>
     else

@@ -19,7 +19,6 @@ GameTickets = React.createClass
     Actions.changeTicketName(e.target.dataset.id, e.target.value)
 
   onSubmitTicketName: (e) ->
-    console.log e
     if e.which == 13
       Actions.submitTicketName(e.target.dataset.id, e.target.value)
       e.preventDefault()
@@ -39,7 +38,7 @@ GameTickets = React.createClass
       </caption>
       <tbody>
         { for ticket, i in @state.game.tickets
-          <tr key={ ticket.id } className={ if @state.gameState.currentTicketIndex == i then "selected"}>
+          <tr key={ ticket.id } className={ if @state.gameState.currentTicketId == ticket.id then "selected" }>
             <th>
               { i + 1 }
             </th>
@@ -58,7 +57,7 @@ GameTickets = React.createClass
               { ticket.points }
             </td>
             <th>
-              <button className="btn btn-gray" data-id={ticket.id} onClick={ @onDeleteTicket }>Delete</button>
+              <button className="btn btn-gray" data-id={ticket.id} onClick={ @onDeleteTicket } disabled={ if @state.gameState.currentTicketId == ticket.id then true }>Delete</button>
             </th>
           </tr>
         }

@@ -7,7 +7,7 @@ StateMixin =
   init: ->
     @gameState = {
       name: 'none'
-      currentTicketIndex: null
+      currentTicketId: null
       votes: {}
     }
 
@@ -22,14 +22,15 @@ StateMixin =
     @channel.push "state:update:vote", { vote: { points: val } }
     @emit()
 
-  onStartVoting: (index) ->
-    unless index
-      index = _.findIndex @game.tickets, (ticket) ->
+  onStartVoting: (id) ->
+    unless id
+      ticket = _.find @game.tickets, (ticket) ->
         ticket.points == null
-    if index == -1
-      @channel.push "state:update", { state: { current_ticket_index: null, name: 'none', votes: {} } }
+      id = ticket.id
+    if id == null
+      @channel.push "state:update", { state: { current_ticket_id: null, name: 'none', votes: {} } }
     else
-      @channel.push "state:update", { state: { current_ticket_index: index, name: 'voting', votes: {} } }
+      @channel.push "state:update", { state: { current_ticket_id: id, name: 'voting', votes: {} } }
     @emit()
 
   onFinishVoting: ->

@@ -3,14 +3,14 @@ defmodule PlanningPoker.State do
 
   schema "states" do
     belongs_to :game, PlanningPoker.Game, type: :binary_id
-    field :current_ticket_index, :integer
+    field :current_ticket_id, :integer
     field :votes, :map, default: %{}
     field :name, :string
     timestamps
   end
 
   @required_fields ~w(game_id name)
-  @optional_fields ~w(current_ticket_index votes)
+  @optional_fields ~w(current_ticket_id votes)
   @state_names ~w(none voting finished)
 
   def changeset(model, params \\ :empty) do
