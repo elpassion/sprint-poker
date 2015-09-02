@@ -12,29 +12,23 @@ Info = React.createClass
     Reflux.connect(Store)
   ]
 
-  addTicketsInfo: ->
+  info: ->
     if @state.game.tickets.length == 0
       "Please add some tickets to the tickets list."
     else if @state.gameState.name == 'none'
       "Start voting."
-
-  votingInfo: ->
-    if @state.gameState.name == 'voting'
+    else if @state.gameState.name == 'voting'
       if Object.keys(@state.gameState.votes).length == @state.game.users.length
         "All votes collected. You can review all points."
       else
-        "Wait for other votes."
-
-
-  finalEstimationInfo: ->
-    if @state.gameState.name == 'review'
+        "Vote and wait for other votes."
+    else if @state.gameState.name == 'review'
       "Please select final estimation or repeat voting."
 
   render: ->
-    <div className="alert alert-warning">
-      { @addTicketsInfo() }
-      { @votingInfo() }
-      { @finalEstimationInfo() }
-    </div>
+    if @info()
+      <div className="alert alert-warning">
+        { @info() }
+      </div>
 
 module.exports = Info
