@@ -16,7 +16,7 @@ GameTickets = React.createClass
           Tickets list&nbsp;
         </span>
         <span className="counter">
-          ({ @state.game.tickets.length } total)
+          ({ Object.keys(@state.game.tickets).length } total)
         </span>
       </caption>
       <tbody>
