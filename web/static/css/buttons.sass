@@ -15,7 +15,7 @@ button.btn-big-red
   font-size: 18px
   letter-spacing: 2px
   font-weight: 500
-  color: #FFF
+  color: $white
   padding: 20px
   width: 100%
 
@@ -23,7 +23,7 @@ button.btn-big-red
   &:active,
   &:focus
     background: linear-gradient(90deg, #ff4048 0%, #ff8042 100%)
-    color: #FFF
+    color: $white
 
 button.btn-gray
   text-transform: uppercase
@@ -36,9 +36,10 @@ button.btn-gray
   font-weight: 700
   color: $dark-gray
 
-  &:hover,
-  &:active,
   &:focus
+    color: $dark-gray
+
+  &:hover
     color: $orange
     border: none
     outline: none
@@ -50,8 +51,6 @@ button.btn-gray-border
   border: 1px solid $table-border-color
   border-radius: 0
 
-  &:hover,
-  &:active,
-  &:focus
+  &:hover
     border: 1px solid $table-border-color
 
