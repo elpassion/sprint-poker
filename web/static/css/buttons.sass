@@ -26,6 +26,7 @@ button.btn-big-red
     color: #FFF
 
 button.btn-gray
+  text-transform: uppercase
   border: none
   width: 100%
   height: 100%
@@ -41,3 +42,16 @@ button.btn-gray
     color: $orange
     border: none
     outline: none
+
+button.btn-gray-border
+  @extend button.btn-gray
+
+  margin: 5px
+  border: 1px solid $table-border-color
+  border-radius: 0
+
+  &:hover,
+  &:active,
+  &:focus
+    border: 1px solid $table-border-color
+

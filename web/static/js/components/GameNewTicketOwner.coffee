@@ -39,7 +39,7 @@ GameNewTicketOwner = React.createClass
       </td>
       <td></td>
       <th>
-        <button className="btn btn-gray" onClick={ @onNewTicketSubmit }>CREATE</button>
+        <button className="btn btn-gray" onClick={ @onNewTicketSubmit }>Create</button>
       </th>
     </tr>
 

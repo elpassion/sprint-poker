@@ -11,18 +11,15 @@ GameCurrentTicket = React.createClass
 
   render: ->
     if @state.gameState.name != 'none'
-      <table className="table table-striped">
-        <tbody>
-          <tr>
-            <th>
-              { @state.gameState.currentTicketIndex + 1 }
-            </th>
-            <td>
-              { @state.game.tickets[@state.gameState.currentTicketIndex].name }
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <caption className="current-ticket">
+        <span className="id">
+          { @state.gameState.currentTicketIndex + 1 }
+        </span>
+        { @state.game.tickets[@state.gameState.currentTicketIndex].name }
+        <span className="counter">
+          &nbsp;({ @state.gameState.currentTicketIndex + 1 }/{ @state.game.tickets.length })
+        </span>
+      </caption>
     else
       <div/>
 

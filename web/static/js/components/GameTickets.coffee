@@ -10,7 +10,7 @@ GameTickets = React.createClass
   ]
 
   render: ->
-    <table className="table table-striped">
+    <table className="table">
       <caption>
         <span>
           Tickets list&nbsp;
@@ -21,7 +21,7 @@ GameTickets = React.createClass
       </caption>
       <tbody>
         { for ticket, i in @state.game.tickets
-          <tr key={ ticket.id } className={ if @state.gameState.currentTicketIndex == i then "danger"}>
+          <tr key={ ticket.id } className={ if @state.gameState.currentTicketIndex == i then "selected"}>
             <th>
               { i + 1 }
             </th>

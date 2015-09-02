@@ -13,3 +13,18 @@ body
 
 .logo
   margin: 20px 0 40px 0
+
+.label
+  text-transform: uppercase
+
+caption.current-ticket
+  display: block
+  border-bottom: 1px solid $table-border-color
+  margin-bottom: 5px
+
+  span.id
+    &::after
+      content: "."
+
+    color: $orange
+    margin-right: 5px

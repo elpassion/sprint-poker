@@ -28,7 +28,7 @@ GameTickets = React.createClass
     Actions.submitTicketName(e.target.dataset.id, e.target.value)
 
   render: ->
-    <table className="table table-striped">
+    <table className="table">
       <caption>
         <span>
           Tickets list&nbsp;
@@ -39,7 +39,7 @@ GameTickets = React.createClass
       </caption>
       <tbody>
         { for ticket, i in @state.game.tickets
-          <tr key={ ticket.id } className={ if @state.gameState.currentTicketIndex == i then "danger"}>
+          <tr key={ ticket.id } className={ if @state.gameState.currentTicketIndex == i then "selected"}>
             <th>
               { i + 1 }
             </th>
@@ -58,7 +58,7 @@ GameTickets = React.createClass
               { ticket.points }
             </td>
             <th>
-              <button className="btn btn-gray" data-id={ticket.id} onClick={ @onDeleteTicket }>DELETE</button>
+              <button className="btn btn-gray" data-id={ticket.id} onClick={ @onDeleteTicket }>Delete</button>
             </th>
           </tr>
         }

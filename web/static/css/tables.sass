@@ -1,12 +1,4 @@
 table
-  caption
-    font-size: 20px
-    color: $black
-    font-weight: 600
-
-    .counter
-      color: $dark-gray
-      font-weight: 400
   th
     width: 1px
     vertical-align: middle !important
@@ -22,3 +14,19 @@ table
     width: 75pt
     color: $orange
     font-weight: 700
+
+  tr.selected
+    border-left: 1px solid $orange
+    border-right: 1px solid $orange
+    td, th
+      border-top: 1px solid $orange
+      border-bottom: 1px solid $orange
+
+caption
+  font-size: 16px
+  color: $black
+  font-weight: 600
+
+  .counter
+    color: $dark-gray
+    font-weight: 400
