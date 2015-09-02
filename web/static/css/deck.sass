@@ -1,7 +1,4 @@
 .deck
-  &.disabled
-     cursor: not-allowed
-
   .card
     margin: 5px
     width: 110px
@@ -15,6 +12,9 @@
     background: $white
     float: left
     cursor: pointer
+
+    &.disabled
+     cursor: not-allowed
 
     &.selected
       background: linear-gradient(45deg, #ff4048 0%, #ff8042 100%)

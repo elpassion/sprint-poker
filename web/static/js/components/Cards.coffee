@@ -14,11 +14,11 @@ Errors = React.createClass
       Actions.vote(e.target.textContent)
 
   render: ->
-    <div className={ "deck #{if @props.disabled then "disabled"}" }>
+    <div className="deck">
       { for card in @state.game.deck.cards
         <div
           key={ card }
-          className={"card #{if @state.gameState.votes[@state.user.id] == card then "selected" }"}
+          className={"card #{if @state.gameState.votes[@state.user.id] == card then "selected" } #{if @props.disabled then "disabled"}"}
           onClick={ @onCardChange }
         >
           { card }
