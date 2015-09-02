@@ -26,11 +26,13 @@ StateMixin =
     unless id
       ticket = _.find @game.tickets, (ticket) ->
         ticket.points == null
-      id = ticket.id
-    if id == null
-      @channel.push "state:update", { state: { current_ticket_id: null, name: 'none', votes: {} } }
-    else
+      if ticket
+        id = ticket.id
+
+    if id
       @channel.push "state:update", { state: { current_ticket_id: id, name: 'voting', votes: {} } }
+    else
+      @channel.push "state:update", { state: { current_ticket_id: null, name: 'none', votes: {} } }
     @emit()
 
   onFinishVoting: ->
