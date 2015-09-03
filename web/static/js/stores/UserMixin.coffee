@@ -24,7 +24,7 @@ UserMixin =
 
     @user.name = _.trim(@user.name)
 
-    @errors.user.name = "Your Nickname can't be blank" if @user.name == ''
+    @errors.user.name = "Your Nickname can`t be blank" if @user.name == ''
     @errors.user.name = 'Your Nichname is too long' if @user.name.length > 100
 
     @emit()
