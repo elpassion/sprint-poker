@@ -22,7 +22,7 @@ defmodule PlanningPoker.GameChannel do
   end
 
   def terminate(_message, socket) do
-    {game, user} = SocketOperations.game_and_user(socket)
+    {game, user} = SocketOperations.get_game_and_user(socket)
 
     UserOperations.disconnect(user, game)
 
@@ -31,7 +31,7 @@ defmodule PlanningPoker.GameChannel do
   end
 
   def handle_info({:after_join, _message}, socket) do
-    {game, user} = SocketOperations.game_and_user(socket)
+    {game, user} = SocketOperations.get_game_and_user(socket)
 
     game = game |> Game.preload
 
@@ -42,9 +42,9 @@ defmodule PlanningPoker.GameChannel do
   end
 
   def handle_in("ticket:create", message, socket) do
-    {game, user} = SocketOperations.game_and_user(socket)
+    {game, user} = SocketOperations.get_game_and_user(socket)
 
-    if game.owner_id == user.id do
+    if SocketOperations.is_owner?(user, game) do
       TicketOperations.create(message["ticket"], game)
 
       game = game |> Game.preload
@@ -54,9 +54,9 @@ defmodule PlanningPoker.GameChannel do
   end
 
   def handle_in("ticket:delete", message, socket) do
-    {game, user} = SocketOperations.game_and_user(socket)
+    {game, user} = SocketOperations.get_game_and_user(socket)
 
-    if game.owner_id == user.id do
+    if SocketOperations.is_owner?(user, game) do
       TicketOperations.delete(message["ticket"])
 
       game = game |> Game.preload
@@ -66,10 +66,10 @@ defmodule PlanningPoker.GameChannel do
   end
 
   def handle_in("ticket:update", message, socket) do
-    {game, user} = SocketOperations.game_and_user(socket)
+    {game, user} = SocketOperations.get_game_and_user(socket)
     ticket = Repo.get!(Ticket, message["ticket"]["id"])
 
-    if game.owner_id == user.id do
+    if SocketOperations.is_owner?(user, game) do
       TicketOperations.update(ticket, message["ticket"])
 
       game = game |> Game.preload
@@ -79,10 +79,10 @@ defmodule PlanningPoker.GameChannel do
   end
 
   def handle_in("state:update", message, socket) do
-    {game, user} = SocketOperations.game_and_user(socket)
+    {game, user} = SocketOperations.get_game_and_user(socket)
     game = game |> Repo.preload [:state]
 
-    if game.owner_id == user.id do
+    if SocketOperations.is_owner?(user, game) do
       state = StateOperations.update(game.state, message["state"])
       socket |> broadcast "state", %{ state: state }
     end
@@ -90,7 +90,7 @@ defmodule PlanningPoker.GameChannel do
   end
 
   def handle_in("state:update:vote", message, socket) do
-    {game, user} = SocketOperations.game_and_user(socket)
+    {game, user} = SocketOperations.get_game_and_user(socket)
     game = game |> Repo.preload [:state]
 
     state = StateOperations.update(game.state,
