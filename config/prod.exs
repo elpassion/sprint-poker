@@ -40,12 +40,13 @@ config :planning_poker, PlanningPoker.Repo,
 # Where those two env variables point to a file on
 # disk for the key and cert.
 
-# Do not print debug messages in production
-config :logger,
-  backends: [Rollbax.Notifier]
+config :airbrakex,
+  project_key: System.get_env("AIRBRAKE_PROJECT_KEY"),
+  project_id: System.get_env("AIRBRAKE_PROJECT_ID"),
+  environment: Mix.env
 
-config :logger, Rollbax.Notifier,
-  level: :error
+config :logger,
+  backends: [Airbrakex.LoggerBackend]
 
 # ## Using releases
 #

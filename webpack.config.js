@@ -23,7 +23,6 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test:  /bootstrap-sass\/assets\/javascripts\//,  loader: 'imports?jQuery=jquery' },
       { test: /\.js$/,                         loader: 'babel-loader?stage=0', exclude: /(node_modules)/ },
       { test: /\.(cjsx|coffee)$/,              loader: "coffee-jsx-loader" },
 
