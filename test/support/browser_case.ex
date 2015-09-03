@@ -12,6 +12,9 @@ defmodule PlanningPoker.BrowserCase do
         {:ok, _} = TucoTuco.start_session :test_browser, :guest_session, :firefox
         {:ok, _} = TucoTuco.start_session :test_browser, :owner_session, :firefox
         TucoTuco.app_root "http://localhost:#{port}"
+        TucoTuco.use_retry true
+        TucoTuco.max_retry_time 1000
+        TucoTuco.retry_delay 100
 
         on_exit fn -> TucoTuco.stop end
         :ok
