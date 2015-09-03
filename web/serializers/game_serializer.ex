@@ -8,8 +8,7 @@ defimpl Poison.Encoder, for: PlanningPoker.Game do
       name: game.name,
       users: [],
       tickets: [],
-      owner: %{},
-      errors: %{}
+      owner: %{}
     }
 
     if Ecto.Association.loaded?(game.owner) do

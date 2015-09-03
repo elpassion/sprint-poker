@@ -7,13 +7,10 @@ GameMixin =
 
   init: ->
     @game = {
-      errors: {}
       users: []
       tickets: []
       owner: {}
-      deck: {
-        id: 1
-      }
+      deck: {}
     }
 
     @channelEvents ||= []
@@ -38,12 +35,12 @@ GameMixin =
     @emit()
 
   onValidateGameName: ->
-    @game.errors = {}
+    @errors.game = {}
 
     @game.name = _.trim(@game.name)
 
-    @game.errors.name = 'Session Title Cant be blank' if @game.name == ''
-    @game.errors.name = 'Session Title is too long' if @game.name.length > 100
+    @errors.game.name = "Session Title can`t be blank" if @game.name == ''
+    @errors.game.name = 'Session Title is too long' if @game.name.length > 100
 
     @emit()
 

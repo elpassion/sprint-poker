@@ -25,6 +25,7 @@ GameName = React.createClass
         <span className="simple-row">Session Title:</span>
         <input className="simple-row full-width"
           type="text"
+          name="game_name"
           placeholder="Enter Session Title"
           value={ @state.game.name }
           onChange={ @onChangeGameName }
@@ -32,8 +33,8 @@ GameName = React.createClass
           onBlur={ @onBlurGameName }
           disabled={ @props.disabled }
         />
-        {if @state.game.errors.name
-          <span>{ @state.game.errors.name }</span>
+        {if @state.errors.game.name
+          <span>{ @state.errors.game.name }</span>
         }
       </label>
     </div>

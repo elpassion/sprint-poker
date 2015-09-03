@@ -1,6 +1,6 @@
 DeckMixin =
   init: ->
-    @decks = {}
+    @decks = []
 
     @channelEvents ||= []
     @channelEvents.push =>

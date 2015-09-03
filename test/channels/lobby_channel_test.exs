@@ -29,7 +29,9 @@ defmodule PlanningPoker.LobbyChannelTest do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
 
-    decks_response = %{decks: []}
+    decks = Repo.all(Deck)
+
+    decks_response = %{decks: decks}
     assert_push "decks", ^decks_response
   end
 

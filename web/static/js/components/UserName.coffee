@@ -27,14 +27,15 @@ UserName = React.createClass
         <span className="simple-row">Your Nickname:</span>
         <input className="simple-row full-width"
           type="text"
+          name="user_name"
           placeholder="Enter Your Nickname"
           value={ @state.user.name }
           onChange={ @onChangeUserName }
           onKeyDown={ @onSubmitUserName }
           onBlur={ @onBlurUserName }
         />
-        {if @state.user.errors.name
-          <span>{ @state.user.errors.name }</span>
+        {if @state.errors.user.name
+          <span>{ @state.errors.user.name }</span>
         }
       </label>
     </div>

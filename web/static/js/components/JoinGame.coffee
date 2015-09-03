@@ -19,7 +19,7 @@ JoinGame = React.createClass
 
   onJoinGame: (e) ->
     Actions.validateUserName()
-    if _.isEmpty(@state.user.errors)
+    if _.isEmpty(@state.errors.user)
       Actions.setCurrentGame(@props.id)
 
     e.preventDefault()
@@ -36,6 +36,7 @@ JoinGame = React.createClass
             <label className="col-xs-12 start-xs">
               <span className="simple-row">Session Owner:</span>
               <input className="simple-row full-width"
+                name="game_owner"
                 type="text"
                 placeholder="Session Owner"
                 value={ @state.game.owner.name }

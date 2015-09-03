@@ -21,7 +21,9 @@ defmodule PlanningPoker.LobbyChannel do
     socket |> push "decks", %{decks: Repo.all(Deck)}
 
     case GameOperations.find(message["game_id"]) do
-      nil ->
+      :no_id ->
+        :nothing
+      :error ->
         socket |> push "error", %{code: "GAME_ERR", message: "Game not exists"}
       game ->
         socket |> push "game", %{game: game}

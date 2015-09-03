@@ -5,9 +5,7 @@ UserMixin =
     validateUserName: { sync: true }
 
   init: ->
-    @user = {
-      errors: {}
-    }
+    @user = {}
     @channelEvents ||= []
     @channelEvents.push =>
       @channel.on "user", (user) =>
@@ -22,12 +20,12 @@ UserMixin =
     @channel.push('user:update', {user: @user})
 
   onValidateUserName: ->
-    @user.errors = {}
+    @errors.user = {}
 
     @user.name = _.trim(@user.name)
 
-    @user.errors.name = 'Your Nickname Cant be blank' if @user.name == ''
-    @user.errors.name = 'Your Nichname is too long' if @user.name.length > 100
+    @errors.user.name = "Your Nickname can`t be blank" if @user.name == ''
+    @errors.user.name = 'Your Nichname is too long' if @user.name.length > 100
 
     @emit()
 
