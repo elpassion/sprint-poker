@@ -31,7 +31,7 @@ GameMixin =
 
   onCreateGame: (callback) ->
     @createGameCallback = callback
-    @channel.push('create_game', @game)
+    @channel.push('game:create', @game)
 
   onChangeGameDeckId: (deck_id) ->
     @game.deck.id = deck_id

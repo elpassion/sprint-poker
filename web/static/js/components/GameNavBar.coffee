@@ -28,7 +28,6 @@ GameNavBar = React.createClass
             <span className="invite-text">INVITE PEOPLE:</span>
             <div className="invite-link simple-row">
               <input onClick={@selectAllInput} value={document.URL} disabled/>
-              <a href="#" className="addon">CTRL + C</a>
             </div>
           </div>
         </div>

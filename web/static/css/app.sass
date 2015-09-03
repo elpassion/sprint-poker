@@ -45,6 +45,8 @@ body,
       &:first-of-type
         border-top: 1px solid #eeeeee
 
+  tr.selected
+    border: 1px solid red
   tr
     height: 50px
 
@@ -126,9 +128,12 @@ body,
     font-size: 14px
     color: #444444
 
-    &.owner-row
+    .points
       background-color: rgba(255, 255, 255, 0.8)
       color: #ff4947
+
+    .name-column.disconnected
+      color: #aaa
 
     .name-column
       text-align: left

@@ -9,11 +9,13 @@ defmodule PlanningPoker.GameChannelTest do
   alias PlanningPoker.Deck
   alias PlanningPoker.GameUser
   alias PlanningPoker.Ticket
+  alias PlanningPoker.State
 
-  test "joining game add record and broadcast game with new user" do
+  test "joining game adds record and broadcasts game with new user and pushes state" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
     assert [] = Repo.all(GameUser)
 
@@ -22,30 +24,44 @@ defmodule PlanningPoker.GameChannelTest do
     game = Repo.get(Game, game.id) |> Game.preload
 
     [game_user] = Repo.all(GameUser)
+
+    assert game_user.state == "connected"
     assert game_user.game_id == game.id
     assert game_user.user_id == user.id
 
-    game_response = %{"game": game}
     assert user in game.users
+
+    game_response = %{"game": game}
     assert_broadcast "game", ^game_response
+
+    state_response = %{"state": state}
+    assert_push "state", ^state_response
   end
 
-  test "leave game broadcast game" do
+  test "leave game broadcasts game" do
     user = %User{name: "test user"} |> Repo.insert!
     deck = %Deck{name: "test deck"} |> Repo.insert!
     game = %Game{name: "test game", owner_id: user.id, deck_id: deck.id} |> Repo.insert!
+    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
-
-    assert [] = Repo.all(GameUser)
+    [] = Repo.all(GameUser)
 
     {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
     Process.unlink(socket.channel_pid)
 
-    assert [_] = Repo.all(GameUser)
+    [game_user] = Repo.all(GameUser)
+
+    assert game_user.state == "connected"
+    assert game_user.game_id == game.id
+    assert game_user.user_id == user.id
 
     socket |> close
 
-    assert [] = Repo.all(GameUser)
+    [game_user] = Repo.all(GameUser)
+
+    assert game_user.state == "disconnected"
+    assert game_user.game_id == game.id
+    assert game_user.user_id == user.id
 
     game = Repo.get(Game, game.id) |> Game.preload
 
@@ -53,16 +69,17 @@ defmodule PlanningPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "create_ticket adds ticket and broadcast game with new ticket" do
+  test "'ticket:create' adds ticket and broadcasts game with new ticket" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
     assert [] = Repo.all(Ticket)
 
-    socket |> push "create_ticket", %{"ticket" => %{"name" => "new test ticket"}}
+    socket |> push "ticket:create", %{"ticket" => %{"name" => "new test ticket"}}
 
     game = Repo.get(Game, game.id) |> Game.preload
 
@@ -73,17 +90,18 @@ defmodule PlanningPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "delete_ticket delete ticket and broadcast game without ticket" do
+  test "'ticket:delete' deletes ticket and broadcasts game without ticket" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
     ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
     assert [ticket] = Repo.all(Ticket)
 
-    socket |> push "delete_ticket", %{"ticket" => %{"id" => ticket.id}}
+    socket |> push "ticket:delete", %{"ticket" => %{"id" => ticket.id}}
 
     game = Repo.get(Game, game.id) |> Game.preload
 
@@ -93,17 +111,18 @@ defmodule PlanningPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "update_ticket updates ticket and broadcast game with new ticket" do
+  test "'ticket:update' updates ticket and broadcasts game with new ticket" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
     ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
     assert [ticket] = Repo.all(Ticket)
 
-    socket |> push "update_ticket", %{"ticket" => %{"id" => ticket.id, "name" => "new name"}}
+    socket |> push "ticket:update", %{"ticket" => %{"id" => ticket.id, "name" => "new name"}}
     game = Repo.get(Game, game.id) |> Game.preload
 
     [ticket] = Repo.all(Ticket)
@@ -113,5 +132,59 @@ defmodule PlanningPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
+  test "'state:update' updates name state and broadcasts it" do
+    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
+    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+    game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
+
+    {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
+    socket |> push "state:update", %{"state" => %{name: "voting"}}
+
+    state_response = %{"state": %{state | name: "voting"}}
+    assert_broadcast "state", ^state_response
+  end
+
+  test "'state:update' updates current_ticket_index state and broadcasts it" do
+    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
+    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+    game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
+
+    {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
+    socket |> push "state:update", %{"state" => %{current_ticket_index: 6}}
+
+    state_response = %{"state": %{state | current_ticket_index: 6}}
+    assert_broadcast "state", ^state_response
+  end
+
+  test "'state:update:vote' updates state with vote and broadcasts it with nil" do
+    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
+    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+    game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
+    _ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
+
+    {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
+    socket |> push "state:update:vote", %{"vote" => %{points: "XXL"}}
+
+    state_response = %{"state": %{state | votes:  Dict.put(%{}, user.id, nil)}}
+    assert_broadcast "state", ^state_response
+  end
+
+  test "'state:update:vote' updates state with vote and broadcasts it with value if owner" do
+    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
+    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+    game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
+    _ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
+    _game_user = %GameUser{} |> GameUser.changeset(%{user_id: user.id, game_id: game.id}) |> Repo.insert!
+
+    {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
+    socket |> push "state:update:vote", %{"vote" => %{ "points" => "XXL" }}
+
+    state_response = %{"state": %{state | votes:  Dict.put(%{}, user.id, "XXL")}}
+    assert_broadcast "state", ^state_response
+  end
 end
 

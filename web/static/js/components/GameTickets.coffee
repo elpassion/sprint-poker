@@ -20,13 +20,13 @@ GameTickets = React.createClass
         </span>
       </caption>
       <tbody>
-        { for ticket in @state.game.tickets
+        { for ticket, i in @state.game.tickets
           <tr key={ ticket.id }>
             <td>
               <table className="full-width">
-                <tr>
+                <tr className={ if @state.gameState.currentTicketIndex == i then "selected"}>
                   <td className="index-column">
-                    { ticket.id }
+                    { i + 1 }
                   </td>
                   <td className="name-column">
                     { ticket.name }

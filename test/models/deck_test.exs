@@ -26,4 +26,19 @@ defmodule PlanningPoker.DeckTest do
 
     assert deck
   end
+
+  test "empty deck is not valid" do
+    changeset = %Deck{} |> Deck.changeset(%{})
+    refute changeset.valid?
+  end
+
+  test "deck without name with changeset is not valid" do
+    changeset = %Deck{} |> Deck.changeset(%{cards: []})
+    refute changeset.valid?
+  end
+
+  test "deck with name and cards is valid" do
+    changeset = %Deck{} |> Deck.changeset(%{name: "sample name", cards: []})
+    assert changeset.valid?
+  end
 end

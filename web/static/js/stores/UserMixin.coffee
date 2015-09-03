@@ -19,7 +19,7 @@ UserMixin =
     @emit()
 
   onSubmitUserName: ->
-    @channel.push('update_user', {user: @user})
+    @channel.push('user:update', {user: @user})
 
   onValidateUserName: ->
     @user.errors = {}

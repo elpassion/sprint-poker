@@ -5,6 +5,7 @@ TicketMixin =
     deleteTicket: {}
     changeTicketName: {}
     submitTicketName: {}
+    changeTicketPoints: {}
 
   init: ->
     @newTicket = {}
@@ -17,11 +18,11 @@ TicketMixin =
     @newTicket.name = _.trim(@newTicket.name)
 
     if @newTicket.name != '' && @newTicket.name.length < 100
-      @channel.push('create_ticket', {ticket: @newTicket})
+      @channel.push 'ticket:create', {ticket: @newTicket}
       @newTicket.name = ''
 
   onDeleteTicket: (id) ->
-    @channel.push('delete_ticket', {ticket: {id: id}})
+    @channel.push 'ticket:delete', {ticket: {id: id}}
 
   onChangeTicketName: (id, name) ->
     i = _.findIndex @game.tickets, (ticket) ->
@@ -29,7 +30,13 @@ TicketMixin =
     @game.tickets[i].name = name
     @emit()
 
+  onChangeTicketPoints: (points) ->
+    ticket = @game.tickets[@gameState.currentTicketIndex]
+    ticket.points = points
+    @channel.push 'ticket:update', {ticket: {id: ticket.id, points: points }}
+    @emit()
+
   onSubmitTicketName: (id, name) ->
-    @channel.push('update_ticket', {ticket: {id: id, name: _.trim(name) }})
+    @channel.push 'ticket:update', {ticket: {id: id, name: _.trim(name) }}
 
 module.exports = TicketMixin

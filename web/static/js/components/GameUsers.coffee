@@ -22,17 +22,20 @@ GameUsers = React.createClass
       <tbody>
         { for user in @state.game.users
           <tr key={user.id}>
-            <td className="name-column">
+            <td className={"name-column #{user.state}"}>
               {user.name}
-            </td>
-            <td className="owner-column">
               {if user.id == @state.game.owner.id
-                "OWNER"
+                <span>&nbsp;OWNER</span>
               }
               {if user.id == @state.user.id
-                "YOU"
+                <span>&nbsp;YOU</span>
               }
             </td>
+            { if @state.gameState.name != 'none'
+              <td className="owner-column points">
+                { @state.gameState.votes[user.id] || 'waiting ...' }
+              </td>
+            }
           </tr>
         }
       </tbody>

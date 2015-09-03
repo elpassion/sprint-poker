@@ -7,6 +7,7 @@ defmodule PlanningPoker.LobbyChannelTest do
   alias PlanningPoker.Repo
   alias PlanningPoker.Game
   alias PlanningPoker.Deck
+  alias PlanningPoker.State
 
   test "joining lobby sends auth_token" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
@@ -36,6 +37,7 @@ defmodule PlanningPoker.LobbyChannelTest do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
+    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
     socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby", %{"game_id" => game.id})
 
@@ -46,23 +48,23 @@ defmodule PlanningPoker.LobbyChannelTest do
   end
 
 
-  test "sending update_user resends updated user" do
+  test "'user:update' resends updated user" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
 
-    socket |> push "update_user", %{"user" => %{"name" => "new name"}}
+    socket |> push "user:update", %{"user" => %{"name" => "new name"}}
 
     change_user_name_response = %{user: %User{user | name: "new name"}}
     assert_push "user", ^change_user_name_response
   end
 
-  test "sending create_game resends new game with owner_id and name" do
+  test "'game:create' resends new game with owner_id and name" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
 
     {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
 
-    socket |> push "create_game", %{"name" => "new game", "deck" => %{"id" => deck.id}}
+    socket |> push "game:create", %{"name" => "new game", "deck" => %{"id" => deck.id}}
 
     owner_id = user.id
     assert_push "game", %{game: %{id: _, name: "new game", owner_id: ^owner_id}}

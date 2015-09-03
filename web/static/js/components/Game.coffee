@@ -6,6 +6,10 @@ GameNavBar = require './GameNavBar'
 GameTickets = require './GameTickets'
 GameTicketsOwner = require './GameTicketsOwner'
 GameUsers = require './GameUsers'
+Cards = require './Cards'
+GameCurrentTicket = require './GameCurrentTicket'
+GameCurrentTicketOwner = require './GameCurrentTicketOwner'
+GameOwnerControls = require './GameOwnerControls'
 
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
@@ -27,6 +31,10 @@ Game = React.createClass
             <div className="lobby-container container">
               <div className="row">
                 <div className="col-xs-8">
+                  <GameCurrentTicket/>
+                  <Cards disabled={ @state.gameState.name != 'voting' }/>
+                </div>
+                <div className="col-xs-8">
                   { if @state.user.id == @state.game.owner.id
                       <GameTicketsOwner/>
                     else
@@ -35,6 +43,9 @@ Game = React.createClass
                 </div>
                 <div className="col-xs-4">
                   <GameUsers/>
+                  { if @state.user.id == @state.game.owner.id
+                    <GameOwnerControls/>
+                  }
                 </div>
               </div>
             </div>
