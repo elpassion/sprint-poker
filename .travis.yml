@@ -14,7 +14,6 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 script:
-  - mix compile
   - npm install
   - webpack -t
   - mix test
