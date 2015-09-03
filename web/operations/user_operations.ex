@@ -19,12 +19,12 @@ defmodule PlanningPoker.UserOperations do
     end
   end
 
-  def authorize(nil) do
+  def get_or_create(nil) do
     Repo.insert!(%User{})
   end
 
-  def authorize(auth_token) do
-    Repo.get_by(User, auth_token: auth_token) || authorize(nil)
+  def get_or_create(auth_token) do
+    Repo.get_by(User, auth_token: auth_token) || get_or_create(nil)
   end
 
   def update(user, params) do

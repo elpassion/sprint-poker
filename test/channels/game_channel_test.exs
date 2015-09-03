@@ -11,7 +11,7 @@ defmodule PlanningPoker.GameChannelTest do
   alias PlanningPoker.Ticket
   alias PlanningPoker.State
 
-  test "joining game add record and broadcast game with new user and push state" do
+  test "joining game adds record and broadcasts game with new user and pushes state" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
@@ -38,7 +38,7 @@ defmodule PlanningPoker.GameChannelTest do
     assert_push "state", ^state_response
   end
 
-  test "leave game broadcast game" do
+  test "leave game broadcasts game" do
     user = %User{name: "test user"} |> Repo.insert!
     deck = %Deck{name: "test deck"} |> Repo.insert!
     game = %Game{name: "test game", owner_id: user.id, deck_id: deck.id} |> Repo.insert!
@@ -69,7 +69,7 @@ defmodule PlanningPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "'ticket:create' adds ticket and broadcast game with new ticket" do
+  test "'ticket:create' adds ticket and broadcasts game with new ticket" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
@@ -90,7 +90,7 @@ defmodule PlanningPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "'ticket:delete' delete ticket and broadcast game without ticket" do
+  test "'ticket:delete' deletes ticket and broadcasts game without ticket" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
@@ -111,7 +111,7 @@ defmodule PlanningPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "'ticket:update' updates ticket and broadcast game with new ticket" do
+  test "'ticket:update' updates ticket and broadcasts game with new ticket" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
@@ -132,7 +132,7 @@ defmodule PlanningPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "'state:update' updates name state and broadcast it" do
+  test "'state:update' updates name state and broadcasts it" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
@@ -145,7 +145,7 @@ defmodule PlanningPoker.GameChannelTest do
     assert_broadcast "state", ^state_response
   end
 
-  test "'state:update' updates current_ticket_id state and broadcast it" do
+  test "'state:update' updates current_ticket_id state and broadcasts it" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
@@ -158,7 +158,7 @@ defmodule PlanningPoker.GameChannelTest do
     assert_broadcast "state", ^state_response
   end
 
-  test "'state:update:vote' updates state with vote and broadcast it with nil" do
+  test "'state:update:vote' updates state with vote and broadcasts it with nil" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
@@ -172,7 +172,7 @@ defmodule PlanningPoker.GameChannelTest do
     assert_broadcast "state", ^state_response
   end
 
-  test "'state:update:vote' updates state with vote and broadcast it with value if owner" do
+  test "'state:update:vote' updates state with vote and broadcasts it with value if owner" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
