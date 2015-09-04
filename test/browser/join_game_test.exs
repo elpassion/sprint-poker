@@ -55,14 +55,11 @@ defmodule PlanningPoker.JoinGameTest do
     visit context[:game_url]
     assert Page.has_text? "Join session ?"
     click_button "Join Session"
-    Page.has_text? "Test Game"
 
-    refute Page.has_text? "Session Title Cant be blank"
-    refute Page.has_text? "Your Nickname Cant be blank"
+    refute Page.has_text? "Session Title can`t be blank"
+    refute Page.has_text? "Your Nickname can`t be blank"
     assert Page.has_text? "Test Game"
     assert Page.has_text? "Test Owner User"
     assert Finder.find(:id, "game_url")
   end
-
-
 end
