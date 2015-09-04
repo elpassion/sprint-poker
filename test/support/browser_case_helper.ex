@@ -25,4 +25,8 @@ defmodule PlanningPoker.BrowserCaseHelper do
     name = :crypto.strong_rand_bytes(5) |> :base64.encode_to_string
     save_screenshot "#{name}.png"
   end
+
+  def wait(ms) do
+    :timer.sleep(ms)
+  end
 end
