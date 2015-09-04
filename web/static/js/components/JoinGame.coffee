@@ -1,6 +1,6 @@
 React = require 'react'
 Reflux = require 'reflux'
-Logo = require '../../assets/images/logo.png'
+Logo = require '../../assets/images/logo_beta.png'
 
 UserName = require './UserName'
 GameName = require './GameName'
