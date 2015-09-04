@@ -10,7 +10,7 @@ defmodule PlanningPoker.BrowserCase do
         port = PlanningPoker.Endpoint.config(:http)[:port]
 
         #{:ok, _} = TucoTuco.start_session :test_browser, :guest_session, :firefox
-        {:ok, _} = TucoTuco.start_session :test_browser, :owner_session, :firefox
+        {:ok, _} = TucoTuco.start_session :test_browser, :owner_session, :phantomjs
         TucoTuco.app_root "http://localhost:#{port}"
         TucoTuco.use_retry true
         TucoTuco.max_retry_time 3000
