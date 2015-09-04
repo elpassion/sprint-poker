@@ -3,7 +3,6 @@ defmodule PlanningPoker.JoinGameTest do
 
   setup do
     visit "/"
-    assert Page.has_text? "Start Session"
 
     fill_in "game_name", "Test Game"
     fill_in "user_name", "Test Owner User"
