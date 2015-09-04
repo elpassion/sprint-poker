@@ -3,17 +3,11 @@ defmodule PlanningPoker.JoinGameTest do
 
   setup do
     visit "/"
-
     fill_in "game_name", "Test Game"
     fill_in "user_name", "Test Owner User"
     select "T-Shirts (S, M, L, XXL)", from: "game_deck"
     click_button "Start Session"
     game_url = input_value "game_url"
-
-    unless game_url do
-      click_button "Start Session"
-      game_url = input_value "game_url"
-    end
 
     {:ok, game_url: game_url}
   end
