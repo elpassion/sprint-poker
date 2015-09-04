@@ -8,7 +8,7 @@ defmodule PlanningPoker.BrowserCaseHelper do
   use TucoTuco.DSL
 
   def input_value(id) do
-    element = TucoTuco.Retry.retry fn ->
+    element = retry fn ->
       Finder.find(:id, id)
     end
 
@@ -28,5 +28,9 @@ defmodule PlanningPoker.BrowserCaseHelper do
 
   def wait(ms) do
     :timer.sleep(ms)
+  end
+
+  def retry(fun) do
+    TucoTuco.Retry.retry(fun)
   end
 end

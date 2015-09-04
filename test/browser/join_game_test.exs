@@ -8,7 +8,9 @@ defmodule PlanningPoker.JoinGameTest do
     select "T-Shirts (S, M, L, XXL)", from: "game_deck"
     click_button "Start Session"
 
-    game_url = input_value "game_url"
+    game_url = retry fn ->
+      input_value "game_url"
+    end
 
     {:ok, game_url: game_url}
   end
