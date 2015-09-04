@@ -30,6 +30,8 @@ defmodule PlanningPoker.JoinGameTest do
 
     owner_name = input_value "game_owner"
 
+    screenshot!
+
     assert owner_name == "Test Owner User"
   end
 
