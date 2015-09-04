@@ -1,19 +1,6 @@
 defmodule PlanningPoker.JoinGameTest do
   use PlanningPoker.BrowserCase
 
-  def input_value(id) do
-    element = TucoTuco.Retry.retry fn ->
-      Finder.find(:id, id)
-    end
-
-    case element do
-      nil ->
-        nil
-      ele ->
-        ele |> Element.attribute(:value)
-    end
-  end
-
   setup do
     visit "/"
     fill_in "game_name", "Test Game"
@@ -36,7 +23,7 @@ defmodule PlanningPoker.JoinGameTest do
 
     game_name = input_value "game_name"
 
-    assert game_name = "Test Game"
+    assert game_name == "Test Game"
   end
 
   test "join page has session owner", context do
@@ -45,7 +32,7 @@ defmodule PlanningPoker.JoinGameTest do
 
     owner_name = input_value "game_owner"
 
-    assert owner_name = "Test Owner User"
+    assert owner_name == "Test Owner User"
   end
 
   test "join page has session deck", context do
@@ -54,7 +41,7 @@ defmodule PlanningPoker.JoinGameTest do
 
     deck_name = input_value "game_deck"
 
-    assert deck_name = "2"
+    assert deck_name == "2"
   end
 
   test "join page has user name", context do
@@ -63,7 +50,7 @@ defmodule PlanningPoker.JoinGameTest do
 
     user_name = input_value "user_name"
 
-    assert user_name = "Test Owner User"
+    assert user_name == "Test Owner User"
   end
 
   test "can join game", context do

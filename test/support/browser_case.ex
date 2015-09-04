@@ -5,6 +5,7 @@ defmodule PlanningPoker.BrowserCase do
     quote do
       use ExUnit.Case
       use TucoTuco.DSL
+      use PlanningPoker.BrowserCaseHelper
 
       setup_all do
         port = PlanningPoker.Endpoint.config(:http)[:port]

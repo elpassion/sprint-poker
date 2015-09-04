@@ -19,6 +19,9 @@ script:
   - mix test
   - karma start
 
+after_script:
+  - ./postimgs.sh
+
 deploy:
   provider: heroku
   api_key:
