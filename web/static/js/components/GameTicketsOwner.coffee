@@ -56,9 +56,9 @@ GameTickets = React.createClass
             <td className="points text-center">
               { ticket.points }
             </td>
-            <th>
+            <td className="buttons">
               <button className="btn btn-gray" data-id={ticket.id} onClick={ @onDeleteTicket } disabled={ if @state.gameState.currentTicketId == ticket.id then true }>Delete</button>
-            </th>
+            </td>
           </tr>
         }
         <GameNewTicketOwner/>

@@ -38,9 +38,9 @@ GameNewTicketOwner = React.createClass
         />
       </td>
       <td></td>
-      <th>
+      <td className="buttons">
         <button className="btn btn-gray" onClick={ @onNewTicketSubmit }>Create</button>
-      </th>
+      </td>
     </tr>
 
 module.exports = GameNewTicketOwner
