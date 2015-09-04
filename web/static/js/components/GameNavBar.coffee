@@ -26,7 +26,7 @@ GameNavBar = React.createClass
         </div>
         <div className="nav navbar-nav navbar-right">
           <span>INVITE PEOPLE:</span>
-          <input name="game_url" onClick={@selectAllInput} value={document.URL} disabled/>
+          <input id="game_url" onClick={@selectAllInput} value={document.URL} disabled/>
         </div>
       </div>
     </nav>

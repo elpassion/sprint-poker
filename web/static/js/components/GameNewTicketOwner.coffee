@@ -29,7 +29,7 @@ GameNewTicketOwner = React.createClass
       <td>
         <input
           className="input-gray"
-          name="new_ticket"
+          id="new_ticket"
           type="text"
           placeholder="enter your ticket name here"
           value={ @state.newTicket.name }

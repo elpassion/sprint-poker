@@ -18,10 +18,10 @@ GameDeck = React.createClass
 
   render: ->
     <div className="form-group">
-      <label for="game_deck">Session Deck:</label>
+      <label htmlFor="game_deck">Session Deck:</label>
       <select
         className="form-control"
-        name="game_deck"
+        id="game_deck"
         value={ @state.game.deck.id }
         onChange={ @onChangeGameDeck }
         disabled={ @props.disabled }

@@ -23,11 +23,11 @@ UserName = React.createClass
 
   render: ->
     <div className={ "form-group #{if @state.errors.user.name then "has-error"}" }>
-      <label for="user_name">Your Nickname:</label>
+      <label htmlFor="user_name">Your Nickname:</label>
       <input
         className="form-control"
         type="text"
-        name="user_name"
+        id="user_name"
         placeholder="Enter Your Nickname"
         value={ @state.user.name }
         onChange={ @onChangeUserName }
