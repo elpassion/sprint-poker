@@ -4,7 +4,7 @@ Reflux = require 'reflux'
 Game = require './Game'
 JoinGame = require './JoinGame'
 
-Store = require '../stores/SocketConnectionStore'
+Store = require '../stores/Store'
 Actions = Store.Actions
 
 GameLobby = React.createClass

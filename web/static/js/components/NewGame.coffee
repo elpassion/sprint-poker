@@ -9,7 +9,7 @@ UserName = require './UserName'
 GameDeck = require './GameDeck'
 Errors = require './Errors'
 
-Store = require '../stores/SocketConnectionStore'
+Store = require '../stores/Store'
 Actions = Store.Actions
 
 NewGame = React.createClass

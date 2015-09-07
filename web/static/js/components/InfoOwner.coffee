@@ -1,7 +1,7 @@
 React = require 'react'
 Reflux = require 'reflux'
 
-Store = require '../stores/SocketConnectionStore'
+Store = require '../stores/Store'
 Actions = Store.Actions
 
 _ = require 'lodash'
