@@ -1,7 +1,4 @@
 {
-  "name": "planningpokerreact",
-  "version": "0.0.0",
-  "description": "",
   "dependencies": {
     "lodash": "^3.9.1",
     "react": "^0.13.3",
