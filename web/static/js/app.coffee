@@ -18,7 +18,7 @@ App = ->
         <Route path="games/:gameId" components={ GameLobby }/>
       </Route>
     </Router>
-    , document.body
+    , document.getElementById('app')
   )
 
 if window.airbrake

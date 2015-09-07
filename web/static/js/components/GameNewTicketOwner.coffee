@@ -29,7 +29,7 @@ GameNewTicketOwner = React.createClass
       <td>
         <input
           className="input-gray"
-          name="new_ticket"
+          id="new_ticket"
           type="text"
           placeholder="enter your ticket name here"
           value={ @state.newTicket.name }
@@ -38,9 +38,9 @@ GameNewTicketOwner = React.createClass
         />
       </td>
       <td></td>
-      <th>
+      <td className="buttons">
         <button className="btn btn-gray" onClick={ @onNewTicketSubmit }>Create</button>
-      </th>
+      </td>
     </tr>
 
 module.exports = GameNewTicketOwner

@@ -1,6 +1,6 @@
 React = require 'react'
 Reflux = require 'reflux'
-Logo = require '../../assets/images/logo.png'
+Logo = require '../../assets/images/logo_beta.png'
 
 UserName = require './UserName'
 GameName = require './GameName'
@@ -37,9 +37,9 @@ JoinGame = React.createClass
             Join session ?
           </p>
           <div className="form-group">
-            <label for="game_owner">Session Owner:</label>
+            <label htmlFor="game_owner">Session Owner:</label>
             <input className="form-control"
-              name="game_owner"
+              id="game_owner"
               type="text"
               placeholder="Session Owner"
               value={ @state.game.owner.name }

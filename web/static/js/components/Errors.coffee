@@ -25,8 +25,8 @@ Errors = React.createClass
             <span aria-hidden="true">&times;</span>
           </button>
           <ul>
-            { for error in @state.errors.popup
-              <li>
+            { for error, i in @state.errors.popup
+              <li key={ i }>
                 { error }
               </li>
             }

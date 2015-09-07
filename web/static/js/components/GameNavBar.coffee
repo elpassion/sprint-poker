@@ -1,6 +1,6 @@
 React = require 'react'
 Reflux = require 'reflux'
-smallLogo = require '../../assets/images/logo_small.png'
+smallLogo = require '../../assets/images/logo_small_beta.png'
 
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
@@ -26,7 +26,7 @@ GameNavBar = React.createClass
         </div>
         <div className="nav navbar-nav navbar-right">
           <span>INVITE PEOPLE:</span>
-          <input name="game_url" onClick={@selectAllInput} value={document.URL} disabled/>
+          <input id="game_url" onClick={@selectAllInput} value={document.URL} disabled/>
         </div>
       </div>
     </nav>

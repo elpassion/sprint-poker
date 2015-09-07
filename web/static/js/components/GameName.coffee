@@ -21,11 +21,11 @@ GameName = React.createClass
 
   render: ->
     <div className={ "form-group #{if @state.errors.game.name then "has-error"}" }>
-      <label for="game_name">Session Title:</label>
+      <label htmlFor="game_name">Session Title:</label>
       <input
         className="form-control"
         type="text"
-        name="game_name"
+        id="game_name"
         placeholder="Enter Session Title"
         value={ @state.game.name }
         onChange={ @onChangeGameName }

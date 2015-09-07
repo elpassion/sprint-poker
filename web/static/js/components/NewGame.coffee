@@ -1,7 +1,7 @@
 React   = require 'react'
 Reflux  = require 'reflux'
 _       = require 'lodash'
-Logo    = require '../../assets/images/logo.png'
+Logo    = require '../../assets/images/logo_beta.png'
 { Navigation } = require 'react-router'
 
 GameName = require './GameName'

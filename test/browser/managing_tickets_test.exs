@@ -1,8 +1,6 @@
 defmodule PlanningPoker.ManagingTicketsTest do
   use PlanningPoker.BrowserCase
 
-  @new_ticket_xpath "//input[@name='new_ticket']"
-
   setup do
     visit "/"
     fill_in "game_name", "Test Game"
@@ -12,11 +10,4 @@ defmodule PlanningPoker.ManagingTicketsTest do
     Page.has_text? "SESSION NAME:"
     :ok
   end
-
-  # test "owner can add a ticket" do
-  #   fill_in "new_ticket", "Ticket #1"
-  #   click_button "CREATE"
-  #   Page.has_xpath? "//input[@value='Ticket #1']"
-  #   assert Page.has_xpath? "//input[@value='Ticket #1']"
-  # end
 end

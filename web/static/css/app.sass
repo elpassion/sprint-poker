@@ -17,14 +17,28 @@ body
 .label
   text-transform: uppercase
 
-caption.current-ticket
+.current-ticket
   display: block
   border-bottom: 1px solid $table-border-color
   margin-bottom: 5px
 
-  span.id
+  .id
     &::after
       content: "."
 
     color: $orange
     margin-right: 5px
+
+.counter
+  color: $dark-gray
+  font-weight: 400
+
+a,
+a:hover
+  color: $orange
+
+footer
+  margin-top: 50px
+  border-top: 1px solid $gray
+  padding-top: 10px
+  text-align: center
