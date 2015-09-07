@@ -4,7 +4,8 @@
     "react": "^0.13.3",
     "react-router": "= 1.0.0-beta3",
     "reflux": "^0.2.7",
-    "bootstrap-sass": "~3.3.1"
+    "bootstrap-sass": "~3.3.1",
+    "airbrake-js": "~0.5.2"
   },
   "devDependencies": {
     "babel": "^5.8.20",
