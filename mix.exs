@@ -58,7 +58,7 @@ defmodule PlanningPoker.Mixfile do
       {:cowboy, "~> 1.0"},
       {:plug_cors, "~> 0.7.3"},
       {:inflex, "~> 1.4.1"},
-      {:airbrakex, "~> 0.0.1"},
+      {:airbrakex, "~> 0.0.4"},
       {:metrix, "~> 0.1.0"},
       {:tuco_tuco, "~> 0.7.1"},
       {:webdriver, github: "fazibear/elixir-webdriver", branch: "update-dependencies", override: true}
