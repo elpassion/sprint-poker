@@ -6,7 +6,7 @@ defmodule PlanningPoker.JoinGameTest do
     fill_in "game_name", "Test Game"
     fill_in "user_name", "Test Owner User"
     select "T-Shirts (S, M, L, XXL)", from: "game_deck"
-    wait 100
+    wait 250
     click_button "Start Session"
 
     game_url = retry fn ->
