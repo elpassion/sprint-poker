@@ -6,13 +6,12 @@ defmodule PlanningPoker.JoinGameTest do
     fill_in "game_name", "Test Game"
     fill_in "user_name", "Test Owner User"
     select "T-Shirts (S, M, L, XXL)", from: "game_deck"
+    wait 100
     click_button "Start Session"
 
     game_url = retry fn ->
       input_value "game_url"
     end
-
-    screenshot!
 
     {:ok, game_url: game_url}
   end
@@ -32,8 +31,6 @@ defmodule PlanningPoker.JoinGameTest do
 
     owner_name = input_value "game_owner"
 
-    screenshot!
-
     assert owner_name == "Test Owner User"
   end
 
@@ -51,8 +48,6 @@ defmodule PlanningPoker.JoinGameTest do
     assert Page.has_text? "Join session ?"
 
     user_name = input_value "user_name"
-
-    screenshot!
 
     assert user_name == "Test Owner User"
   end
