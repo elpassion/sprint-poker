@@ -15,6 +15,7 @@ defmodule PlanningPoker.GameOperations do
       {:error, errors} ->
         raise errors
       _ ->
+        Metrix.count "game.new.count"
         game = changeset |> Repo.insert!
         StateOperations.create(game)
     end

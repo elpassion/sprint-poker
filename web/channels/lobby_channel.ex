@@ -9,11 +9,13 @@ defmodule PlanningPoker.LobbyChannel do
   alias PlanningPoker.UserOperations
 
   def join("lobby", message, socket) do
+    Metrix.count "channel.join.count"
     send(self, {:after_join, message})
     {:ok, socket}
   end
 
   def handle_info({:after_join, message}, socket) do
+
     user = Repo.get!(User, socket.assigns.user_id)
 
     socket |> push "auth_token", %{auth_token: user.auth_token}

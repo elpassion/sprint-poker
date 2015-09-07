@@ -12,6 +12,7 @@ defmodule PlanningPoker.TicketOperations do
       {:error, errors} ->
         raise errors
       _ ->
+        Metrix.count "ticket.new.count"
         changeset |> Repo.insert!
     end
   end

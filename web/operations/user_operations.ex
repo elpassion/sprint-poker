@@ -20,6 +20,7 @@ defmodule PlanningPoker.UserOperations do
   end
 
   def get_or_create(nil) do
+    Metrix.count "user.new.count"
     Repo.insert!(%User{})
   end
 

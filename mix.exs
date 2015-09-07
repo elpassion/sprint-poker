@@ -28,6 +28,7 @@ defmodule PlanningPoker.Mixfile do
      ~w(
        phoenix phoenix_html cowboy logger
        phoenix_ecto postgrex poison airbrakex
+       metrix
        )a
   end
 
@@ -58,6 +59,7 @@ defmodule PlanningPoker.Mixfile do
       {:plug_cors, "~> 0.7.3"},
       {:inflex, "~> 1.4.1"},
       {:airbrakex, "~> 0.0.1"},
+      {:metrix, "~> 0.1.0"},
       {:tuco_tuco, "~> 0.7.1"},
       {:webdriver, github: "fazibear/elixir-webdriver", branch: "update-dependencies", override: true}
     ]

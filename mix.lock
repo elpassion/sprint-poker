@@ -12,6 +12,8 @@
   "idna": {:hex, :idna, "1.0.2"},
   "inflex": {:hex, :inflex, "1.4.1"},
   "jazz": {:hex, :jazz, "0.2.1"},
+  "logfmt": {:hex, :logfmt, "3.0.2"},
+  "metrix": {:hex, :metrix, "0.1.0"},
   "phoenix": {:hex, :phoenix, "1.0.2"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "1.2.0"},
   "phoenix_html": {:hex, :phoenix_html, "2.2.0"},

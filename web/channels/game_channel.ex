@@ -12,6 +12,8 @@ defmodule PlanningPoker.GameChannel do
   alias PlanningPoker.TicketOperations
 
   def join("game:" <> game_id, message, socket) do
+    Metrix.count "channel.join.count"
+
     game = Repo.get!(Game, game_id)
     user = Repo.get!(User, socket.assigns.user_id)
 
