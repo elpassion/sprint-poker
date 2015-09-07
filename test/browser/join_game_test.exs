@@ -12,6 +12,8 @@ defmodule PlanningPoker.JoinGameTest do
       input_value "game_url"
     end
 
+    screenshot!
+
     {:ok, game_url: game_url}
   end
 
@@ -49,6 +51,8 @@ defmodule PlanningPoker.JoinGameTest do
     assert Page.has_text? "Join session ?"
 
     user_name = input_value "user_name"
+
+    screenshot!
 
     assert user_name == "Test Owner User"
   end
