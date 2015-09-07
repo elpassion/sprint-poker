@@ -1,10 +1,11 @@
 React = require 'react'
 Reflux = require 'reflux'
-Logo = require '../../assets/images/logo.png'
+Logo = require '../../assets/images/logo_beta.png'
 
 UserName = require './UserName'
 GameName = require './GameName'
 GameDeck = require './GameDeck'
+Errors = require './Errors'
 
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
@@ -25,29 +26,30 @@ JoinGame = React.createClass
     e.preventDefault()
 
   render: ->
-    <div className="sessions col-xs-12 col-md-6">
-      <img className="logo" src={Logo}></img>
-      <div className="session-form-container row">
-        <div className="header-text col-xs-12">
-          Join session ?
+    <div className="container">
+      <div className="row col-xs-12 col-md-5 center-block">
+        <div className="logo text-center">
+          <img src={Logo}/>
         </div>
-        <form className="session-form col-xs-12" onSubmit={ @onJoinGame }>
-          <div className="form-group row">
-            <label className="col-xs-12 start-xs">
-              <span className="simple-row">Session Owner:</span>
-              <input className="simple-row full-width"
-                name="game_owner"
-                type="text"
-                placeholder="Session Owner"
-                value={ @state.game.owner.name }
-                disabled
-              />
-            </label>
+        <Errors/>
+        <form className="form" onSubmit={ @onJoinGame }>
+          <p className="text-center">
+            Join session ?
+          </p>
+          <div className="form-group">
+            <label htmlFor="game_owner">Session Owner:</label>
+            <input className="form-control"
+              id="game_owner"
+              type="text"
+              placeholder="Session Owner"
+              value={ @state.game.owner.name }
+              disabled
+            />
           </div>
           <GameName disabled={ true }/>
           <GameDeck disabled={ true }/>
           <UserName/>
-          <button className="button full-width" type="submit">Join Session</button>
+          <button className="btn btn-big-red" type="submit">Join Session</button>
         </form>
       </div>
     </div>

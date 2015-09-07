@@ -1,7 +1,7 @@
 React   = require 'react'
 Reflux  = require 'reflux'
 _       = require 'lodash'
-Logo    = require '../../assets/images/logo.png'
+Logo    = require '../../assets/images/logo_beta.png'
 { Navigation } = require 'react-router'
 
 GameName = require './GameName'
@@ -34,18 +34,20 @@ NewGame = React.createClass
     Actions.join('lobby')
 
   render: ->
-    <div className="sessions col-xs-12 col-md-6">
-      <img className="logo" src={Logo}></img>
-      <Errors/>
-      <div className="session-form-container row">
-        <div className="header-text col-xs-12">
-          Use online Planning Poker to easy estimate and plan tickets with your team. Your room will only be seen by those you invite.
+    <div className="container">
+      <div className="row col-xs-12 col-md-5 center-block">
+        <div className="logo text-center">
+          <img src={Logo}/>
         </div>
-        <form className="session-form col-xs-12" onSubmit={ @onCreateGame }>
+        <Errors/>
+        <form className="form" onSubmit={ @onCreateGame }>
+          <p className="text-center">
+            Use online Planning Poker to easy estimate and plan tickets with your team. Your room will only be seen by those you invite.
+          </p>
           <GameName/>
           <GameDeck/>
           <UserName/>
-          <button className="button full-width" type="submit">Start Session</button>
+          <button className="btn btn-big-red" type="submit">Start Session</button>
         </form>
       </div>
     </div>

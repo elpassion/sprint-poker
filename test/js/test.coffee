@@ -1,9 +1,9 @@
 React = require('react')
-PlanningPokerApp = require('../../web/static/js/components/PlanningPokerApp')
+Errors = require('../../web/static/js/components/Errors')
 TestUtils = require('react/lib/ReactTestUtils')
 
 describe 'PlanningPokerApp', ->
   it 'renders', ->
-    element = TestUtils.renderIntoDocument(<PlanningPokerApp />)
+    element = TestUtils.renderIntoDocument(<Errors />)
     expect(element).toBeTruthy()
 

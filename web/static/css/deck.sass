@@ -1,0 +1,21 @@
+.deck
+  .card
+    margin: 5px
+    width: 115px
+    height: 130px
+    border: 2px solid $gray
+    text-align: center
+    font-size: 50px
+    font-weight: 800
+    line-height: 130px
+    color: $black
+    background: $white
+    float: left
+    cursor: pointer
+
+    &.disabled
+     cursor: not-allowed
+
+    &.selected
+      background: linear-gradient(45deg, #ff4048 0%, #ff8042 100%)
+      color: $white

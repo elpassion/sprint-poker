@@ -14,7 +14,7 @@ defmodule PlanningPoker.StateOperations do
   end
 
   def hide_votes(state, current_user) do
-    unless state.name == "finished" do
+    unless state.name == "review" do
       new_votes = for {key, value} <- state.votes, into: %{} do
         if key == current_user.id do
           {key,  value}

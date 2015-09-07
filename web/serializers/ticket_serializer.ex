@@ -3,8 +3,7 @@ defimpl Poison.Encoder, for: PlanningPoker.Ticket do
     %{
       id: ticket.id,
       name: ticket.name,
-      points: ticket.points,
-      errors: %{}
+      points: ticket.points
     } |> Poison.Encoder.encode(options)
   end
 end

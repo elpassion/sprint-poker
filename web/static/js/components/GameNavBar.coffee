@@ -1,6 +1,6 @@
 React = require 'react'
 Reflux = require 'reflux'
-smallLogo = require '../../assets/images/logo_small.png'
+smallLogo = require '../../assets/images/logo_small_beta.png'
 
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
@@ -15,21 +15,18 @@ GameNavBar = React.createClass
     e.target.setSelectionRange(0, e.target.value.length)
 
   render: ->
-    <nav className="lobby-navbar row center-xs middle-xs">
+    <nav className="navbar navbar-default navbar-static-top">
       <div className="container">
-        <div className="simple-row middle-xs">
-          <img className="logo" src={smallLogo} alt="Planning Poker"/>
-          <div className="separator"></div>
-          <div className="project-name">
-            <span className="project">SESSION NAME:</span>
-            <span className="name">{@state.game.name}</span>
-          </div>
-          <div className="invite simple-row middle-xs">
-            <span className="invite-text">INVITE PEOPLE:</span>
-            <div className="invite-link simple-row">
-              <input name="game_url" onClick={@selectAllInput} value={document.URL} disabled/>
-            </div>
-          </div>
+        <div className="navbar-header">
+          <img className="small-logo" src={smallLogo} alt="Planning Poker"/>
+        </div>
+        <div className="nav navbar-nav">
+          <span className="head">SESSION NAME:</span>
+          <span className="name">{@state.game.name}</span>
+        </div>
+        <div className="nav navbar-nav navbar-right">
+          <span>INVITE PEOPLE:</span>
+          <input id="game_url" onClick={@selectAllInput} value={document.URL} disabled/>
         </div>
       </div>
     </nav>

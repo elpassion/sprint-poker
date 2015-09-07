@@ -10,32 +10,26 @@ GameTickets = React.createClass
   ]
 
   render: ->
-    <table className="tickets-list full-width">
+    <table className="table">
       <caption>
         <span>
           Tickets list&nbsp;
         </span>
         <span className="counter">
-          ({ @state.game.tickets.length } total)
+          ({ Object.keys(@state.game.tickets).length } total)
         </span>
       </caption>
       <tbody>
-        { for ticket, i in @state.game.tickets
-          <tr key={ ticket.id }>
+        { for ticketId, ticket of @state.game.tickets
+          <tr key={ ticket.id } className={ if @state.gameState.currentTicketId == i then "selected"}>
+            <th>
+              { Object.keys(@state.game.tickets).indexOf(ticketId) + 1 }
+            </th>
             <td>
-              <table className="full-width">
-                <tr className={ if @state.gameState.currentTicketIndex == i then "selected"}>
-                  <td className="index-column">
-                    { i + 1 }
-                  </td>
-                  <td className="name-column">
-                    { ticket.name }
-                  </td>
-                  <td className="estimation-column">
-                    { ticket.points }
-                  </td>
-                </tr>
-              </table>
+              { ticket.name }
+            </td>
+            <td className="points text-center">
+              { ticket.points }
             </td>
           </tr>
         }

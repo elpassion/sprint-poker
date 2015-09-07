@@ -8,8 +8,10 @@ GameTicketsOwner = require './GameTicketsOwner'
 GameUsers = require './GameUsers'
 Cards = require './Cards'
 GameCurrentTicket = require './GameCurrentTicket'
-GameCurrentTicketOwner = require './GameCurrentTicketOwner'
 GameOwnerControls = require './GameOwnerControls'
+Errors = require './Errors'
+InfoOwner = require './InfoOwner'
+Info = require './Info'
 
 Store = require '../stores/SocketConnectionStore'
 Actions = Store.Actions
@@ -23,32 +25,30 @@ Game = React.createClass
     Actions.join("game:#{@props.id}")
 
   render: ->
-    <div className="full-width">
-      <div className="session-lobby row full-width">
-        <div className="session-lobby-content col-xs-12">
-          <GameNavBar/>
-          <div className="lobby-content row center-xs">
-            <div className="lobby-container container">
-              <div className="row">
-                <div className="col-xs-8">
-                  <GameCurrentTicket/>
-                  <Cards disabled={ @state.gameState.name != 'voting' }/>
-                </div>
-                <div className="col-xs-8">
-                  { if @state.user.id == @state.game.owner.id
-                      <GameTicketsOwner/>
-                    else
-                      <GameTickets/>
-                  }
-                </div>
-                <div className="col-xs-4">
-                  <GameUsers/>
-                  { if @state.user.id == @state.game.owner.id
-                    <GameOwnerControls/>
-                  }
-                </div>
-              </div>
-            </div>
+    <div>
+      <GameNavBar/>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-8">
+            <Errors/>
+            <GameCurrentTicket/>
+            <Cards disabled={ @state.gameState.name != 'voting' }/>
+            { if @state.user.id == @state.game.owner.id
+                <GameTicketsOwner/>
+              else
+                <GameTickets/>
+            }
+          </div>
+          <div className="col-md-4">
+            { if @state.user.id == @state.game.owner.id
+                <InfoOwner/>
+              else
+                <Info/>
+            }
+            <GameUsers/>
+            { if @state.user.id == @state.game.owner.id
+              <GameOwnerControls/>
+            }
           </div>
         </div>
       </div>

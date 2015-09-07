@@ -29,7 +29,11 @@ defimpl Poison.Encoder, for: PlanningPoker.Game do
     end
 
     if Ecto.Association.loaded?(game.tickets) do
-      hash = hash |> Dict.put(:tickets, game.tickets)
+      tickets = for ticket <- game.tickets, into: %{} do
+        {:"#{ticket.id}",  ticket}
+      end
+
+      hash = hash |> Dict.put(:tickets, tickets)
     end
 
     if Ecto.Association.loaded?(game.deck) do

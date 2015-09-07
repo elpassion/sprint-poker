@@ -16,32 +16,31 @@ GameNewTicketOwner = React.createClass
     Actions.submitNewTicket()
     e.preventDefault()
 
+  onNewTicketKeyDown: (e) ->
+    if e.which == 13
+      Actions.submitNewTicket()
+      e.preventDefault()
+
   render: ->
     <tr>
-      <td colSpan="4">
-        <form onSubmit={ @onNewTicketSubmit }>
-          <table className="full-width">
-            <tr>
-              <td className="index-column">
-                -
-              </td>
-              <td className="name-column" colSpan="2">
-                <input
-                  className="full-width"
-                  type="text"
-                  placeholder="enter your ticket name here"
-                  value={ @state.newTicket.name }
-                  onChange={ @onNewTicketChange }
-                />
-              </td>
-              <td className="delete-column">
-                <input type="submit" value="CREATE"/>
-              </td>
-            </tr>
-          </table>
-        </form>
+      <th>
+        -
+      </th>
+      <td>
+        <input
+          className="input-gray"
+          id="new_ticket"
+          type="text"
+          placeholder="enter your ticket name here"
+          value={ @state.newTicket.name }
+          onChange={ @onNewTicketChange }
+          onKeyDown={ @onNewTicketKeyDown }
+        />
+      </td>
+      <td></td>
+      <td className="buttons">
+        <button className="btn btn-gray" onClick={ @onNewTicketSubmit }>Create</button>
       </td>
     </tr>
 
 module.exports = GameNewTicketOwner
-

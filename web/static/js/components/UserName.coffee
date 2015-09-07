@@ -22,22 +22,21 @@ UserName = React.createClass
     Actions.submitUserName()
 
   render: ->
-    <div className="form-group row">
-      <label className="col-xs-12 start-xs">
-        <span className="simple-row">Your Nickname:</span>
-        <input className="simple-row full-width"
-          type="text"
-          name="user_name"
-          placeholder="Enter Your Nickname"
-          value={ @state.user.name }
-          onChange={ @onChangeUserName }
-          onKeyDown={ @onSubmitUserName }
-          onBlur={ @onBlurUserName }
-        />
-        {if @state.errors.user.name
-          <span>{ @state.errors.user.name }</span>
-        }
-      </label>
+    <div className={ "form-group #{if @state.errors.user.name then "has-error"}" }>
+      <label htmlFor="user_name">Your Nickname:</label>
+      <input
+        className="form-control"
+        type="text"
+        id="user_name"
+        placeholder="Enter Your Nickname"
+        value={ @state.user.name }
+        onChange={ @onChangeUserName }
+        onKeyDown={ @onSubmitUserName }
+        onBlur={ @onBlurUserName }
+      />
+      {if @state.errors.user.name
+        <div className="error text-right">{ @state.errors.user.name }</div>
+      }
     </div>
 
 module.exports = UserName

@@ -10,27 +10,20 @@ Errors = React.createClass
   ]
 
   onCardChange: (e) ->
-    Actions.vote(e.target.value)
+    unless @props.disabled
+      Actions.vote(e.target.textContent)
 
   render: ->
-    <div className="full-width">
-      <form>
-        { for card in @state.game.deck.cards
-          <label key={ card }>
-            <input
-              type="radio"
-              name="cards"
-              value={ card }
-              onChange={ @onCardChange }
-              checked={ @state.gameState.votes[@state.user.id] == card }
-              disabled={ @props.disabled }
-            />
-            &nbsp;
-            <span>{ card }</span>
-            &nbsp;
-          </label>
-        }
-      </form>
+    <div className="deck">
+      { for card in @state.game.deck.cards
+        <div
+          key={ card }
+          className={"card #{if @state.gameState.votes[@state.user.id] == card then "selected" } #{if @props.disabled then "disabled"}"}
+          onClick={ @onCardChange }
+        >
+          { card }
+        </div>
+      }
     </div>
 
 module.exports = Errors

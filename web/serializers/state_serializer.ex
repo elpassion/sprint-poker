@@ -2,7 +2,7 @@ defimpl Poison.Encoder, for: PlanningPoker.State do
   def encode(state, options) do
     %{
       name: state.name,
-      currentTicketIndex: state.current_ticket_index,
+      currentTicketId: state.current_ticket_id,
       votes: state.votes
     } |> Poison.Encoder.encode(options)
   end

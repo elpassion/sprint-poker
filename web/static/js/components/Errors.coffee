@@ -13,18 +13,26 @@ Errors = React.createClass
     Actions.dissmissErrors()
 
   render: ->
-    if @state.errors.popup.length > 0
-      <div className="session-form-container row">
-        <ul>
-          { for error in @state.errors.popup
-            <li>
-              { error }
-            </li>
-          }
-        </ul>
-        <input type="button" value="X" onClick={ @onDissmissErrors }/>
-      </div>
-    else
-      <div/>
+    <div>
+      { if @state.errors.socket != null && @state.errors.socket != undefined
+        <div className="alert alert-danger">
+          { @state.errors.socket}
+        </div>
+      }
+      { if @state.errors.popup.length > 0
+        <div className="alert alert-danger alert-dismissible">
+          <button type="button" className="close" onClick={ @onDissmissErrors }>
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <ul>
+            { for error, i in @state.errors.popup
+              <li key={ i }>
+                { error }
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
 
 module.exports = Errors

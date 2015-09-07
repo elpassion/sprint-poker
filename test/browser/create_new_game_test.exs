@@ -1,6 +1,7 @@
 defmodule PlanningPoker.CreateNewGameTest do
   use PlanningPoker.BrowserCase
 
+  @tag :browser
   test "don't create game without session and user name" do
     visit "/"
     click_button "Start Session"
@@ -8,6 +9,7 @@ defmodule PlanningPoker.CreateNewGameTest do
     assert Page.has_text? "Your Nickname can`t be blank"
   end
 
+  @tag :browser
   test "don't create game without session name" do
     visit "/"
     fill_in "game_name", "Game"
@@ -16,6 +18,7 @@ defmodule PlanningPoker.CreateNewGameTest do
     assert Page.has_text? "Your Nickname can`t be blank"
   end
 
+  @tag :browser
   test "don't create game without user name" do
     visit "/"
     fill_in "user_name", "User"
@@ -24,6 +27,7 @@ defmodule PlanningPoker.CreateNewGameTest do
     refute Page.has_text? "Your Nickname can`t be blank"
   end
 
+  @tag :browser
   test "create game with session and user name" do
     visit "/"
     fill_in "game_name", "Test Game"

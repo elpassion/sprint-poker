@@ -145,16 +145,16 @@ defmodule PlanningPoker.GameChannelTest do
     assert_broadcast "state", ^state_response
   end
 
-  test "'state:update' updates current_ticket_index state and broadcasts it" do
+  test "'state:update' updates current_ticket_id state and broadcasts it" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
     state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
-    socket |> push "state:update", %{"state" => %{current_ticket_index: 6}}
+    socket |> push "state:update", %{"state" => %{current_ticket_id: 6}}
 
-    state_response = %{"state": %{state | current_ticket_index: 6}}
+    state_response = %{"state": %{state | current_ticket_id: 6}}
     assert_broadcast "state", ^state_response
   end
 

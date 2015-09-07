@@ -1,0 +1,56 @@
+button.btn
+  &:hover,
+  &:active,
+  &:focus,
+  &:active:focus
+    outline: none
+    box-shadow: none
+
+button.btn-big-red
+  background: linear-gradient(90deg, #ff4048 0%, #ff8042 100%)
+  outline: none
+  border: none
+  border-radius: 2px
+  text-transform: uppercase
+  font-size: 18px
+  letter-spacing: 2px
+  font-weight: 500
+  color: $white
+  padding: 20px
+  width: 100%
+
+  &:hover,
+  &:active,
+  &:focus
+    background: linear-gradient(90deg, #ff4048 0%, #ff8042 100%)
+    color: $white
+
+button.btn-gray
+  text-transform: uppercase
+  border: none
+  width: 100%
+  height: 100%
+  display: block
+  background-color: inherit
+  font-size: 12px
+  font-weight: 700
+  color: $dark-gray
+
+  &:focus
+    color: $dark-gray
+
+  &:hover
+    color: $orange
+    border: none
+    outline: none
+
+button.btn-gray-border
+  @extend button.btn-gray
+
+  margin: 5px
+  border: 1px solid $table-border-color
+  border-radius: 0
+
+  &:hover
+    border: 1px solid $table-border-color
+

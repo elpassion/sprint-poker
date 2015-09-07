@@ -31,7 +31,9 @@ TicketMixin =
     @emit()
 
   onChangeTicketPoints: (points) ->
-    ticket = @game.tickets[@gameState.currentTicketIndex]
+    if points == "" then points = null
+    ticket = _.find @game.tickets, (ticket) =>
+      ticket.id == @gameState.currentTicketId
     ticket.points = points
     @channel.push 'ticket:update', {ticket: {id: ticket.id, points: points }}
     @emit()

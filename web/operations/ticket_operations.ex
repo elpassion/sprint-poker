@@ -17,9 +17,9 @@ defmodule PlanningPoker.TicketOperations do
   end
 
   def delete(params) do
-    ticket = Repo.get!(Ticket, params["id"])
-    if ticket do
-      ticket |> Repo.delete!
+    case Repo.get(Ticket, params["id"]) do
+      nil -> :nothing
+      ticket -> ticket |> Repo.delete!
     end
   end
 

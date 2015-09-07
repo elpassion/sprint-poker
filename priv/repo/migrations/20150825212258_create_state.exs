@@ -4,7 +4,7 @@ defmodule PlanningPoker.Repo.Migrations.CreateState do
   def change do
     create table(:states) do
       add :game_id, references(:games, type: :uuid), null: false
-      add :current_ticket_index, :integer
+      add :current_ticket_id, :integer
       add :votes, :map
       add :name, :string
 

@@ -20,23 +20,22 @@ GameName = React.createClass
     Actions.validateGameName()
 
   render: ->
-    <div className="form-group row">
-      <label className="col-xs-12 start-xs">
-        <span className="simple-row">Session Title:</span>
-        <input className="simple-row full-width"
-          type="text"
-          name="game_name"
-          placeholder="Enter Session Title"
-          value={ @state.game.name }
-          onChange={ @onChangeGameName }
-          onKeyDown={ @onSubmitGameName }
-          onBlur={ @onBlurGameName }
-          disabled={ @props.disabled }
-        />
-        {if @state.errors.game.name
-          <span>{ @state.errors.game.name }</span>
-        }
-      </label>
+    <div className={ "form-group #{if @state.errors.game.name then "has-error"}" }>
+      <label htmlFor="game_name">Session Title:</label>
+      <input
+        className="form-control"
+        type="text"
+        id="game_name"
+        placeholder="Enter Session Title"
+        value={ @state.game.name }
+        onChange={ @onChangeGameName }
+        onKeyDown={ @onSubmitGameName }
+        onBlur={ @onBlurGameName }
+        disabled={ @props.disabled }
+      />
+      {if @state.errors.game.name
+        <div className="error text-right">{ @state.errors.game.name }</div>
+      }
     </div>
 
 module.exports = GameName

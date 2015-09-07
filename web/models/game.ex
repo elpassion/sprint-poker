@@ -40,7 +40,7 @@ defmodule PlanningPoker.Game do
 
   def get(id, opts \\ []) do
     case Ecto.UUID.cast(id) do
-      {:ok, _} -> super(id, opts)
+      {:ok, _} -> Repo.get(__MODULE__, id, opts)
       _ ->
     end
   end

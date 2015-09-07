@@ -9,6 +9,8 @@ UserMixin =
     @channelEvents ||= []
     @channelEvents.push =>
       @channel.on "user", (user) =>
+        unless user.user.name
+          user.user.name = @user.name
         @user = user.user
         @emit()
 
