@@ -1,5 +1,5 @@
 React = require 'react'
-Store = require '../stores/SocketConnectionStore'
+Store = require '../stores/Store'
 Reflux = require 'reflux'
 
 { Navigation } = require 'react-router'

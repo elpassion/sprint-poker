@@ -7,7 +7,7 @@ GameName = require './GameName'
 GameDeck = require './GameDeck'
 Errors = require './Errors'
 
-Store = require '../stores/SocketConnectionStore'
+Store = require '../stores/Store'
 Actions = Store.Actions
 
 JoinGame = React.createClass

@@ -4,6 +4,7 @@
 /deps
 /*.ez
 /*.png
+console_log_path
 
 # Generate on crash by the VM
 erl_crash.dump

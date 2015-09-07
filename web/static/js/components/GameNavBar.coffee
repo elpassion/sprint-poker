@@ -2,7 +2,7 @@ React = require 'react'
 Reflux = require 'reflux'
 smallLogo = require '../../assets/images/logo_small_beta.png'
 
-Store = require '../stores/SocketConnectionStore'
+Store = require '../stores/Store'
 Actions = Store.Actions
 
 

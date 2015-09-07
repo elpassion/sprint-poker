@@ -1,6 +1,6 @@
 React = require 'react'
 Reflux = require 'reflux'
-Store = require '../stores/SocketConnectionStore'
+Store = require '../stores/Store'
 
 GameNavBar = require './GameNavBar'
 GameTickets = require './GameTickets'
@@ -13,7 +13,7 @@ Errors = require './Errors'
 InfoOwner = require './InfoOwner'
 Info = require './Info'
 
-Store = require '../stores/SocketConnectionStore'
+Store = require '../stores/Store'
 Actions = Store.Actions
 
 Game = React.createClass
