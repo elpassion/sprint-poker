@@ -4,7 +4,7 @@ defmodule PlanningPoker.Mixfile do
   def project do
     [
       app: :planning_poker,
-      version: "0.0.1",
+      version: "0.5.0",
       elixir: "~> 1.0",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix] ++ Mix.compilers,
