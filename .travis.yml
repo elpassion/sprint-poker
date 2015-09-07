@@ -16,7 +16,7 @@ before_install:
 script:
   - npm install
   - webpack -t
-  - mix test
+  - mix test --exclude browser
   - karma start
 
 after_script:

@@ -16,6 +16,7 @@ defmodule PlanningPoker.JoinGameTest do
     {:ok, game_url: game_url}
   end
 
+  @tag :browser
   test "join page has game name", context do
     visit context[:game_url]
     assert Page.has_text? "Join session ?"
@@ -25,6 +26,7 @@ defmodule PlanningPoker.JoinGameTest do
     assert game_name == "Test Game"
   end
 
+  @tag :browser
   test "join page has session owner", context do
     visit context[:game_url]
     assert Page.has_text? "Join session ?"
@@ -34,6 +36,7 @@ defmodule PlanningPoker.JoinGameTest do
     assert owner_name == "Test Owner User"
   end
 
+  @tag :browser
   test "join page has session deck", context do
     visit context[:game_url]
     assert Page.has_text? "Join session ?"
@@ -43,6 +46,7 @@ defmodule PlanningPoker.JoinGameTest do
     assert deck_name == "2"
   end
 
+  @tag :browser
   test "join page has user name", context do
     visit context[:game_url]
     assert Page.has_text? "Join session ?"
@@ -52,6 +56,7 @@ defmodule PlanningPoker.JoinGameTest do
     assert user_name == "Test Owner User"
   end
 
+  @tag :browser
   test "can join game", context do
     visit context[:game_url]
     assert Page.has_text? "Join session ?"
