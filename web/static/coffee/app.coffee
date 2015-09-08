@@ -15,8 +15,16 @@ if window.airbrake
   airbrake.addFilter (notice) ->
     notice.context.environment = window.airbrake.environment
     notice
-  window.onerror = (err) ->
-    airbrake.notify(err)
+
+  window.onerror = (message, file, line, col, error) ->
+    if error
+      airbrake.notify(error)
+    else
+      airbrake.notify
+        error:
+          message: message,
+          fileName: file,
+          lineNumber: line
 
 React.render(
   <Router history={ new BrowserHistory() }>
