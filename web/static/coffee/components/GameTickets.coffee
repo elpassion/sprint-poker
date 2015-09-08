@@ -21,7 +21,7 @@ GameTickets = React.createClass
       </caption>
       <tbody>
         { for ticketId, ticket of @state.game.tickets
-          <tr key={ ticket.id } className={ if @state.gameState.currentTicketId == i then "selected"}>
+          <tr key={ ticket.id } className={ if @state.gameState.currentTicketId == ticket.id then "selected"}>
             <th>
               { Object.keys(@state.game.tickets).indexOf(ticketId) + 1 }
             </th>
