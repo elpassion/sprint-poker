@@ -15,6 +15,7 @@ StateMixin =
     @channelEvents.push =>
       @channel.on "state", (state) =>
         @gameState = state.state
+        @selectFinalEstimation()
         @emit()
 
   onVote: (val) ->
@@ -38,5 +39,11 @@ StateMixin =
   onFinishVoting: ->
     @channel.push "state:update", { state: { name: 'review' } }
 
+  selectFinalEstimation: ->
+    return unless @gameState.name == 'review'
+    values = _.map @gameState.votes, (vote) -> vote
+    uniq = _.uniq values
+    if uniq.length == 1
+      @game.tickets[@gameState.currentTicketId].points = uniq[0]
 
 module.exports = StateMixin
