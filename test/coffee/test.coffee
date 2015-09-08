@@ -1,5 +1,5 @@
 React = require('react')
-Errors = require('../../web/static/js/components/Errors')
+Errors = require('../../web/static/coffee/components/Errors')
 TestUtils = require('react/lib/ReactTestUtils')
 
 describe 'PlanningPokerApp', ->
