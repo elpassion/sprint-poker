@@ -2,7 +2,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './web/static/js/app.coffee',
+  entry: './web/static/coffee/app.coffee',
   output: {
     filename: 'main.js',
     path: './priv/static/assets/'
