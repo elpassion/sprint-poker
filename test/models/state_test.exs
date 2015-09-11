@@ -1,10 +1,10 @@
-defmodule PlanningPoker.StateTest do
-  use PlanningPoker.ModelCase
+defmodule SprintPoker.StateTest do
+  use SprintPoker.ModelCase
 
-  alias PlanningPoker.User
-  alias PlanningPoker.Deck
-  alias PlanningPoker.Game
-  alias PlanningPoker.State
+  alias SprintPoker.User
+  alias SprintPoker.Deck
+  alias SprintPoker.Game
+  alias SprintPoker.State
 
   test "empty state changeset is not valid" do
     changeset = %State{} |> State.changeset(%{})

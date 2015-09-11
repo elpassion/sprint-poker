@@ -1,3 +1,3 @@
-defmodule PlanningPoker.PageViewTest do
-  use PlanningPoker.ConnCase, async: true
+defmodule SprintPoker.PageViewTest do
+  use SprintPoker.ConnCase, async: true
 end

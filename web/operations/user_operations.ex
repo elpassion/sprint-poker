@@ -1,9 +1,9 @@
-defmodule PlanningPoker.UserOperations do
-  alias PlanningPoker.GameUser
-  alias PlanningPoker.Repo
-  alias PlanningPoker.User
+defmodule SprintPoker.UserOperations do
+  alias SprintPoker.GameUser
+  alias SprintPoker.Repo
+  alias SprintPoker.User
 
-  alias PlanningPoker.GameUserOperations
+  alias SprintPoker.GameUserOperations
 
   def connect(user, game) do
     case Repo.get_by(GameUser, game_id: game.id, user_id: user.id) do

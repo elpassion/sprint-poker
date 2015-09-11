@@ -1,3 +1,3 @@
-defmodule PlanningPoker.LayoutView do
-  use PlanningPoker.Web, :view
+defmodule SprintPoker.LayoutView do
+  use SprintPoker.Web, :view
 end

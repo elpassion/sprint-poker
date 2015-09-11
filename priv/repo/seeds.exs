@@ -5,13 +5,13 @@
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-#     PlanningPoker.Repo.insert!(%SomeModel{})
+#     SprintPoker.Repo.insert!(%SomeModel{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias PlanningPoker.Repo
-alias PlanningPoker.Deck
+alias SprintPoker.Repo
+alias SprintPoker.Deck
 
 if Repo.all(Deck) == [] do
   Repo.insert!(%Deck{name: "Fibonacci", cards: ["1","2","3","5","8","13","40","100"]})

@@ -4,7 +4,7 @@ Reflux = require 'reflux'
 
 { Navigation } = require 'react-router'
 
-PlanningPokerApp = React.createClass
+SprintPokerApp = React.createClass
   mixins: [
     Reflux.connect(Store)
     Navigation
@@ -18,4 +18,4 @@ PlanningPokerApp = React.createClass
   render: ->
     this.props.children
 
-module.exports = PlanningPokerApp
+module.exports = SprintPokerApp

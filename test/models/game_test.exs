@@ -1,10 +1,10 @@
-defmodule PlanningPoker.GameTest do
-  use PlanningPoker.ModelCase
+defmodule SprintPoker.GameTest do
+  use SprintPoker.ModelCase
 
-  alias PlanningPoker.Game
-  alias PlanningPoker.User
-  alias PlanningPoker.Deck
-  alias PlanningPoker.Repo
+  alias SprintPoker.Game
+  alias SprintPoker.User
+  alias SprintPoker.Deck
+  alias SprintPoker.Repo
 
   test "don't create empty game" do
     assert_raise Postgrex.Error, fn ->

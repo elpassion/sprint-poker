@@ -1,7 +1,7 @@
-defmodule PlanningPoker.SocketOperations do
-  alias PlanningPoker.Repo
-  alias PlanningPoker.Game
-  alias PlanningPoker.User
+defmodule SprintPoker.SocketOperations do
+  alias SprintPoker.Repo
+  alias SprintPoker.Game
+  alias SprintPoker.User
 
   def get_game_and_user(socket) do
     "game:" <> game_id = socket.topic

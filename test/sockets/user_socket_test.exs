@@ -1,8 +1,8 @@
-defmodule PlanningPoker.UserSocketTest do
-  use PlanningPoker.ChannelCase
+defmodule SprintPoker.UserSocketTest do
+  use SprintPoker.ChannelCase
 
-  alias PlanningPoker.UserSocket
-  alias PlanningPoker.User
+  alias SprintPoker.UserSocket
+  alias SprintPoker.User
 
   test "connecting to socket creates a new user" do
     {:ok, socket} = UserSocket.connect(%{}, socket())

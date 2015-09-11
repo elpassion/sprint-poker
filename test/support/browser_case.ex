@@ -1,14 +1,14 @@
-defmodule PlanningPoker.BrowserCase do
+defmodule SprintPoker.BrowserCase do
   use ExUnit.CaseTemplate
 
   using do
     quote do
       use ExUnit.Case
       use TucoTuco.DSL
-      use PlanningPoker.BrowserCaseHelper
+      use SprintPoker.BrowserCaseHelper
 
       setup_all do
-        port = PlanningPoker.Endpoint.config(:http)[:port]
+        port = SprintPoker.Endpoint.config(:http)[:port]
 
         #{:ok, _} = TucoTuco.start_session :test_browser, :guest_session, :firefox
         {:ok, _} = TucoTuco.start_session :test_browser, :owner_session, :firefox
@@ -26,7 +26,7 @@ defmodule PlanningPoker.BrowserCase do
 
   setup tags do
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(PlanningPoker.Repo, [])
+      Ecto.Adapters.SQL.restart_test_transaction(SprintPoker.Repo, [])
     end
     :ok
   end

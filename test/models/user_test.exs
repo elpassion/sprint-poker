@@ -1,8 +1,8 @@
-defmodule PlanningPoker.UserTest do
-  use PlanningPoker.ModelCase
+defmodule SprintPoker.UserTest do
+  use SprintPoker.ModelCase
 
-  alias PlanningPoker.User
-  alias PlanningPoker.Repo
+  alias SprintPoker.User
+  alias SprintPoker.Repo
 
   test "creating empty user generate auth_token" do
     user = %User{} |> Repo.insert!

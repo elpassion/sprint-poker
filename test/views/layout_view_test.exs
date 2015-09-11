@@ -1,3 +1,3 @@
-defmodule PlanningPoker.LayoutViewTest do
-  use PlanningPoker.ConnCase, async: true
+defmodule SprintPoker.LayoutViewTest do
+  use SprintPoker.ConnCase, async: true
 end

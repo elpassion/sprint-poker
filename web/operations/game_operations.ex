@@ -1,8 +1,8 @@
-defmodule PlanningPoker.GameOperations do
-  alias PlanningPoker.Repo
-  alias PlanningPoker.Game
-  alias PlanningPoker.Deck
-  alias PlanningPoker.StateOperations
+defmodule SprintPoker.GameOperations do
+  alias SprintPoker.Repo
+  alias SprintPoker.Game
+  alias SprintPoker.Deck
+  alias SprintPoker.StateOperations
 
   def create(params, user) do
     changeset = Game.changeset(%Game{}, %{

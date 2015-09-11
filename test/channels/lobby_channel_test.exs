@@ -1,13 +1,13 @@
-defmodule PlanningPoker.LobbyChannelTest do
-  use PlanningPoker.ChannelCase
+defmodule SprintPoker.LobbyChannelTest do
+  use SprintPoker.ChannelCase
 
-  alias PlanningPoker.LobbyChannel
-  alias PlanningPoker.User
-  alias PlanningPoker.Deck
-  alias PlanningPoker.Repo
-  alias PlanningPoker.Game
-  alias PlanningPoker.Deck
-  alias PlanningPoker.State
+  alias SprintPoker.LobbyChannel
+  alias SprintPoker.User
+  alias SprintPoker.Deck
+  alias SprintPoker.Repo
+  alias SprintPoker.Game
+  alias SprintPoker.Deck
+  alias SprintPoker.State
 
   test "joining lobby sends auth_token" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!

@@ -1,10 +1,10 @@
-defmodule PlanningPoker.Ticket do
-  use PlanningPoker.Web, :model
+defmodule SprintPoker.Ticket do
+  use SprintPoker.Web, :model
 
   schema "tickets" do
     field :name, :string
     field :points, :string
-    belongs_to :game, PlanningPoker.Game, type: :binary_id
+    belongs_to :game, SprintPoker.Game, type: :binary_id
 
     timestamps
   end

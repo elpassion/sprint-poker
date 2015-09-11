@@ -1,5 +1,5 @@
-defmodule PlanningPoker.JoinGameTest do
-  use PlanningPoker.BrowserCase
+defmodule SprintPoker.JoinGameTest do
+  use SprintPoker.BrowserCase
 
   setup do
     visit "/"

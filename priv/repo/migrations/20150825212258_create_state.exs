@@ -1,4 +1,4 @@
-defmodule PlanningPoker.Repo.Migrations.CreateState do
+defmodule SprintPoker.Repo.Migrations.CreateState do
   use Ecto.Migration
 
   def change do

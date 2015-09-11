@@ -1,8 +1,8 @@
-defmodule PlanningPoker.State do
-  use PlanningPoker.Web, :model
+defmodule SprintPoker.State do
+  use SprintPoker.Web, :model
 
   schema "states" do
-    belongs_to :game, PlanningPoker.Game, type: :binary_id
+    belongs_to :game, SprintPoker.Game, type: :binary_id
     field :current_ticket_id, :integer
     field :votes, :map, default: %{}
     field :name, :string

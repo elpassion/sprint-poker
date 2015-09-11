@@ -1,12 +1,12 @@
-defmodule PlanningPoker.Web do
+defmodule SprintPoker.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use PlanningPoker.Web, :controller
-      use PlanningPoker.Web, :view
+      use SprintPoker.Web, :controller
+      use SprintPoker.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -26,11 +26,11 @@ defmodule PlanningPoker.Web do
     quote do
       use Phoenix.Controller
 
-      alias PlanningPoker.Repo
+      alias SprintPoker.Repo
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
 
-      import PlanningPoker.Router.Helpers
+      import SprintPoker.Router.Helpers
     end
   end
 
@@ -44,7 +44,7 @@ defmodule PlanningPoker.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import PlanningPoker.Router.Helpers
+      import SprintPoker.Router.Helpers
     end
   end
 
@@ -58,7 +58,7 @@ defmodule PlanningPoker.Web do
     quote do
       use Phoenix.Channel
 
-      alias PlanningPoker.Repo
+      alias SprintPoker.Repo
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
 

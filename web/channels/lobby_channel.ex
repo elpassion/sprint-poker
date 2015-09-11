@@ -1,12 +1,12 @@
-defmodule PlanningPoker.LobbyChannel do
+defmodule SprintPoker.LobbyChannel do
   use Phoenix.Channel
 
-  alias PlanningPoker.Repo
-  alias PlanningPoker.User
-  alias PlanningPoker.Deck
+  alias SprintPoker.Repo
+  alias SprintPoker.User
+  alias SprintPoker.Deck
 
-  alias PlanningPoker.GameOperations
-  alias PlanningPoker.UserOperations
+  alias SprintPoker.GameOperations
+  alias SprintPoker.UserOperations
 
   def join("lobby", message, socket) do
     send(self, {:after_join, message})

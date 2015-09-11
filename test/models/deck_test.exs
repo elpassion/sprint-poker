@@ -1,8 +1,8 @@
-defmodule PlanningPoker.DeckTest do
-  use PlanningPoker.ModelCase
+defmodule SprintPoker.DeckTest do
+  use SprintPoker.ModelCase
 
-  alias PlanningPoker.Deck
-  alias PlanningPoker.Repo
+  alias SprintPoker.Deck
+  alias SprintPoker.Repo
 
   test "don't create empty deck" do
     assert_raise Postgrex.Error, fn ->

@@ -4,7 +4,7 @@ React = require 'react'
 { Router, Route, Redirect } = require 'react-router'
 
 BrowserHistory = require('react-router/lib/BrowserHistory').default
-PlanningPokerApp = require './components/PlanningPokerApp'
+SprintPokerApp = require './components/SprintPokerApp'
 
 NewGame = require './components/NewGame'
 GameLobby = require './components/GameLobby'
@@ -28,7 +28,7 @@ if window.airbrake
 
 React.render(
   <Router history={ new BrowserHistory() }>
-    <Route components={ PlanningPokerApp }>
+    <Route components={ SprintPokerApp }>
       <Redirect from="/" to="new-game" />
       <Route path="new-game" components={ NewGame }/>
       <Route path="games/:gameId" components={ GameLobby }/>

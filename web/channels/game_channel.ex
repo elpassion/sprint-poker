@@ -1,15 +1,15 @@
-defmodule PlanningPoker.GameChannel do
+defmodule SprintPoker.GameChannel do
   use Phoenix.Channel
 
-  alias PlanningPoker.Repo
-  alias PlanningPoker.User
-  alias PlanningPoker.Game
-  alias PlanningPoker.Ticket
+  alias SprintPoker.Repo
+  alias SprintPoker.User
+  alias SprintPoker.Game
+  alias SprintPoker.Ticket
 
-  alias PlanningPoker.UserOperations
-  alias PlanningPoker.SocketOperations
-  alias PlanningPoker.StateOperations
-  alias PlanningPoker.TicketOperations
+  alias SprintPoker.UserOperations
+  alias SprintPoker.SocketOperations
+  alias SprintPoker.StateOperations
+  alias SprintPoker.TicketOperations
 
   def join("game:" <> game_id, message, socket) do
     game = Repo.get!(Game, game_id)

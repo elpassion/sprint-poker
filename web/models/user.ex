@@ -1,5 +1,5 @@
-defmodule PlanningPoker.User do
-  use PlanningPoker.Web, :model
+defmodule SprintPoker.User do
+  use SprintPoker.Web, :model
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @required_fields ~w(name)
@@ -10,7 +10,7 @@ defmodule PlanningPoker.User do
     field :auth_token, Ecto.UUID, autogenerate: true
     field :state, :string, virtual: true
 
-    has_many :game_user, PlanningPoker.GameUser
+    has_many :game_user, SprintPoker.GameUser
     has_many :games, through: [:game_user, :game]
     timestamps
   end
