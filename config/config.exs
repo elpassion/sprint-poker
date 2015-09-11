@@ -6,12 +6,12 @@
 use Mix.Config
 
 # Configures the endpoint
-config :planning_poker, PlanningPoker.Endpoint,
+config :sprint_poker, SprintPoker.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "ZxLhVLGlxT/2YhQE0pIthf8utPtLgxAwMnGRZNW3kCqpszn4yNJnZqpwXSAOW9Pj",
   render_errors: [accepts: "json"],
-  pubsub: [name: PlanningPoker.PubSub,
+  pubsub: [name: SprintPoker.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

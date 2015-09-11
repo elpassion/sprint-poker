@@ -1,10 +1,10 @@
-defmodule PlanningPoker.UserSocket do
+defmodule SprintPoker.UserSocket do
   use Phoenix.Socket
-  alias PlanningPoker.UserOperations
+  alias SprintPoker.UserOperations
 
   ## Channels
-  channel "lobby", PlanningPoker.LobbyChannel
-  channel "game:*", PlanningPoker.GameChannel
+  channel "lobby", SprintPoker.LobbyChannel
+  channel "game:*", SprintPoker.GameChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

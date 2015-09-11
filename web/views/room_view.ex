@@ -1,5 +1,5 @@
-defmodule PlanningPoker.RoomView do
-  use PlanningPoker.Web, :view
+defmodule SprintPoker.RoomView do
+  use SprintPoker.Web, :view
 
   def render("create.json", %{room: room}) do
     room

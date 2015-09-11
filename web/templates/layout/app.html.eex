@@ -20,7 +20,7 @@
       <p>
 		  &copy; 2015 <a href="http://elpassion.com">EL Passion</a>
 		  &nbsp;|&nbsp;
-		  Sprint Poker <%= PlanningPoker.Mixfile.project[:version] %>
+		  Sprint Poker <%= SprintPoker.Mixfile.project[:version] %>
 		  &nbsp;|&nbsp;
 		  Fork me on <a href="https://github.com/elpassion-labs/sprint-poker">GitHub</a>
 		  &nbsp;|&nbsp;

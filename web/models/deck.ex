@@ -1,5 +1,5 @@
-defmodule PlanningPoker.Deck do
-  use PlanningPoker.Web, :model
+defmodule SprintPoker.Deck do
+  use SprintPoker.Web, :model
 
   schema "decks" do
     field :name, :string

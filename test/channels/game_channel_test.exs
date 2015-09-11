@@ -1,15 +1,15 @@
-defmodule PlanningPoker.GameChannelTest do
-  use PlanningPoker.ChannelCase
+defmodule SprintPoker.GameChannelTest do
+  use SprintPoker.ChannelCase
 
-  alias PlanningPoker.GameChannel
-  alias PlanningPoker.User
-  alias PlanningPoker.Deck
-  alias PlanningPoker.Repo
-  alias PlanningPoker.Game
-  alias PlanningPoker.Deck
-  alias PlanningPoker.GameUser
-  alias PlanningPoker.Ticket
-  alias PlanningPoker.State
+  alias SprintPoker.GameChannel
+  alias SprintPoker.User
+  alias SprintPoker.Deck
+  alias SprintPoker.Repo
+  alias SprintPoker.Game
+  alias SprintPoker.Deck
+  alias SprintPoker.GameUser
+  alias SprintPoker.Ticket
+  alias SprintPoker.State
 
   test "joining game adds record and broadcasts game with new user and pushes state" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!

@@ -1,14 +1,14 @@
-defmodule PlanningPoker.Endpoint do
-  use Phoenix.Endpoint, otp_app: :planning_poker
+defmodule SprintPoker.Endpoint do
+  use Phoenix.Endpoint, otp_app: :sprint_poker
 
-  socket "/ws", PlanningPoker.UserSocket
+  socket "/ws", SprintPoker.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :planning_poker, gzip: true,
+    at: "/", from: :sprint_poker, gzip: true,
     only: ~w(assets favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -32,8 +32,8 @@ defmodule PlanningPoker.Endpoint do
 
   plug Plug.Session,
     store: :cookie,
-    key: "_planning_poker_key",
+    key: "_sprint_poker_key",
     signing_salt: "38sdddLe"
 
-  plug PlanningPoker.Router
+  plug SprintPoker.Router
 end

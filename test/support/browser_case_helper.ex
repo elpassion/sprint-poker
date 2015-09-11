@@ -1,7 +1,7 @@
-defmodule PlanningPoker.BrowserCaseHelper do
+defmodule SprintPoker.BrowserCaseHelper do
   defmacro __using__(_opts) do
     quote do
-      import PlanningPoker.BrowserCaseHelper
+      import SprintPoker.BrowserCaseHelper
     end
   end
 

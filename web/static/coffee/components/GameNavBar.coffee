@@ -18,7 +18,7 @@ GameNavBar = React.createClass
     <nav className="navbar navbar-default navbar-static-top">
       <div className="container">
         <div className="navbar-header">
-          <img className="small-logo" src={smallLogo} alt="Planning Poker"/>
+          <img className="small-logo" src={smallLogo}/>
         </div>
         <div className="nav navbar-nav">
           <span className="head">SESSION NAME:</span>

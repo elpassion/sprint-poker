@@ -1,4 +1,4 @@
-defimpl Poison.Encoder, for: PlanningPoker.Ticket do
+defimpl Poison.Encoder, for: SprintPoker.Ticket do
   def encode(ticket, options) do
     %{
       id: ticket.id,

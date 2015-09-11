@@ -1,4 +1,4 @@
-defmodule PlanningPoker.ConnCase do
+defmodule SprintPoker.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -20,20 +20,20 @@ defmodule PlanningPoker.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      alias PlanningPoker.Repo
+      alias SprintPoker.Repo
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
 
-      import PlanningPoker.Router.Helpers
+      import SprintPoker.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint PlanningPoker.Endpoint
+      @endpoint SprintPoker.Endpoint
     end
   end
 
   setup tags do
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(PlanningPoker.Repo, [])
+      Ecto.Adapters.SQL.restart_test_transaction(SprintPoker.Repo, [])
     end
 
     :ok

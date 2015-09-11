@@ -1,11 +1,11 @@
-defmodule PlanningPoker.Router do
-  use PlanningPoker.Web, :router
+defmodule SprintPoker.Router do
+  use SprintPoker.Web, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
   end
 
-  scope "/", PlanningPoker do
+  scope "/", SprintPoker do
     pipe_through :browser
 
     get "/*anything", PageController, :index

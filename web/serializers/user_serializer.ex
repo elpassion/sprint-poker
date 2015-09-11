@@ -1,4 +1,4 @@
-defimpl Poison.Encoder, for: PlanningPoker.User do
+defimpl Poison.Encoder, for: SprintPoker.User do
   def encode(user, options) do
     hash = %{
       id: user.id,

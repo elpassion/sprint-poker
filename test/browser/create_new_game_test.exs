@@ -1,5 +1,5 @@
-defmodule PlanningPoker.CreateNewGameTest do
-  use PlanningPoker.BrowserCase
+defmodule SprintPoker.CreateNewGameTest do
+  use SprintPoker.BrowserCase
 
   @tag :browser
   test "don't create game without session and user name" do

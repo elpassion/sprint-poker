@@ -1,6 +1,6 @@
-defmodule PlanningPoker.StateOperations do
-  alias PlanningPoker.Repo
-  alias PlanningPoker.State
+defmodule SprintPoker.StateOperations do
+  alias SprintPoker.Repo
+  alias SprintPoker.State
 
   def create(game) do
     changeset = State.changeset(%State{}, %{name: "none", game_id: game.id})

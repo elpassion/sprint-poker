@@ -1,5 +1,5 @@
-defmodule PlanningPoker.ManagingTicketsTest do
-  use PlanningPoker.BrowserCase
+defmodule SprintPoker.ManagingTicketsTest do
+  use SprintPoker.BrowserCase
 
   setup do
     visit "/"

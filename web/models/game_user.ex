@@ -1,9 +1,9 @@
-defmodule PlanningPoker.GameUser do
-  use PlanningPoker.Web, :model
+defmodule SprintPoker.GameUser do
+  use SprintPoker.Web, :model
 
   schema "game_user" do
-    belongs_to :user, PlanningPoker.User, type: :binary_id
-    belongs_to :game, PlanningPoker.Game, type: :binary_id
+    belongs_to :user, SprintPoker.User, type: :binary_id
+    belongs_to :game, SprintPoker.Game, type: :binary_id
     field :state, :string, default: "connected"
     timestamps
   end

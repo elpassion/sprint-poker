@@ -1,6 +1,6 @@
-defmodule PlanningPoker.TicketOperations do
-  alias PlanningPoker.Repo
-  alias PlanningPoker.Ticket
+defmodule SprintPoker.TicketOperations do
+  alias SprintPoker.Repo
+  alias SprintPoker.Ticket
 
   def create(params, game) do
     changeset = Ticket.changeset(%Ticket{}, %{

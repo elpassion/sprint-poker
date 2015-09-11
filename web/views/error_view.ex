@@ -1,5 +1,5 @@
-defmodule PlanningPoker.ErrorView do
-  use PlanningPoker.Web, :view
+defmodule SprintPoker.ErrorView do
+  use SprintPoker.Web, :view
 
   def render("404.html", _assigns) do
     "Page not found"

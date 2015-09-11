@@ -1,4 +1,4 @@
-defimpl Poison.Encoder, for: PlanningPoker.State do
+defimpl Poison.Encoder, for: SprintPoker.State do
   def encode(state, options) do
     %{
       name: state.name,
