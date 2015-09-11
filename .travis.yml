@@ -29,6 +29,6 @@ deploy:
   provider: heroku
   api_key:
     secure: 1h8LZmul9RjeGavb0ka67W90hOCzEYGBou6sBN8cnG6s8GppwMFjbcsucsAGWHOua1fMhg8Z7l5ILajt4mwX2J2Tvq/TWKtClAPavwNUZE0rQup+g7Qag+15cgaJVBkFSJODIctUv7Iv5/9xUWXHniiEBFK7C9+vINQeFPcB4h0LOoNGh1or0+pTlvr2zQZ5Q2MRJO5LvVjYGmjiMhH34oXoiRXX/NxhStGqTL796fp1lbAob0LAzyNHnqvfoqLpUiSlAQl3oq4hGHswjLgU2w2+M2Hu/EBURML2wpBWDrXR8OLiTixVqwSoszP/0AFUeL9eeRm4Bwa6qvG/Mr+RKSmBwplzBQEEPiDH8i9aOP0zABVtmxfn+akj8DY479u1Wnm7mVAj/hFFt7HQUa6msIVkk6wj/n6f6bQ5dHAi2eE7/OHnp9Xt7xWb9jYweqq08bUQanl4k82MPO3eCo9NjQfpGH+Nis+r+eGr2dkP9W4A1/M7oOQCNwsTTeW2gyJwY0G1JpFDtR/PjE13SrNyxnEWn4xJXXCAjtmyZnBs6t5GMZ6wobOUaWE4iCZbCZI8/+lvB/nOBGQ70kadbDRt+DlXmD7b6qgpv9YajDFFVTwuflC0xAtgx/ZFNgLGdOqN8ESDvePqFEBjZQP16yVoesVBwyQy56sNmDMMDq8DCGA=
-  app: planning-poker-phoenix
+  app: sprint-poker-live
   on:
     repo: elpassion-labs/sprint-poker
