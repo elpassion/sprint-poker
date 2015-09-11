@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Sprint Poker - Easily estimate and plan tickets with your team!">
-    <meta name="author" content="">
+    <meta name="description" content="Sprint Poker - Online estimation tool for Agile teams">
+    <meta name="author" content="EL Passion">
     <title>Sprint Poker</title>
     <%= if Mix.env == :prod do %>
     <script>window.airbrake = {"projectKey": "<%= System.get_env("AIRBRAKE_PROJECT_KEY") %>", "projectId": "<%= System.get_env("AIRBRAKE_PROJECT_ID") %>", "environment": "<%= Mix.env %>"}</script>
