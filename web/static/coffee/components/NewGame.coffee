@@ -42,7 +42,7 @@ NewGame = React.createClass
         <Errors/>
         <form className="form" onSubmit={ @onCreateGame }>
           <p className="text-center">
-            Use online Planning Poker to easy estimate and plan tickets with your team. Your room will only be seen by those you invite.
+            Use online Sprint Poker to easily estimate and plan tickets with your team. Your room will only be seen by those you invite.
           </p>
           <GameName/>
           <GameDeck/>
