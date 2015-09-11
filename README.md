@@ -29,9 +29,10 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 ## License
 
-Sprint Poker is released under the MIT License. See the LICENSE file for further details.
+Sprint Poker is released under the MIT License. See the [LICENSE] file for further details.
 
 [Elixir Lang]: http://elixir-lang.org
 [Phoenix Framework]: http://www.phoenixframework.org
 [React]: http://facebook.github.io/react
 [fork-and-pull]: https://help.github.com/articles/using-pull-requests
+[LICENSE]: LICENSE
