@@ -29,7 +29,7 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 ## License
 
-Planning Poker is released under the MIT License. See the LICENSE file for further details.
+Sprint Poker is released under the MIT License. See the LICENSE file for further details.
 
 [Elixir Lang]: http://elixir-lang.org
 [Phoenix Framework]: http://www.phoenixframework.org
