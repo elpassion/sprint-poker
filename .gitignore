@@ -5,6 +5,7 @@
 /*.ez
 /*.png
 console_log_path
+npm-debug.log
 
 # Generate on crash by the VM
 erl_crash.dump
