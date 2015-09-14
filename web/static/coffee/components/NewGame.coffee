@@ -1,7 +1,7 @@
 React   = require 'react'
 Reflux  = require 'reflux'
 _       = require 'lodash'
-Logo    = require '../../assets/images/logo_beta.png'
+Logo    = require '../../assets/images/logo@2x.png'
 { Navigation } = require 'react-router'
 
 GameName = require './GameName'
@@ -36,8 +36,8 @@ NewGame = React.createClass
   render: ->
     <div className="container">
       <div className="row col-xs-12 col-md-5 center-block">
-        <div className="logo text-center">
-          <img src={Logo}/>
+        <div className="text-center">
+          <img className="logo" src={Logo}/>
         </div>
         <Errors/>
         <form className="form" onSubmit={ @onCreateGame }>

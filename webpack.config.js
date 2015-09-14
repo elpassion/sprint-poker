@@ -25,9 +25,7 @@ module.exports = {
     loaders: [
       { test: /\.js$/,                         loader: 'babel-loader?stage=0', exclude: /(node_modules)/ },
       { test: /\.(cjsx|coffee)$/,              loader: "coffee-jsx-loader" },
-
       { test: /\.(png|jpg)$/,                  loader: 'url-loader?prefix=assets/' },
-
       { test: /\.sass/,                        loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&indentedSyntax' },
       { test: /\.css$/,                        loader: 'style-loader!css-loader' },
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   loader: "url?limit=10000&mimetype=application/font-woff" },

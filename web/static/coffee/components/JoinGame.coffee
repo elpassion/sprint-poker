@@ -1,6 +1,6 @@
 React = require 'react'
 Reflux = require 'reflux'
-Logo = require '../../assets/images/logo_beta.png'
+Logo = require '../../assets/images/logo@2x.png'
 
 UserName = require './UserName'
 GameName = require './GameName'
@@ -28,8 +28,8 @@ JoinGame = React.createClass
   render: ->
     <div className="container">
       <div className="row col-xs-12 col-md-5 center-block">
-        <div className="logo text-center">
-          <img src={Logo}/>
+        <div className="text-center">
+          <img className="logo" src={Logo}/>
         </div>
         <Errors/>
         <form className="form" onSubmit={ @onJoinGame }>
