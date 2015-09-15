@@ -25,15 +25,12 @@ TicketMixin =
     @channel.push 'ticket:delete', {ticket: {id: id}}
 
   onChangeTicketName: (id, name) ->
-    i = _.findIndex @game.tickets, (ticket) ->
-      String(ticket.id) == String(id)
-    @game.tickets[i].name = name
+    @game.tickets[id].name = name
     @emit()
 
   onChangeTicketPoints: (points) ->
     if points == "" then points = null
-    ticket = _.find @game.tickets, (ticket) =>
-      ticket.id == @gameState.currentTicketId
+    ticket = @game.tickets[@gameState.currentTicketId]
     ticket.points = points
     @channel.push 'ticket:update', {ticket: {id: ticket.id, points: points }}
     @emit()
