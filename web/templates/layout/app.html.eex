@@ -25,7 +25,7 @@
 		  &nbsp;|&nbsp;
 		  Sprint Poker <%= SprintPoker.Mixfile.project[:version] %>
 		  &nbsp;|&nbsp;
-		  Fork me on <a href="https://github.com/elpassion-labs/sprint-poker">GitHub</a>
+		  Fork me on <a href="https://github.com/elpassion/sprint-poker">GitHub</a>
 		  &nbsp;|&nbsp;
 		  Send us your feedback: <a href="mailto:poker@elpassion.com">poker@elpassion.com</a>
 	  </p>

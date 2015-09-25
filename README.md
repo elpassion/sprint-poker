@@ -1,4 +1,4 @@
-# Sprint Poker [![Build Status](https://magnum.travis-ci.com/elpassion-labs/sprint-poker.svg?token=2hV2k43pXSF8AQERy7Fx&branch=master)](https://magnum.travis-ci.com/elpassion-labs/sprint-poker)
+# Sprint Poker [![Build Status](https://magnum.travis-ci.com/elpassion/sprint-poker.svg?token=2hV2k43pXSF8AQERy7Fx&branch=master)](https://magnum.travis-ci.com/elpassion/sprint-poker)
 
 Online estimation tool for Agile teams, written using [Elixir Lang], [Phoenix Framework] and [React].
 
