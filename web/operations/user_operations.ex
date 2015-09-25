@@ -24,7 +24,10 @@ defmodule SprintPoker.UserOperations do
   end
 
   def get_or_create(auth_token) do
-    Repo.get_by(User, auth_token: auth_token) || get_or_create(nil)
+    case Ecto.UUID.cast(auth_token) do
+      {:ok, auth_token} -> Repo.get_by(User, auth_token: auth_token) || get_or_create(nil)
+      _ -> get_or_create(nil)
+    end
   end
 
   def update(user, params) do

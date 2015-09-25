@@ -18,4 +18,10 @@ defmodule SprintPoker.UserSocketTest do
     assert socket.assigns.user_id == user.id
   end
 
+  test "connecting to socket with bad uid creates a new user" do
+    {:ok, socket} = UserSocket.connect(%{"auth_token" => "bad"}, socket())
+
+    assert [user] = Repo.all(User)
+    assert socket.assigns.user_id == user.id
+  end
 end
