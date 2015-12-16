@@ -16,3 +16,11 @@ select
   &:focus
     border: none
     outline: none
+
+.form-control
+  transition-property: background-color, border-color, box-shadow
+  transition-delay: .15s, .15s, .15s
+  transition-timing-function: ease-in-out, ease-in-out, ease-in-out
+
+  &:focus
+    background-color: $white
