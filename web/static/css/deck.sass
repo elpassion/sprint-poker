@@ -1,7 +1,12 @@
 .deck
+  display: flex
+  flex-flow: row wrap
+  margin: 0 -5px;
+
   .card
+    flex: 1 1 calc(33% - 10px)
     margin: 5px
-    width: 115px
+    max-width: calc(33% - 10px)
     height: 130px
     border: 2px solid $gray
     text-align: center
@@ -10,8 +15,14 @@
     line-height: 130px
     color: $black
     background: $white
-    float: left
     cursor: pointer
+
+    @media screen and (min-width: $screen-sm)
+      flex: 1 1 calc(25% - 10px)
+      max-width: calc(25% - 10px)
+
+    @media screen and (min-width: $screen-md)
+      max-width: 115px
 
     &.disabled
      cursor: not-allowed
