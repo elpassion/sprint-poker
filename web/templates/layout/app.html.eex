@@ -16,7 +16,7 @@
   </head>
   <body>
     <div id="app">
-      <h1>Sprint Poker is loading...</h1>
+      <%= render_existing view_module(@conn), "loader.html", assigns %>
       <script src="<%= static_path(@conn, "/assets/main.js") %>"></script>
     </div>
     <footer>
