@@ -7,7 +7,9 @@ button.btn
     box-shadow: none
 
 button.btn-big-red
-  background: linear-gradient(90deg, #ff4048 0%, #ff8042 100%)
+  position: relative
+  z-index: 3
+  background-color: #ff4048
   outline: none
   border: none
   border-radius: 2px
@@ -22,8 +24,22 @@ button.btn-big-red
   &:hover,
   &:active,
   &:focus
-    background: linear-gradient(90deg, #ff4048 0%, #ff8042 100%)
     color: $white
+
+    &:before
+      opacity: 0
+
+  &:before
+    content: ''
+    opacity: 1
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: -3
+    background: linear-gradient(90deg, #ff4048 0%, #ff8042 100%)
+    transition: opacity .2s
 
 button.btn-gray
   text-transform: uppercase
