@@ -4,7 +4,7 @@ Reflux = require 'reflux'
 Store = require '../stores/Store'
 Actions = Store.Actions
 
-Errors = React.createClass
+Cards = React.createClass
   mixins: [
     Reflux.connect(Store)
   ]
@@ -26,5 +26,5 @@ Errors = React.createClass
       }
     </div>
 
-module.exports = Errors
+module.exports = Cards
 
