@@ -4,6 +4,7 @@ module.exports = {
   mainSass: "web/static/css/app.sass",
   verbose: false,
   debug: false,
+  styleLoader: 'style-loader!css-loader!autoprefixer-loader!sass-loader',
 
   scripts: {
     // 'transition': true,
