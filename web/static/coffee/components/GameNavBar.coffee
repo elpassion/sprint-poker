@@ -24,7 +24,7 @@ GameNavBar = React.createClass
         </div>
         <div className="lobby-header-right">
           <span className="lobby-header-label">INVITE PEOPLE:</span>
-          <input id="game_url" className="form-control" onClick={@selectAllInput} value={document.URL} readonly/>
+          <input id="game_url" className="form-control" onClick={@selectAllInput} value={document.URL} readOnly />
         </div>
       </div>
     </header>

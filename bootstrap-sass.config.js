@@ -40,7 +40,7 @@ module.exports = {
     // "button-groups": true,
     "input-groups": true,
     // "navs": true,
-    "navbar": true,
+    // "navbar": true,
     // "breadcrumbs": true,
     // "pagination": true,
     // "pager": true,
