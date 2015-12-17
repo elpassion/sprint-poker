@@ -4,6 +4,8 @@ Reflux = require 'reflux'
 
 { Navigation } = require 'react-router'
 
+Footer = require './Footer'
+
 SprintPokerApp = React.createClass
   mixins: [
     Reflux.connect(Store)
@@ -16,6 +18,9 @@ SprintPokerApp = React.createClass
       @transitionTo "/"
 
   render: ->
-    this.props.children
+    <div>
+      {this.props.children}
+      <Footer />
+    </div>
 
 module.exports = SprintPokerApp
