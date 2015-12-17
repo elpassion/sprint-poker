@@ -1,5 +1,6 @@
 React = require 'react'
 Reflux  = require 'reflux'
+classNames = require 'classnames'
 
 Store = require '../stores/Store'
 Actions = Store.Actions
@@ -22,7 +23,7 @@ UserName = React.createClass
     Actions.submitUserName()
 
   render: ->
-    <div className={ "form-group #{if @state.errors.user.name then "has-error"}" }>
+    <div className={ classNames('form-group', { 'has-error': @state.errors.user.name }) }>
       <label htmlFor="user_name">Your Nickname:</label>
       <input
         className="form-control"

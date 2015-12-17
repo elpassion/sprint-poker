@@ -1,5 +1,6 @@
 React = require 'react'
 Reflux = require 'reflux'
+classNames = require 'classnames'
 
 Store = require '../stores/Store'
 Actions = Store.Actions
@@ -21,7 +22,7 @@ GameTickets = React.createClass
       </caption>
       <tbody>
         { for ticketId, ticket of @state.game.tickets
-          <tr key={ ticket.id } className={ if @state.gameState.currentTicketId == ticket.id then "selected"}>
+          <tr key={ ticket.id } className={ classNames({ 'selected': @state.gameState.currentTicketId == ticket.id }) }>
             <th>
               { Object.keys(@state.game.tickets).indexOf(ticketId) + 1 }
             </th>

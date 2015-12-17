@@ -1,5 +1,6 @@
 React = require 'react'
 Reflux = require 'reflux'
+classNames = require 'classnames'
 
 Store = require '../stores/Store'
 Actions = Store.Actions
@@ -18,7 +19,10 @@ Cards = React.createClass
       { for card in @state.game.deck.cards
         <div
           key={ card }
-          className={"card #{if @state.gameState.votes[@state.user.id] == card then "selected" } #{if @props.disabled then "disabled"}"}
+          className={classNames('card', {
+            'selected': @state.gameState.votes[@state.user.id] == card,
+            'disabled': @props.disabled
+          })}
           onClick={ @onCardChange }
         >
           { card }

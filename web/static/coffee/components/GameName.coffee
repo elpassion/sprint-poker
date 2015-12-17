@@ -1,5 +1,6 @@
 React = require 'react'
 Reflux  = require 'reflux'
+classNames = require 'classnames'
 
 Store = require '../stores/Store'
 Actions = Store.Actions
@@ -20,7 +21,7 @@ GameName = React.createClass
     Actions.validateGameName()
 
   render: ->
-    <div className={ "form-group #{if @state.errors.game.name then "has-error"}" }>
+    <div className={ classNames('form-group', { 'has-error': @state.errors.game.name }) }>
       <label htmlFor="game_name">Session Title:</label>
       <input
         className="form-control"
