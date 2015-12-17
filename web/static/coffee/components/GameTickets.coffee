@@ -11,7 +11,7 @@ GameTickets = React.createClass
 
   render: ->
     <table className="table">
-      <caption>
+      <caption className="table-caption">
         <span>
           Tickets list&nbsp;
         </span>
