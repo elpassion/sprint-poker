@@ -30,7 +30,9 @@ GameTickets = React.createClass
               { ticket.name }
             </td>
             <td className="points text-center">
-              { ticket.points }
+              {if ticket.points
+                <span className="points-count">{ ticket.points }</span>
+              }
             </td>
           </tr>
         }

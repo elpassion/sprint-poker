@@ -1,5 +1,6 @@
 React = require 'react'
 Reflux = require 'reflux'
+classNames = require 'classnames'
 
 Store = require '../stores/Store'
 Actions = Store.Actions
@@ -43,18 +44,23 @@ GameTickets = React.createClass
               { Object.keys(@state.game.tickets).indexOf(ticketId) + 1 }
             </th>
             <td>
-              <input
-                className="input-gray"
-                type="text"
-                data-id={ ticket.id }
-                value={ ticket.name }
-                onChange={ @onChangeTicketName }
-                onKeyDown={ @onSubmitTicketName }
-                onBlur={ @onBlurTicketName }
-              />
+              <div className="table-input">
+                <input
+                  className="input-gray"
+                  type="text"
+                  data-id={ ticket.id }
+                  value={ ticket.name }
+                  placeholder="Rename your ticket here..."
+                  onChange={ @onChangeTicketName }
+                  onKeyDown={ @onSubmitTicketName }
+                  onBlur={ @onBlurTicketName }
+                />
+              </div>
             </td>
             <td className="points text-center">
-              { ticket.points }
+              {if ticket.points
+                <span className="points-count">{ ticket.points }</span>
+              }
             </td>
             <td className="buttons">
               <button className="btn btn-gray" data-id={ticket.id} onClick={ @onDeleteTicket } disabled={ if @state.gameState.currentTicketId == ticket.id then true }>Delete</button>

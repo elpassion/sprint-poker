@@ -8,7 +8,9 @@ TicketMixin =
     changeTicketPoints: {}
 
   init: ->
-    @newTicket = {}
+    @newTicket = {
+      errors: {}
+    }
 
   onChangeNewTicketName: (name) ->
     @newTicket.name = name
@@ -17,9 +19,20 @@ TicketMixin =
   onSubmitNewTicket: ->
     @newTicket.name = _.trim(@newTicket.name)
 
-    if @newTicket.name != '' && @newTicket.name.length < 100
+    if @newTicket.name == ''
+      @newTicket.errors.tooLong = ''
+      @newTicket.errors.empty = 'Ticket name cannot be empty!'
+    else if @newTicket.name.length > 100
+      @newTicket.errors.empty = ''
+      @newTicket.errors.tooLong = 'Ticket name is too long!'
+    else
+      @newTicket.errors.empty = ''
+      @newTicket.errors.tooLong = ''
+
       @channel.push 'ticket:create', {ticket: @newTicket}
       @newTicket.name = ''
+
+    @emit()
 
   onDeleteTicket: (id) ->
     @channel.push 'ticket:delete', {ticket: {id: id}}

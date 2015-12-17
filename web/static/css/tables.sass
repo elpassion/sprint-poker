@@ -13,8 +13,16 @@ table.table
     width: 80px
 
   td.points
-    background-color: $white
     width: 75pt
+
+  .points-count
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 20px
+    height: 20px
+    border-radius: 20px
+    background-color: $white
     color: $orange
     font-weight: 700
 
@@ -25,6 +33,7 @@ table.table
       border-top: 1px solid $orange
       border-bottom: 1px solid $orange
 
+
 .table-caption
   padding-top: 0
   font-size: 16px
@@ -33,4 +42,31 @@ table.table
 
 .deck + .table
   margin-top: 30px
+
+.table-input
+  display: flex
+  align-items: center
+
+  .form-control
+    max-width: 250px
+    height: $input-height-base - 20px
+    border-color: #ddd
+    background-color: $white
+
+    &:focus
+      border-color: $orange
+
+  .error
+    overflow: hidden
+    text-overflow: ellipsis
+    max-width: 50%
+    white-space: nowrap
+    color: $brand-danger
+
+  .form-control + .error
+    margin-left: 10px
+
+  &.has-error .form-control
+    border-color: #a94442
+
 

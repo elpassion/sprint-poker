@@ -1,5 +1,6 @@
 React = require 'react'
 Reflux = require 'reflux'
+classNames = require 'classnames'
 
 Store = require '../stores/Store'
 Actions = Store.Actions
@@ -22,20 +23,27 @@ GameNewTicketOwner = React.createClass
       e.preventDefault()
 
   render: ->
+    ticketError = @state.newTicket.errors.empty || @state.newTicket.errors.tooLong
+
     <tr>
       <th>
         -
       </th>
       <td>
-        <input
-          className="input-gray"
-          id="new_ticket"
-          type="text"
-          placeholder="enter your ticket name here"
-          value={ @state.newTicket.name }
-          onChange={ @onNewTicketChange }
-          onKeyDown={ @onNewTicketKeyDown }
-        />
+        <div className={ classNames('table-input', { 'has-error': ticketError }) }>
+          <input
+            className="form-control"
+            id="new_ticket"
+            type="text"
+            placeholder="Enter your ticket name here..."
+            value={ @state.newTicket.name }
+            onChange={ @onNewTicketChange }
+            onKeyDown={ @onNewTicketKeyDown }
+          />
+          {if ticketError
+            <span className="error">{ticketError}</span>
+          }
+        </div>
       </td>
       <td></td>
       <td className="buttons">
