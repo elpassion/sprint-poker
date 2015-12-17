@@ -15,21 +15,19 @@ GameNavBar = React.createClass
     e.target.setSelectionRange(0, e.target.value.length)
 
   render: ->
-    <nav className="navbar navbar-default navbar-static-top">
-      <div className="container">
-        <div className="navbar-header">
+    <header className="lobby-header">
+      <div className="lobby-container container">
+        <div className="lobby-header-left">
           <img className="small-logo" src={smallLogo}/>
+          <span className="lobby-header-label">SESSION NAME:</span>
+          <span className="lobby-header-session">{@state.game.name}</span>
         </div>
-        <div className="nav navbar-nav">
-          <span className="head">SESSION NAME:</span>
-          <span className="name">{@state.game.name}</span>
-        </div>
-        <div className="nav navbar-nav navbar-right">
-          <span>INVITE PEOPLE:</span>
-          <input id="game_url" onClick={@selectAllInput} value={document.URL} disabled/>
+        <div className="lobby-header-right">
+          <span className="lobby-header-label">INVITE PEOPLE:</span>
+          <input id="game_url" className="form-control" onClick={@selectAllInput} value={document.URL} readonly/>
         </div>
       </div>
-    </nav>
+    </header>
 
 module.exports = GameNavBar
 

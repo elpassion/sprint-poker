@@ -1,0 +1,44 @@
+.lobby-header
+  height: 70px
+  margin-bottom: 30px
+  background-color: $white
+  border-top: 4px solid $orange
+  color: $black
+
+.lobby-container,
+.lobby-header-left,
+.lobby-header-right
+  display: flex
+  height: 100%
+
+.lobby-header-left,
+.lobby-header-right
+  align-items: center
+
+.lobby-header-left
+  .lobby-header-label
+    margin-left: 10px
+    padding-left: 10px
+    border-left: 1px solid $gray
+
+.lobby-header-right
+  margin-left: auto
+
+  .form-control
+    height: $input-height-base - 20px
+
+.lobby-header-label
+  flex: 0 0 auto
+  font-size: 12px
+  font-weight: 600
+
+.lobby-header-session
+  color: $orange
+  margin-left: 5px
+
+.lobby-header-label + .form-control
+  margin-left: 10px
+
+.small-logo
+  width: 179px
+  height: 32px
