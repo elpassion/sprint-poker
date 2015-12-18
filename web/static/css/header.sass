@@ -1,36 +1,61 @@
 .lobby-header
-  height: 70px
   margin-bottom: 30px
+  padding: 15px 0
   background-color: $white
   border-top: 4px solid $orange
   color: $black
 
-.lobby-container,
+  @media #{$media-sm}
+    height: 70px
+
+.lobby-header-container,
 .lobby-header-left,
 .lobby-header-right
   display: flex
   height: 100%
+
+.lobby-header-container
+  flex-direction: column
+  align-items: center
+
+  @media #{$media-sm}
+    flex-direction: row
 
 .lobby-header-left,
 .lobby-header-right
   align-items: center
 
 .lobby-header-left
-  .lobby-header-label
-    margin-left: 10px
-    padding-left: 10px
-    border-left: 1px solid $gray
+  flex-direction: column
+
+  @media #{$media-sm}
+    flex-direction: row
+
+    .lobby-header-label
+      margin-left: 10px
+      padding-left: 10px
+      border-left: 1px solid $gray
 
 .lobby-header-right
-  margin-left: auto
+  flex-direction: column
+
+  @media #{$media-sm}
+    flex-direction: row
+    margin-left: auto
 
   .form-control
     height: $input-height-base - 20px
 
 .lobby-header-label
   flex: 0 0 auto
+  margin-top: 15px
+  margin-bottom: 10px
   font-size: 12px
   font-weight: 600
+
+  @media #{$media-sm}
+    margin-top: 0
+    margin-bottom: 0
 
 .lobby-header-session
   color: $orange
@@ -40,5 +65,9 @@
   margin-left: 10px
 
 .small-logo
-  width: 179px
-  height: 32px
+  width: 179px * 1.5
+  height: 32 * 1.5
+
+  @media #{$media-sm}
+    width: 179px
+    height: 32px

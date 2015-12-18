@@ -1,3 +1,8 @@
+$media-xs: "only screen and (min-width: 1px)"
+$media-sm: "only screen and (min-width: #{$screen-sm})"
+$media-md: "only screen and (min-width: #{$screen-md})"
+$media-lg: "only screen and (min-width: #{$screen-lg})"
+
 @import 'buttons'
 @import 'inputs'
 @import 'tables'
@@ -43,7 +48,7 @@ a:hover
   font-size: 11px
   margin-top: 50px
   border-top: 1px solid $gray
-  padding-top: 10px
+  padding: 10px 15px 0 15px
   text-align: center
   font-size: 90%
 

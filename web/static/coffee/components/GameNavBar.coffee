@@ -16,7 +16,7 @@ GameNavBar = React.createClass
 
   render: ->
     <header className="lobby-header">
-      <div className="lobby-container container">
+      <div className="lobby-header-container container">
         <div className="lobby-header-left">
           <img className="small-logo" src={smallLogo}/>
           <span className="lobby-header-label">SESSION NAME:</span>
