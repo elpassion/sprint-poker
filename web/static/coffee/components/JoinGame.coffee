@@ -33,9 +33,9 @@ JoinGame = React.createClass
         </div>
         <Errors/>
         <form className="form" onSubmit={ @onJoinGame }>
-          <p className="text-center">
-            Join session ?
-          </p>
+          <h4 className="form-header text-center">
+            Join session: <em>{@state.game.name}</em>?
+          </h4>
           <div className="form-group">
             <label htmlFor="game_owner">Session Owner:</label>
             <input className="form-control"
