@@ -19,7 +19,8 @@ defmodule SprintPoker.GameChannelTest do
 
     assert [] = Repo.all(GameUser)
 
-    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
+    socket("user:#{user.id}", %{user_id: user.id})
+    |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
     game = Repo.get(Game, game.id) |> Game.preload
 
