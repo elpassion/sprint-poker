@@ -9,30 +9,11 @@ defmodule SprintPoker.LobbyChannelTest do
   alias SprintPoker.Deck
   alias SprintPoker.State
 
-  test "joining lobby sends auth_token" do
+  test "joining lobby sends user auth_token and decks" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
-
-    auth_token_response = %{"auth_token": user.auth_token}
-    assert_push "auth_token", ^auth_token_response
-  end
-
-  test "joining lobby sends user" do
-    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
-
-    user_response = %{"user": user}
-    assert_push "user", ^user_response
-  end
-
-  test "joining lobby sends decks" do
-    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
-
-    decks = Repo.all(Deck)
-
-    decks_response = %{decks: decks}
-    assert_push "decks", ^decks_response
+    {:ok, reply, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
+    auth_token_response = %{"user": user, "auth_token": user.auth_token, decks: Repo.all(Deck)}
+    assert reply == auth_token_response
   end
 
   test "joining lobby sends game" do

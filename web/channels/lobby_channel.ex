@@ -9,16 +9,12 @@ defmodule SprintPoker.LobbyChannel do
   alias SprintPoker.UserOperations
 
   def join("lobby", message, socket) do
-    send(self, {:after_join, message})
-    {:ok, socket}
+    user = Repo.get!(User, socket.assigns.user_id)
+    {:ok, %{"user": user, "auth_token": user.auth_token, decks: Repo.all(Deck)}, socket}
   end
 
   def handle_info({:after_join, message}, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
-
-    socket |> push "auth_token", %{auth_token: user.auth_token}
-    socket |> push "user", %{user: user}
-    socket |> push "decks", %{decks: Repo.all(Deck)}
 
     case GameOperations.find(message["game_id"]) do
       :no_id ->
