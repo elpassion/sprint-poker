@@ -10,7 +10,7 @@ defmodule SprintPoker do
       # Start the endpoint when the application starts
       supervisor(SprintPoker.Endpoint, []),
       # Start the Ecto repository
-      worker(SprintPoker.Repo, []),
+      supervisor(SprintPoker.Repo, []),
       # Here you could define other workers and supervisors as children
       # worker(SprintPoker.Worker, [arg1, arg2, arg3]),
     ]
