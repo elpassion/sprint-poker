@@ -19,28 +19,27 @@ defmodule SprintPoker.LobbyChannelTest do
   end
 
   test "joining lobby sends user, auth_token and decks", %{user: user, reply: reply} do
-    lobby_response = %{"user": user, "auth_token": user.auth_token, decks: Repo.all(Deck)}
-    assert reply == lobby_response
+    expected_response = %{"user": user, "auth_token": user.auth_token, decks: Repo.all(Deck)}
+
+    assert reply == expected_response
   end
 
-  test "'user:update' resends updated user", %{user: user, socket: socket} do
+  test "user:update resends updated user", %{socket: socket} do
     ref = push socket, "user:update", %{"user" => %{"name" => "new name"}}
 
-    changed_user = %{user: %User{user | name: "new name"}}
-    assert_reply ref, :ok, ^changed_user
+    assert_reply ref, :ok, %{user: _}
   end
 
-  test "'user:update' returns validation errors", %{socket: socket} do
+  test "user:update returns validation errors", %{socket: socket} do
     ref = push socket, "user:update", %{"user" => %{"name" => ""}}
 
     assert_reply ref, :error, %{errors: _}
   end
 
-  test "'game:create' resends new game with owner_id and name", %{user: user, deck: deck, socket: socket} do
+  test "game:create resends new game", %{deck: deck, socket: socket} do
     ref = push socket, "game:create", %{"name" => "new game", "deck" => %{"id" => deck.id}}
 
-    owner_id = user.id
-    assert_reply ref, :ok, %{game: %{id: _, name: "new game", owner_id: ^owner_id}}
+    assert_reply ref, :ok, %{game: _}
   end
 
   test "'game:create' returns validation errors", %{deck: deck, socket: socket} do
