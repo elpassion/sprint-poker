@@ -16,10 +16,8 @@ defmodule SprintPoker.LobbyChannel do
 
   def handle_in("user:update", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
-    user = UserOperations.update(user, message["user"])
-
-    socket |> push "user", %{user: user}
-    {:noreply, socket}
+    result = UserOperations.update(user, message["user"])
+    {:reply, result, socket}
   end
 
   def handle_in("game:create", message, socket) do

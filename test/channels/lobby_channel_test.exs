@@ -22,10 +22,19 @@ defmodule SprintPoker.LobbyChannelTest do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
 
-    socket |> push "user:update", %{"user" => %{"name" => "new name"}}
+    ref = push socket, "user:update", %{"user" => %{"name" => "new name"}}
 
     change_user_name_response = %{user: %User{user | name: "new name"}}
-    assert_push "user", ^change_user_name_response
+    assert_reply ref, :ok, ^change_user_name_response
+  end
+
+  test "'user:update' returns validation errors" do
+    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
+    {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
+
+    ref = push socket, "user:update", %{"user" => %{"name" => ""}}
+
+    assert_reply ref, :error, %{errors: [error]}
   end
 
   test "'game:create' resends new game with owner_id and name" do

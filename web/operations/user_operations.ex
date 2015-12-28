@@ -35,11 +35,11 @@ defmodule SprintPoker.UserOperations do
       name: params["name"]
     })
 
-    case changeset do
-      {:error, errors} ->
-        raise errors
-      _ ->
-        changeset |> Repo.update!
+    case Repo.update(changeset) do
+      {:ok, user} ->
+        {:ok, %{"user": user}}
+      {:error, changeset} ->
+        {:error, %{"errors": changeset.errors}}
     end
   end
 end
