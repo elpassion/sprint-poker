@@ -9,27 +9,14 @@ defmodule SprintPoker.LobbyChannelTest do
   alias SprintPoker.Deck
   alias SprintPoker.State
 
-  test "joining lobby sends user auth_token and decks" do
+  test "joining lobby sends user, auth_token and decks" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    {:ok, reply, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
-    auth_token_response = %{"user": user, "auth_token": user.auth_token, decks: Repo.all(Deck)}
-    assert reply == auth_token_response
+    {:ok, reply, socket} =
+      socket("user:#{user.id}", %{user_id: user.id})
+      |> subscribe_and_join(LobbyChannel, "lobby")
+    lobby_response = %{"user": user, "auth_token": user.auth_token, decks: Repo.all(Deck)}
+    assert reply == lobby_response
   end
-
-  test "joining lobby sends game" do
-    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
-    game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
-    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
-
-    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby", %{"game_id" => game.id})
-
-    game = game |> Repo.preload([:owner, :deck])
-
-    game_response = %{"game": game}
-    assert_push "game", ^game_response
-  end
-
 
   test "'user:update' resends updated user" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!

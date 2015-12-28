@@ -10,22 +10,8 @@ defmodule SprintPoker.LobbyChannel do
 
   def join("lobby", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
-    {:ok, %{"user": user, "auth_token": user.auth_token, decks: Repo.all(Deck)}, socket}
-  end
-
-  def handle_info({:after_join, message}, socket) do
-    user = Repo.get!(User, socket.assigns.user_id)
-
-    case GameOperations.find(message["game_id"]) do
-      :no_id ->
-        :nothing
-      :error ->
-        socket |> push "error", %{code: "GAME_ERR", message: "Game not exists"}
-      game ->
-        socket |> push "game", %{game: game}
-    end
-
-    {:noreply, socket}
+    response = %{"user": user, "auth_token": user.auth_token, decks: Repo.all(Deck)}
+    {:ok, response, socket}
   end
 
   def handle_in("user:update", message, socket) do
