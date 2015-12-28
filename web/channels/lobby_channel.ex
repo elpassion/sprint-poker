@@ -22,9 +22,8 @@ defmodule SprintPoker.LobbyChannel do
 
   def handle_in("game:create", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
-    game = GameOperations.create(message, user) |> Repo.preload([:owner, :deck])
+    result = GameOperations.create(message, user)
 
-    socket |> push "game", %{game: game}
-    {:noreply, socket}
+    {:reply, result, socket}
   end
 end

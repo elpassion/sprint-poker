@@ -11,14 +11,14 @@ defmodule SprintPoker.GameOperations do
       deck_id: Repo.get!(Deck, params["deck"]["id"]).id
     })
 
-    case changeset do
-      {:error, errors} ->
-        raise errors
-      _ ->
-        game = changeset |> Repo.insert!
+    case Repo.insert(changeset) do
+      {:ok, game} ->
         StateOperations.create(game)
+        game = game |> Repo.preload([:owner, :deck])
+        {:ok, %{"game": game}}
+      {:error, changeset} ->
+        {:error, %{"errors": changeset.errors}}
     end
-    game
   end
 
   def find(nil), do: :no_id

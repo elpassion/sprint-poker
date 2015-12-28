@@ -41,11 +41,26 @@ defmodule SprintPoker.LobbyChannelTest do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
 
-    {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
+    {:ok, _, socket } =
+      socket("user:#{user.id}", %{user_id: user.id})
+      |> subscribe_and_join(LobbyChannel, "lobby")
 
-    socket |> push "game:create", %{"name" => "new game", "deck" => %{"id" => deck.id}}
+    ref = push socket, "game:create", %{"name" => "new game", "deck" => %{"id" => deck.id}}
 
     owner_id = user.id
-    assert_push "game", %{game: %{id: _, name: "new game", owner_id: ^owner_id}}
+    assert_reply ref, :ok, %{game: %{id: _, name: "new game", owner_id: ^owner_id}}
+  end
+
+  test "'game:create' returns validation errors" do
+    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
+    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+
+    {:ok, _, socket } =
+      socket("user:#{user.id}", %{user_id: user.id})
+      |> subscribe_and_join(LobbyChannel, "lobby")
+
+    ref = push socket, "game:create", %{"name" => "", "deck" => %{"id" => deck.id}}
+
+    assert_reply ref, :error, %{errors: [error]}
   end
 end
