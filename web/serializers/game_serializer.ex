@@ -11,11 +11,11 @@ defimpl Poison.Encoder, for: SprintPoker.Game do
       owner: %{}
     }
 
-    if Ecto.Association.loaded?(game.owner) do
+    if Ecto.assoc_loaded?(game.owner) do
       hash = hash |> Dict.put(:owner, game.owner)
     end
 
-    if Ecto.Association.loaded?(game.users) do
+    if Ecto.assoc_loaded?(game.users) do
       users = for user <- game.users, into: [] do
         game_user = Repo.get_by(GameUser, user_id: user.id, game_id: game.id)
         if game_user do
@@ -28,7 +28,7 @@ defimpl Poison.Encoder, for: SprintPoker.Game do
       hash = hash |> Dict.put(:users, users)
     end
 
-    if Ecto.Association.loaded?(game.tickets) do
+    if Ecto.assoc_loaded?(game.tickets) do
       tickets = for ticket <- game.tickets, into: %{} do
         {:"#{ticket.id}",  ticket}
       end
@@ -36,7 +36,7 @@ defimpl Poison.Encoder, for: SprintPoker.Game do
       hash = hash |> Dict.put(:tickets, tickets)
     end
 
-    if Ecto.Association.loaded?(game.deck) do
+    if Ecto.assoc_loaded?(game.deck) do
       hash = hash |> Dict.put(:deck, game.deck)
     end
 
