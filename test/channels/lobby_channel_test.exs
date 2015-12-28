@@ -8,8 +8,8 @@ defmodule SprintPoker.LobbyChannelTest do
   alias SprintPoker.Deck
 
   setup do
-    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+    user = Repo.insert! %User{name: "test user"}
+    deck = Repo.insert! %Deck{name: "test deck"}
 
     {:ok, reply, socket} =
       socket("user:#{user.id}", %{user_id: user.id})
@@ -33,7 +33,7 @@ defmodule SprintPoker.LobbyChannelTest do
   test "'user:update' returns validation errors", %{socket: socket} do
     ref = push socket, "user:update", %{"user" => %{"name" => ""}}
 
-    assert_reply ref, :error, %{errors: [_]}
+    assert_reply ref, :error, %{errors: _}
   end
 
   test "'game:create' resends new game with owner_id and name", %{user: user, deck: deck, socket: socket} do
@@ -46,6 +46,6 @@ defmodule SprintPoker.LobbyChannelTest do
   test "'game:create' returns validation errors", %{deck: deck, socket: socket} do
     ref = push socket, "game:create", %{"name" => "", "deck" => %{"id" => deck.id}}
 
-    assert_reply ref, :error, %{errors: [_]}
+    assert_reply ref, :error, %{errors: _}
   end
 end
