@@ -12,15 +12,14 @@ defmodule SprintPoker.GameChannelTest do
   alias SprintPoker.State
 
   setup do
-    user = Repo.insert! %User{name: "test user"}
-    deck = Repo.insert! %Deck{name: "test deck"}
-    {:ok, %{user: user, deck: deck}}
+    user = %User{name: "test user"} |> Repo.insert!
+    deck = %Deck{name: "test deck"} |> Repo.insert!
+    game = %Game{name: "test game", owner_id: user.id, deck_id: deck.id} |> Repo.insert!
+    state = %State{name: "none", game_id: game.id} |> Repo.insert!
+    {:ok, %{user: user, deck: deck, game: game, state: state}}
   end
 
-  test "joining game adds record and broadcasts game with new user and pushes state", %{user: user, deck: deck} do
-    game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
-    state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
-
+  test "joining game adds record and broadcasts game with new user and pushes state", %{user: user, deck: deck, state: state, game: game} do
     assert [] = Repo.all(GameUser)
 
     socket("user:#{user.id}", %{user_id: user.id})
@@ -43,10 +42,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_push "state", ^state_response
   end
 
-  test "leave game broadcasts game", %{user: user, deck: deck} do
-    game = %Game{name: "test game", owner_id: user.id, deck_id: deck.id} |> Repo.insert!
-    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
-
+  test "leave game broadcasts game", %{user: user, deck: deck, game: game} do
     [] = Repo.all(GameUser)
 
     {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
@@ -72,10 +68,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "'ticket:create' adds ticket and broadcasts game with new ticket", %{user: user, deck: deck} do
-    game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
-    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
-
+  test "'ticket:create' adds ticket and broadcasts game with new ticket", %{user: user, deck: deck, game: game} do
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
     assert [] = Repo.all(Ticket)
@@ -91,9 +84,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "'ticket:delete' deletes ticket and broadcasts game without ticket", %{user: user, deck: deck} do
-    game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
-    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
+  test "'ticket:delete' deletes ticket and broadcasts game without ticket", %{user: user, deck: deck, game: game} do
     ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
@@ -110,9 +101,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "'ticket:update' updates ticket and broadcasts game with new ticket", %{user: user, deck: deck} do
-    game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
-    _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
+  test "'ticket:update' updates ticket and broadcasts game with new ticket", %{user: user, deck: deck, game: game} do
     ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
@@ -129,10 +118,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "'state:update' updates name state and broadcasts it", %{user: user, deck: deck} do
-    game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
-    state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
-
+  test "'state:update' updates name state and broadcasts it", %{user: user, deck: deck, game: game, state: state} do
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
     socket |> push "state:update", %{"state" => %{name: "voting"}}
 
@@ -140,10 +126,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "state", ^state_response
   end
 
-  test "'state:update' updates current_ticket_id state and broadcasts it", %{user: user, deck: deck} do
-    game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
-    state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
-
+  test "'state:update' updates current_ticket_id state and broadcasts it", %{user: user, deck: deck, game: game, state: state} do
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
     socket |> push "state:update", %{"state" => %{current_ticket_id: 6}}
 
@@ -151,9 +134,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "state", ^state_response
   end
 
-  test "'state:update:vote' updates state with vote and broadcasts it with nil", %{user: user, deck: deck} do
-    game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
-    state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
+  test "'state:update:vote' updates state with vote and broadcasts it with nil", %{user: user, deck: deck, game: game, state: state} do
     _ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
@@ -163,9 +144,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "state", ^state_response
   end
 
-  test "'state:update:vote' updates state with vote and broadcasts it with value if owner", %{user: user, deck: deck} do
-    game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
-    state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
+  test "'state:update:vote' updates state with vote and broadcasts it with value if owner", %{user: user, deck: deck, game: game, state: state} do
     _ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
     _game_user = %GameUser{} |> GameUser.changeset(%{user_id: user.id, game_id: game.id}) |> Repo.insert!
 
@@ -176,4 +155,3 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "state", ^state_response
   end
 end
-
