@@ -11,9 +11,13 @@ defmodule SprintPoker.GameChannelTest do
   alias SprintPoker.Ticket
   alias SprintPoker.State
 
-  test "joining game adds record and broadcasts game with new user and pushes state" do
-    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+  setup do
+    user = Repo.insert! %User{name: "test user"}
+    deck = Repo.insert! %Deck{name: "test deck"}
+    {:ok, %{user: user, deck: deck}}
+  end
+
+  test "joining game adds record and broadcasts game with new user and pushes state", %{user: user, deck: deck} do
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
     state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
@@ -39,9 +43,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_push "state", ^state_response
   end
 
-  test "leave game broadcasts game" do
-    user = %User{name: "test user"} |> Repo.insert!
-    deck = %Deck{name: "test deck"} |> Repo.insert!
+  test "leave game broadcasts game", %{user: user, deck: deck} do
     game = %Game{name: "test game", owner_id: user.id, deck_id: deck.id} |> Repo.insert!
     _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
@@ -70,9 +72,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "'ticket:create' adds ticket and broadcasts game with new ticket" do
-    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+  test "'ticket:create' adds ticket and broadcasts game with new ticket", %{user: user, deck: deck} do
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
     _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
@@ -91,9 +91,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "'ticket:delete' deletes ticket and broadcasts game without ticket" do
-    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+  test "'ticket:delete' deletes ticket and broadcasts game without ticket", %{user: user, deck: deck} do
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
     _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
     ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
@@ -112,9 +110,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "'ticket:update' updates ticket and broadcasts game with new ticket" do
-    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+  test "'ticket:update' updates ticket and broadcasts game with new ticket", %{user: user, deck: deck} do
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
     _state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
     ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
@@ -133,9 +129,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "game", ^game_response
   end
 
-  test "'state:update' updates name state and broadcasts it" do
-    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+  test "'state:update' updates name state and broadcasts it", %{user: user, deck: deck} do
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
     state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
@@ -146,9 +140,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "state", ^state_response
   end
 
-  test "'state:update' updates current_ticket_id state and broadcasts it" do
-    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+  test "'state:update' updates current_ticket_id state and broadcasts it", %{user: user, deck: deck} do
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
     state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
@@ -159,9 +151,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "state", ^state_response
   end
 
-  test "'state:update:vote' updates state with vote and broadcasts it with nil" do
-    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+  test "'state:update:vote' updates state with vote and broadcasts it with nil", %{user: user, deck: deck} do
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
     state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
     _ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
@@ -173,9 +163,7 @@ defmodule SprintPoker.GameChannelTest do
     assert_broadcast "state", ^state_response
   end
 
-  test "'state:update:vote' updates state with vote and broadcasts it with value if owner" do
-    user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
+  test "'state:update:vote' updates state with vote and broadcasts it with value if owner", %{user: user, deck: deck} do
     game = %Game{} |> Game.changeset(%{name: "test game", owner_id: user.id, deck_id: deck.id}) |> Repo.insert!
     state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
     _ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
