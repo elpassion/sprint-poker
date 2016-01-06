@@ -20,7 +20,6 @@ script:
   - npm install
   - webpack -t
   - mix test --exclude browser
-  - karma start
 
 after_script:
   - ./postimgs.sh
