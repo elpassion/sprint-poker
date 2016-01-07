@@ -65,13 +65,7 @@ defmodule SprintPoker.GameChannelTest do
 
     ref = push socket, "ticket:create", %{"ticket" => %{"name" => "new test ticket"}}
 
-    # TODO: Move this part of test to operation test.
-    # We shouldn't test the TicketOperations.create here.
-    [ticket] = Repo.all(Ticket)
-    assert ticket.name == "new test ticket"
-
-    game = Repo.get(Game, game.id) |> Game.preload
-
+    game = game |> Game.preload
     assert_broadcast "game", %{game: game}
     assert_reply ref, :ok, %{game: game}
   end
@@ -85,12 +79,7 @@ defmodule SprintPoker.GameChannelTest do
 
     ref = socket |> push "ticket:delete", %{"ticket" => %{"id" => ticket.id}}
 
-    # TODO: Move this part of test to operation test.
-    # We shouldn't test the TicketOperations.delete here.
-    assert [] = Repo.all(Ticket)
-
-    game = Repo.get(Game, game.id) |> Game.preload
-
+    game = game |> Game.preload
     assert_broadcast "game", %{game: game}
     assert_reply ref, :ok, %{game: game}
   end
@@ -102,17 +91,11 @@ defmodule SprintPoker.GameChannelTest do
       socket("user:#{user.id}", %{user_id: user.id})
       |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
-    socket |> push "ticket:update", %{"ticket" => %{"id" => ticket.id, "name" => "new name"}}
+    ref = socket |> push "ticket:update", %{"ticket" => %{"id" => ticket.id, "name" => "new name"}}
 
-    # TODO: Move this part of test to operation test.
-    # We shouldn't test the TicketOperations.update here.
-    [ticket] = Repo.all(Ticket)
-    assert ticket.name == "new name"
-
-    game = Repo.get(Game, game.id) |> Game.preload
-
-    game_response = %{"game": game}
-    assert_broadcast "game", ^game_response
+    game = game |> Game.preload
+    assert_broadcast "game", %{game: game}
+    assert_reply ref, :ok, %{game: game}
   end
 
   test "'state:update' updates name state and broadcasts it", %{user: user, deck: deck, game: game, state: state} do

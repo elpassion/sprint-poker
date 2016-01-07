@@ -26,11 +26,11 @@ defmodule SprintPoker.TicketOperations do
   def update(ticket, params) do
     changeset = Ticket.changeset(ticket, params)
 
-    case changeset do
-      {:error, errors} ->
-        raise errors
-      _ ->
-        changeset |> Repo.update!
+    case Repo.update(changeset) do
+      {:ok, ticket} ->
+        {:ok, %{ticket: ticket}}
+      {:error, changeset} ->
+        {:error, %{errors: changeset.errors}}
     end
   end
 end

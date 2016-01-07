@@ -73,12 +73,19 @@ defmodule SprintPoker.GameChannel do
     ticket = Repo.get!(Ticket, message["ticket"]["id"])
 
     if GameUserOperations.is_owner?(game, user) do
-      TicketOperations.update(ticket, message["ticket"])
-
-      game = game |> Game.preload
-      socket |> broadcast "game", %{game: game}
+      case TicketOperations.update(ticket, message["ticket"]) do
+        {:ok, _} ->
+          game = game |> Game.preload
+          result = {:ok, %{game: game}}
+          socket |> broadcast "game", %{game: game}
+        {:error, errors} ->
+          result = {:error, errors}
+      end
+    else
+      result = {:error, %{errors: ["Unauthorized"]}}
     end
-    {:noreply, socket}
+
+    {:reply, result, socket}
   end
 
   def handle_in("state:update", message, socket) do
