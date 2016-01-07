@@ -7,8 +7,10 @@ defmodule SprintPoker.UserOperations do
 
   def connect(user, game) do
     case Repo.get_by(GameUser, game_id: game.id, user_id: user.id) do
-      nil -> GameUserOperations.create(game, user)
-      game_user -> GameUserOperations.update_state(game_user, "connected")
+      nil ->
+        GameUserOperations.create(game, user)
+      game_user ->
+        GameUserOperations.update_state(game_user, "connected")
     end
   end
 
@@ -36,10 +38,8 @@ defmodule SprintPoker.UserOperations do
     })
 
     case Repo.update(changeset) do
-      {:ok, user} ->
-        {:ok, %{"user": user}}
-      {:error, changeset} ->
-        {:error, %{"errors": changeset.errors}}
+      {:ok, user} -> {:ok, %{"user": user}}
+      {:error, changeset} -> {:error, %{"errors": changeset.errors}}
     end
   end
 end

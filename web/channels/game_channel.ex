@@ -7,18 +7,22 @@ defmodule SprintPoker.GameChannel do
   alias SprintPoker.Ticket
 
   alias SprintPoker.UserOperations
+  alias SprintPoker.GameUserOperations
   alias SprintPoker.SocketOperations
   alias SprintPoker.StateOperations
   alias SprintPoker.TicketOperations
 
   def join("game:" <> game_id, message, socket) do
-    game = Repo.get!(Game, game_id)
     user = Repo.get!(User, socket.assigns.user_id)
+    game = Repo.get!(Game, game_id)
 
     UserOperations.connect(user, game)
 
-    send(self, {:after_join, message})
-    {:ok, socket}
+    game = game |> Game.preload
+    state = StateOperations.hide_votes(game.state, user)
+
+    response = %{"game": game, "state": state}
+    {:ok, response, socket}
   end
 
   def terminate(_message, socket) do
@@ -30,46 +34,45 @@ defmodule SprintPoker.GameChannel do
     socket |> broadcast "game", %{game: game}
   end
 
-  def handle_info({:after_join, _message}, socket) do
-    {game, user} = SocketOperations.get_game_and_user(socket)
-
-    game = game |> Game.preload
-
-    socket |> broadcast "game", %{game: game}
-    socket |> push "state", %{ state: StateOperations.hide_votes(game.state, user) }
-
-    {:noreply, socket}
-  end
-
   def handle_in("ticket:create", message, socket) do
     {game, user} = SocketOperations.get_game_and_user(socket)
 
-    if SocketOperations.is_owner?(user, game) do
-      TicketOperations.create(message["ticket"], game)
-
-      game = game |> Game.preload
-      socket |> broadcast "game", %{game: game}
+    if GameUserOperations.is_owner?(game, user) do
+      case TicketOperations.create(message["ticket"], game) do
+        {:ok, _} ->
+          game = game |> Game.preload
+          result = {:ok, %{game: game}}
+          socket |> broadcast "game", %{game: game}
+        {:error, errors} ->
+          result = {:error, errors}
+      end
+    else
+      result = {:error, %{errors: ["Unauthorized"]}}
     end
-    {:noreply, socket}
+
+    {:reply, result, socket}
   end
 
   def handle_in("ticket:delete", message, socket) do
     {game, user} = SocketOperations.get_game_and_user(socket)
 
-    if SocketOperations.is_owner?(user, game) do
+    if GameUserOperations.is_owner?(game, user) do
       TicketOperations.delete(message["ticket"])
-
       game = game |> Game.preload
+      result = {:ok, %{game: game}}
       socket |> broadcast "game", %{game: game}
+    else
+      result = {:error, %{errors: ["Unauthorized"]}}
     end
-    {:noreply, socket}
+
+    {:reply, result, socket}
   end
 
   def handle_in("ticket:update", message, socket) do
     {game, user} = SocketOperations.get_game_and_user(socket)
     ticket = Repo.get!(Ticket, message["ticket"]["id"])
 
-    if SocketOperations.is_owner?(user, game) do
+    if GameUserOperations.is_owner?(game, user) do
       TicketOperations.update(ticket, message["ticket"])
 
       game = game |> Game.preload
@@ -82,7 +85,7 @@ defmodule SprintPoker.GameChannel do
     {game, user} = SocketOperations.get_game_and_user(socket)
     game = game |> Repo.preload [:state]
 
-    if SocketOperations.is_owner?(user, game) do
+    if GameUserOperations.is_owner?(game, user) do
       state = StateOperations.update(game.state, message["state"])
       socket |> broadcast "state", %{ state: state }
     end

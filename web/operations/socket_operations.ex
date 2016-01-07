@@ -10,7 +10,4 @@ defmodule SprintPoker.SocketOperations do
     {game, user}
   end
 
-  def is_owner?(user, game) do
-    game.owner_id == user.id
-  end
 end

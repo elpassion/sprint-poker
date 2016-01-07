@@ -20,99 +20,96 @@ defmodule SprintPoker.GameChannelTest do
   end
 
   test "joining game adds record and broadcasts game with new user and pushes state", %{user: user, deck: deck, state: state, game: game} do
-    assert [] = Repo.all(GameUser)
+    {:ok, reply, socket} =
+      socket("user:#{user.id}", %{user_id: user.id})
+      |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
-    socket("user:#{user.id}", %{user_id: user.id})
-    |> subscribe_and_join(GameChannel, "game:#{game.id}")
+    game = game |> Game.preload
 
-    game = Repo.get(Game, game.id) |> Game.preload
-
-    [game_user] = Repo.all(GameUser)
+    # TODO: Move this part of test to operation test.
+    # We shouldn't test the UserOperation.connect here.
+    game_user = GameUser |> Repo.get_by(game_id: game.id, user_id: user.id)
 
     assert game_user.state == "connected"
     assert game_user.game_id == game.id
     assert game_user.user_id == user.id
-
     assert user in game.users
+    # Till this place.
 
-    game_response = %{"game": game}
-    assert_broadcast "game", ^game_response
-
-    state_response = %{"state": state}
-    assert_push "state", ^state_response
+    expected_response = %{game: game, state: state}
+    assert reply == expected_response
   end
 
   test "leave game broadcasts game", %{user: user, deck: deck, game: game} do
-    [] = Repo.all(GameUser)
+    {:ok, _, socket } =
+      socket("user:#{user.id}", %{user_id: user.id})
+      |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
-    {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
     Process.unlink(socket.channel_pid)
-
-    [game_user] = Repo.all(GameUser)
-
-    assert game_user.state == "connected"
-    assert game_user.game_id == game.id
-    assert game_user.user_id == user.id
-
     socket |> close
 
-    [game_user] = Repo.all(GameUser)
+    game_user = GameUser |> Repo.get_by(game_id: game.id, user_id: user.id)
 
+    # TODO: Move this part of test to operation test.
+    # We shouldn't test the UserOperation.update_state here.
     assert game_user.state == "disconnected"
-    assert game_user.game_id == game.id
-    assert game_user.user_id == user.id
 
-    game = Repo.get(Game, game.id) |> Game.preload
-
-    game_response = %{"game": game}
-    assert_broadcast "game", ^game_response
+    game = game |> Game.preload
+    assert_broadcast "game", %{game: game}
   end
 
   test "'ticket:create' adds ticket and broadcasts game with new ticket", %{user: user, deck: deck, game: game} do
-    {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
+    {:ok, _, socket} =
+      socket("user:#{user.id}", %{user_id: user.id})
+      |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
-    assert [] = Repo.all(Ticket)
+    ref = push socket, "ticket:create", %{"ticket" => %{"name" => "new test ticket"}}
 
-    socket |> push "ticket:create", %{"ticket" => %{"name" => "new test ticket"}}
-
-    game = Repo.get(Game, game.id) |> Game.preload
-
+    # TODO: Move this part of test to operation test.
+    # We shouldn't test the TicketOperations.create here.
     [ticket] = Repo.all(Ticket)
     assert ticket.name == "new test ticket"
 
-    game_response = %{"game": game}
-    assert_broadcast "game", ^game_response
+    game = Repo.get(Game, game.id) |> Game.preload
+
+    assert_broadcast "game", %{game: game}
+    assert_reply ref, :ok, %{game: game}
   end
 
   test "'ticket:delete' deletes ticket and broadcasts game without ticket", %{user: user, deck: deck, game: game} do
-    ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
+    ticket = %Ticket{name: "test ticket", game_id: game.id} |> Repo.insert!
 
-    {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
+    {:ok, _, socket} =
+      socket("user:#{user.id}", %{user_id: user.id})
+      |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
-    assert [ticket] = Repo.all(Ticket)
+    ref = socket |> push "ticket:delete", %{"ticket" => %{"id" => ticket.id}}
 
-    socket |> push "ticket:delete", %{"ticket" => %{"id" => ticket.id}}
+    # TODO: Move this part of test to operation test.
+    # We shouldn't test the TicketOperations.delete here.
+    assert [] = Repo.all(Ticket)
 
     game = Repo.get(Game, game.id) |> Game.preload
 
-    assert [] = Repo.all(Ticket)
-
-    game_response = %{"game": game}
-    assert_broadcast "game", ^game_response
+    assert_broadcast "game", %{game: game}
+    assert_reply ref, :ok, %{game: game}
   end
 
   test "'ticket:update' updates ticket and broadcasts game with new ticket", %{user: user, deck: deck, game: game} do
-    ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
+    ticket = %Ticket{name: "test ticket", game_id: game.id} |> Repo.insert!
 
-    {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
-
-    assert [ticket] = Repo.all(Ticket)
+    {:ok, _, socket} =
+      socket("user:#{user.id}", %{user_id: user.id})
+      |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
     socket |> push "ticket:update", %{"ticket" => %{"id" => ticket.id, "name" => "new name"}}
-    game = Repo.get(Game, game.id) |> Game.preload
 
+    # TODO: Move this part of test to operation test.
+    # We shouldn't test the TicketOperations.update here.
     [ticket] = Repo.all(Ticket)
     assert ticket.name == "new name"
+
+    game = Repo.get(Game, game.id) |> Game.preload
 
     game_response = %{"game": game}
     assert_broadcast "game", ^game_response

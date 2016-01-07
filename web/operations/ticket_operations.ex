@@ -8,11 +8,11 @@ defmodule SprintPoker.TicketOperations do
       game_id: game.id
     })
 
-    case changeset do
-      {:error, errors} ->
-        raise errors
-      _ ->
-        changeset |> Repo.insert!
+    case Repo.insert(changeset) do
+      {:ok, ticket} ->
+        {:ok, %{ticket: ticket}}
+      {:error, changeset} ->
+        {:error, %{errors: changeset.errors}}
     end
   end
 
