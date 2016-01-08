@@ -48,16 +48,17 @@ defmodule SprintPoker.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
+      {:airbrakex, "~> 0.0.4"},
+      {:cowboy, "~> 1.0"},
+      {:ex_machina, "~> 0.5"},
+      {:inflex, "~> 1.4.1"},
       {:phoenix, "~> 1.0"},
       {:phoenix_ecto, "~> 1.1"},
-      {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.1"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:poison, "~> 1.5.0"},
-      {:cowboy, "~> 1.0"},
       {:plug_cors, "~> 0.7.3"},
-      {:inflex, "~> 1.4.1"},
-      {:airbrakex, "~> 0.0.4"},
+      {:poison, "~> 1.5.0"},
+      {:postgrex, ">= 0.0.0"},
       {:tuco_tuco, "~> 0.7.1"},
       {:webdriver, github: "fazibear/elixir-webdriver", branch: "update-dependencies", override: true}
     ]

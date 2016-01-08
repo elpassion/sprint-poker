@@ -15,7 +15,7 @@ defmodule SprintPoker.GameOperations do
       {:ok, game} ->
         StateOperations.create(game)
         game = game |> Repo.preload([:owner, :deck])
-        {:ok, %{"game": game}}
+        {:ok, %{game: game}}
       {:error, changeset} ->
         {:error, %{"errors": changeset.errors}}
     end
