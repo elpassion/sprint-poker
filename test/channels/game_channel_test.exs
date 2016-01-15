@@ -79,7 +79,7 @@ defmodule SprintPoker.GameChannelTest do
 
     assert [] = Repo.all(Ticket)
 
-    socket |> push "ticket:create", %{"ticket" => %{"name" => "new test ticket"}}
+    socket |> push("ticket:create", %{"ticket" => %{"name" => "new test ticket"}})
 
     game = Repo.get(Game, game.id) |> Game.preload
 
@@ -99,9 +99,9 @@ defmodule SprintPoker.GameChannelTest do
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
-    assert [ticket] = Repo.all(Ticket)
+    assert [^ticket] = Repo.all(Ticket)
 
-    socket |> push "ticket:delete", %{"ticket" => %{"id" => ticket.id}}
+    socket |> push("ticket:delete", %{"ticket" => %{"id" => ticket.id}})
 
     game = Repo.get(Game, game.id) |> Game.preload
 
@@ -120,9 +120,9 @@ defmodule SprintPoker.GameChannelTest do
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
 
-    assert [ticket] = Repo.all(Ticket)
+    assert [^ticket] = Repo.all(Ticket)
 
-    socket |> push "ticket:update", %{"ticket" => %{"id" => ticket.id, "name" => "new name"}}
+    socket |> push("ticket:update", %{"ticket" => %{"id" => ticket.id, "name" => "new name"}})
     game = Repo.get(Game, game.id) |> Game.preload
 
     [ticket] = Repo.all(Ticket)
@@ -139,7 +139,7 @@ defmodule SprintPoker.GameChannelTest do
     state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
-    socket |> push "state:update", %{"state" => %{name: "voting"}}
+    socket |> push("state:update", %{"state" => %{name: "voting"}})
 
     state_response = %{"state": %{state | name: "voting"}}
     assert_broadcast "state", ^state_response
@@ -152,7 +152,7 @@ defmodule SprintPoker.GameChannelTest do
     state = %State{} |> State.changeset(%{name: "none", game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
-    socket |> push "state:update", %{"state" => %{current_ticket_id: 6}}
+    socket |> push("state:update", %{"state" => %{current_ticket_id: 6}})
 
     state_response = %{"state": %{state | current_ticket_id: 6}}
     assert_broadcast "state", ^state_response
@@ -166,9 +166,9 @@ defmodule SprintPoker.GameChannelTest do
     _ticket = %Ticket{} |> Ticket.changeset(%{name: "test ticket", game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
-    socket |> push "state:update:vote", %{"vote" => %{points: "XXL"}}
+    socket |> push("state:update:vote", %{"vote" => %{points: "XXL"}})
 
-    state_response = %{"state": %{state | votes:  Dict.put(%{}, user.id, nil)}}
+    state_response = %{"state": %{state | votes:  Map.put(%{}, user.id, nil)}}
     assert_broadcast "state", ^state_response
   end
 
@@ -181,10 +181,9 @@ defmodule SprintPoker.GameChannelTest do
     _game_user = %GameUser{} |> GameUser.changeset(%{user_id: user.id, game_id: game.id}) |> Repo.insert!
 
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
-    socket |> push "state:update:vote", %{"vote" => %{ "points" => "XXL" }}
+    socket |> push("state:update:vote", %{"vote" => %{ "points" => "XXL" }})
 
-    state_response = %{"state": %{state | votes:  Dict.put(%{}, user.id, "XXL")}}
+    state_response = %{"state": %{state | votes:  Map.put(%{}, user.id, "XXL")}}
     assert_broadcast "state", ^state_response
   end
 end
-

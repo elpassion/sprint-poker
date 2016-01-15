@@ -41,7 +41,7 @@ defmodule SprintPoker.Game do
   def get(id, opts \\ []) do
     case Ecto.UUID.cast(id) do
       {:ok, _} -> Repo.get(__MODULE__, id, opts)
-      _ ->
+      _ -> nil
     end
   end
 
