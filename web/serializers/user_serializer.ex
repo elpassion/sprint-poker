@@ -6,7 +6,7 @@ defimpl Poison.Encoder, for: SprintPoker.User do
     }
 
     if user.state do
-      hash = hash |> Dict.put(:state, user.state)
+      hash = hash |> Map.put(:state, user.state)
     end
 
     hash |> Poison.Encoder.encode(options)

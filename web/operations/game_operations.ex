@@ -17,8 +17,8 @@ defmodule SprintPoker.GameOperations do
       _ ->
         game = changeset |> Repo.insert!
         StateOperations.create(game)
+        game
     end
-    game
   end
 
   def find(nil), do: :no_id
