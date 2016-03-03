@@ -12,19 +12,6 @@ addons:
 notifications:
   slack: elpassion:Ky5aZGzKX5YjN3bLdodn4Kmc
 
-before_install:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-
-script:
-  - npm install
-  - webpack -t
-  - mix test --exclude browser
-  - karma start
-
-after_script:
-  - ./postimgs.sh
-
 # deploy:
 #   provider: heroku
 #   api_key:

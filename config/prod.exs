@@ -14,7 +14,6 @@ use Mix.Config
 config :sprint_poker, SprintPoker.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [host: System.get_env("HOST"), port: 80],
-  cache_static_manifest: "priv/static/manifest.json",
   check_origin: [
     "//sprintpoker.io",
     "//sprint-poker-react.surge.sh/"

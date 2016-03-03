@@ -20,23 +20,12 @@ defmodule SprintPoker.Mixfile do
   def application do
     [
       mod: {SprintPoker, []},
-      applications: applications(Mix.env)
+      applications: ~w(
+        phoenix cowboy logger
+        phoenix_ecto postgrex
+        poison airbrakex
+      )a
     ]
-  end
-
-  defp applications do
-     ~w(
-       phoenix phoenix_html cowboy logger
-       phoenix_ecto postgrex poison airbrakex
-       )a
-  end
-
-  defp applications :test do
-    applications ++ ~w(tuco_tuco)a
-  end
-
-  defp applications _ do
-    applications
   end
 
   # Specifies which paths to compile per environment
@@ -51,15 +40,9 @@ defmodule SprintPoker.Mixfile do
       {:phoenix, "~> 1.0"},
       {:phoenix_ecto, "~> 1.1"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.1"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:poison, "~> 1.5.0"},
       {:cowboy, "~> 1.0"},
-      {:plug_cors, "~> 0.7.3"},
-      {:inflex, "~> 1.4.1"},
-      {:airbrakex, "~> 0.0.4"},
-      {:tuco_tuco, "~> 0.7.1"},
-      {:webdriver, github: "fazibear/elixir-webdriver", branch: "update-dependencies", override: true}
+      {:airbrakex, "~> 0.0.4"}
     ]
   end
 end
