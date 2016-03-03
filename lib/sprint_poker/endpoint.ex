@@ -1,7 +1,11 @@
 defmodule SprintPoker.Endpoint do
   use Phoenix.Endpoint, otp_app: :sprint_poker
 
-  socket "/ws", SprintPoker.UserSocket
+  socket "/ws", SprintPoker.UserSocket, check_origin: [
+    "//sprintpoker.io",
+    "//sprint-poker-react.surge.sh",
+    "//other.com"
+  ]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
