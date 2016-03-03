@@ -1,27 +1,7 @@
 defmodule SprintPoker.Endpoint do
   use Phoenix.Endpoint, otp_app: :sprint_poker
 
-  socket "/ws", SprintPoker.UserSocket, check_origin: [
-    "//sprintpoker.io",
-    "//sprint-poker-react.surge.sh",
-    "//other.com"
-  ]
-
-  # Serve at "/" the static files from "priv/static" directory.
-  #
-  # You should set gzip to true if you are running phoenix.digest
-  # when deploying your static files in production.
-  plug Plug.Static,
-    at: "/", from: :sprint_poker, gzip: true,
-    only: ~w(assets favicon.ico robots.txt)
-
-  # Code reloading can be explicitly enabled under the
-  # :code_reloader configuration of your endpoint.
-  if code_reloading? do
-    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
-    plug Phoenix.LiveReloader
-    plug Phoenix.CodeReloader
-  end
+  socket "/ws", SprintPoker.UserSocket
 
   plug Plug.RequestId
   plug Plug.Logger
@@ -30,14 +10,4 @@ defmodule SprintPoker.Endpoint do
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
     json_decoder: Poison
-
-  plug Plug.MethodOverride
-  plug Plug.Head
-
-  plug Plug.Session,
-    store: :cookie,
-    key: "_sprint_poker_key",
-    signing_salt: "38sdddLe"
-
-  plug SprintPoker.Router
 end
