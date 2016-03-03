@@ -20,24 +20,12 @@ defmodule SprintPoker.Mixfile do
   def application do
     [
       mod: {SprintPoker, []},
-      applications: applications(Mix.env)
+      applications: ~w(
+        phoenix cowboy logger
+        phoenix_ecto postgrex
+        poison airbrakex
+      )a
     ]
-  end
-
-  defp applications do
-     ~w(
-       phoenix cowboy logger
-       phoenix_ecto postgrex
-       poison airbrakex
-       )a
-  end
-
-  defp applications :test do
-    applications ++ ~w(tuco_tuco)a
-  end
-
-  defp applications _ do
-    applications
   end
 
   # Specifies which paths to compile per environment
