@@ -1,20 +1,18 @@
 # Sprint Poker [![Build Status](https://travis-ci.org/elpassion/sprint-poker.svg)](https://travis-ci.org/elpassion/sprint-poker)
 
-Online estimation tool for Agile teams, written using [Elixir Lang], [Phoenix Framework] and [React].
+Online estimation tool for Agile teams, written using [Elixir Lang], [Phoenix Framework].
 
 http://sprintpoker.io
 
 ## Setup
 
 - Install dependencies with `mix deps.get`
-- Install npm dependencies with `npm install`
 - Create database with `mix ecto.create`
 - Migrate database with `mix ecto.migrate`
 - Seed the database with `mix run priv/repo/seeds.exs`
 - Start application with `mix phoenix.server`
 - Run tests with `mix test`
-
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+- Install [sprint-poker-react](https://github.com/elpassion/sprint-poker-react) as a frontend
 
 ## Contributing
 
@@ -33,6 +31,5 @@ Sprint Poker is released under the MIT License. See the [LICENSE] file for furth
 
 [Elixir Lang]: http://elixir-lang.org
 [Phoenix Framework]: http://www.phoenixframework.org
-[React]: http://facebook.github.io/react
 [fork-and-pull]: https://help.github.com/articles/using-pull-requests
 [LICENSE]: LICENSE
