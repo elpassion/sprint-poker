@@ -27,7 +27,7 @@ defmodule SprintPoker.GameChannel do
     UserOperations.disconnect(user, game)
 
     game = game |> Game.preload
-    socket |> broadcast "game", %{game: game}
+    socket |> broadcast("game", %{game: game})
   end
 
   def handle_info({:after_join, _message}, socket) do
@@ -35,8 +35,8 @@ defmodule SprintPoker.GameChannel do
 
     game = game |> Game.preload
 
-    socket |> broadcast "game", %{game: game}
-    socket |> push "state", %{ state: StateOperations.hide_votes(game.state, user) }
+    socket |> broadcast("game", %{game: game})
+    socket |> push("state", %{ state: StateOperations.hide_votes(game.state, user) })
 
     {:noreply, socket}
   end
@@ -48,7 +48,7 @@ defmodule SprintPoker.GameChannel do
       TicketOperations.create(message["ticket"], game)
 
       game = game |> Game.preload
-      socket |> broadcast "game", %{game: game}
+      socket |> broadcast("game", %{game: game})
     end
     {:noreply, socket}
   end
@@ -60,7 +60,7 @@ defmodule SprintPoker.GameChannel do
       TicketOperations.delete(message["ticket"])
 
       game = game |> Game.preload
-      socket |> broadcast "game", %{game: game}
+      socket |> broadcast("game", %{game: game})
     end
     {:noreply, socket}
   end
@@ -73,38 +73,37 @@ defmodule SprintPoker.GameChannel do
       TicketOperations.update(ticket, message["ticket"])
 
       game = game |> Game.preload
-      socket |> broadcast "game", %{game: game}
+      socket |> broadcast("game", %{game: game})
     end
     {:noreply, socket}
   end
 
   def handle_in("state:update", message, socket) do
     {game, user} = SocketOperations.get_game_and_user(socket)
-    game = game |> Repo.preload [:state]
+    game = game |> Repo.preload([:state])
 
     if SocketOperations.is_owner?(user, game) do
       state = StateOperations.update(game.state, message["state"])
-      socket |> broadcast "state", %{ state: state }
+      socket |> broadcast("state", %{ state: state })
     end
     {:noreply, socket}
   end
 
   def handle_in("state:update:vote", message, socket) do
     {game, user} = SocketOperations.get_game_and_user(socket)
-    game = game |> Repo.preload [:state]
+    game = game |> Repo.preload([:state])
 
     state = StateOperations.update(game.state,
-      %{ votes: Dict.put(game.state.votes, user.id, message["vote"]["points"]) })
+      %{ votes: Map.put(game.state.votes, user.id, message["vote"]["points"]) })
 
-    socket |> broadcast "state", %{ state: state }
+    socket |> broadcast("state", %{ state: state })
     {:noreply, socket}
   end
 
   intercept ["state"]
   def handle_out("state", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
-    socket |> push "state", %{ state: StateOperations.hide_votes(message.state, user) }
+    socket |> push("state", %{ state: StateOperations.hide_votes(message.state, user) })
     {:noreply, socket}
   end
-
 end

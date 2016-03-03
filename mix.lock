@@ -28,4 +28,4 @@
   "ranch": {:hex, :ranch, "1.2.1"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
   "tuco_tuco": {:hex, :tuco_tuco, "0.7.1"},
-  "webdriver": {:git, "https://github.com/fazibear/elixir-webdriver.git", "438da6868973e32498848bf4a8f01e8f7f6f4c01", [branch: "update-dependencies"]}}
+  "webdriver": {:git, "https://github.com/fazibear/elixir-webdriver.git", "9b7fc69b2012297c14a1db0d15a6305ac410831b", [branch: "update-dependencies"]}}

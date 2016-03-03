@@ -12,7 +12,7 @@ defimpl Poison.Encoder, for: SprintPoker.Game do
     }
 
     if Ecto.assoc_loaded?(game.owner) do
-      hash = hash |> Dict.put(:owner, game.owner)
+      hash = hash |> Map.put(:owner, game.owner)
     end
 
     if Ecto.assoc_loaded?(game.users) do
@@ -25,7 +25,7 @@ defimpl Poison.Encoder, for: SprintPoker.Game do
         end
       end
 
-      hash = hash |> Dict.put(:users, users)
+      hash = hash |> Map.put(:users, users)
     end
 
     if Ecto.assoc_loaded?(game.tickets) do
@@ -33,11 +33,11 @@ defimpl Poison.Encoder, for: SprintPoker.Game do
         {:"#{ticket.id}",  ticket}
       end
 
-      hash = hash |> Dict.put(:tickets, tickets)
+      hash = hash |> Map.put(:tickets, tickets)
     end
 
     if Ecto.assoc_loaded?(game.deck) do
-      hash = hash |> Dict.put(:deck, game.deck)
+      hash = hash |> Map.put(:deck, game.deck)
     end
 
     hash |> Poison.Encoder.encode(options)
