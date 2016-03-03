@@ -1,3 +1,0 @@
-# app_root/compile
-webpack -p
-mix phoenix.digest
