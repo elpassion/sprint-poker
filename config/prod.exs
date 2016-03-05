@@ -16,7 +16,7 @@ config :sprint_poker, SprintPoker.Endpoint,
   url: [host: System.get_env("HOST"), port: 80],
   check_origin: [
     "//sprintpoker.io",
-    "//sprint-poker-react.surge.sh/"
+    "//sprint-poker-inesita.surge.sh"
   ]
 
 config :sprint_poker, SprintPoker.Endpoint,
