@@ -13,14 +13,14 @@ defmodule SprintPoker.LobbyChannel do
     {:ok, socket}
   end
 
-  def handle_info({:after_join, message}, socket) do
+  def handle_info({:after_join, %{"game_id" => game_id}}, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
 
     socket |> push("auth_token", %{auth_token: user.auth_token})
     socket |> push("user", %{user: user})
     socket |> push("decks", %{decks: Repo.all(Deck)})
 
-    case GameOperations.find(message["game_id"]) do
+    case GameOperations.find(game_id) do
       :no_id ->
         :nothing
       :error ->
@@ -32,17 +32,16 @@ defmodule SprintPoker.LobbyChannel do
     {:noreply, socket}
   end
 
-  def handle_in("user:update", message, socket) do
-    user = Repo.get!(User, socket.assigns.user_id)
-    user = UserOperations.update(user, message["user"])
+  def handle_in("user:update", %{"user" => user}, socket) do
+    user = Repo.get!(User, socket.assigns.user_id) |> UserOperations.update(user)
 
     socket |> push("user", %{user: user})
     {:noreply, socket}
   end
 
-  def handle_in("game:create", message, socket) do
+  def handle_in("game:create", %{"game" => game}, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
-    game = GameOperations.create(message, user) |> Repo.preload([:owner, :deck])
+    game = GameOperations.create(game, user) |> Repo.preload([:owner, :deck])
 
     socket |> push("game", %{game: game})
     {:noreply, socket}
