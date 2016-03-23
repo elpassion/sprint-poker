@@ -11,7 +11,7 @@ defmodule SprintPoker.LobbyChannelTest do
 
   test "joining lobby sends auth_token" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
+    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby", %{"game_id" => nil})
 
     auth_token_response = %{"auth_token": user.auth_token}
     assert_push "auth_token", ^auth_token_response
@@ -19,7 +19,7 @@ defmodule SprintPoker.LobbyChannelTest do
 
   test "joining lobby sends user" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
+    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby", %{"game_id" => nil})
 
     user_response = %{"user": user}
     assert_push "user", ^user_response
@@ -27,7 +27,7 @@ defmodule SprintPoker.LobbyChannelTest do
 
   test "joining lobby sends decks" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
+    socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby", %{"game_id" => nil})
 
     decks = Repo.all(Deck)
 
@@ -52,7 +52,7 @@ defmodule SprintPoker.LobbyChannelTest do
 
   test "'user:update' resends updated user" do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
-    {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
+    {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby", %{"game_id" => nil})
 
     socket |> push("user:update", %{"user" => %{"name" => "new name"}})
 
@@ -64,9 +64,9 @@ defmodule SprintPoker.LobbyChannelTest do
     user = %User{} |> User.changeset(%{name: "test user"}) |> Repo.insert!
     deck = %Deck{} |> Deck.changeset(%{name: "test deck"}) |> Repo.insert!
 
-    {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby")
+    {:ok, _, socket } = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(LobbyChannel, "lobby", %{"game_id" => nil})
 
-    socket |> push("game:create", %{"name" => "new game", "deck" => %{"id" => deck.id}})
+    socket |> push("game:create", %{"game" => %{"name" => "new game", "deck" => %{"id" => deck.id}}})
 
     owner_id = user.id
     assert_push "game", %{game: %{id: _, name: "new game", owner_id: ^owner_id}}
