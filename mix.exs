@@ -40,7 +40,7 @@ defmodule SprintPoker.Mixfile do
       {:phoenix, "~> 1.0"},
       {:phoenix_ecto, "~> 1.1"},
       {:postgrex, ">= 0.0.0"},
-      {:poison, "~> 1.5.0"},
+      {:poison, "~> 2.0", override: true},
       {:cowboy, "~> 1.0"},
       {:airbrakex, "~> 0.0.4"}
     ]
