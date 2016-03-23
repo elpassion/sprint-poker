@@ -7,7 +7,7 @@ defimpl Poison.Encoder, for: SprintPoker.Game do
       id: game.id,
       name: game.name,
       users: [],
-      tickets: [],
+      tickets: %{},
       owner: %{}
     }
 
