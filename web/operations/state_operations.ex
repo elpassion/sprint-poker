@@ -19,7 +19,7 @@ defmodule SprintPoker.StateOperations do
         if key == current_user.id do
           {key,  value}
         else
-          {key, "voted"}
+          {key, "✓"}
         end
       end
 
