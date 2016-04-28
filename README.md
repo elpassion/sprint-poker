@@ -12,7 +12,11 @@ http://sprintpoker.io
 - Seed the database with `mix run priv/repo/seeds.exs`
 - Start application with `mix phoenix.server`
 - Run tests with `mix test`
-- Install [sprint-poker-react](https://github.com/elpassion/sprint-poker-react) as a frontend
+- Install one of frontends listed above
+
+## Frontends
+- [sprint-poker-inesita](https://github.com/elpassion/sprint-poker-react)
+- [sprint-poker-react](https://github.com/elpassion/sprint-poker-react)
 
 ## Contributing
 
