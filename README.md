@@ -15,7 +15,7 @@ http://sprintpoker.io
 - Install one of [frontends](#frontends)
 
 ## Frontends
-- [sprint-poker-inesita](https://github.com/elpassion/sprint-poker-react)
+- [sprint-poker-inesita](https://github.com/elpassion/sprint-poker-inesita)
 - [sprint-poker-react](https://github.com/elpassion/sprint-poker-react)
 
 ## Contributing
