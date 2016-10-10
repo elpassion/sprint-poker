@@ -1,0 +1,11 @@
+engines:
+  credo:
+    enabled: true
+    channel: beta
+ratings:
+  paths:
+  - "**.ex"
+  - "**.exs"
+exclude_paths:
+- config/
+- test
