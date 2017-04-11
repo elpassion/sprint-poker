@@ -44,7 +44,8 @@ defmodule SprintPoker.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:poison, "~> 2.0", override: true},
       {:cowboy, "~> 1.0"},
-      {:airbrakex, "~> 0.0.4"}
+      {:airbrakex, "~> 0.0.4"},
+      {:credo, "~> 0.7", only: [:dev, :test]}
     ]
   end
 
