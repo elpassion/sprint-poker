@@ -9,13 +9,14 @@ defmodule SprintPoker.State do
     timestamps
   end
 
-  @required_fields ~w(game_id name)
-  @optional_fields ~w(current_ticket_id votes)
+  @required_fields ~w(game_id name)a
+  @optional_fields ~w(current_ticket_id votes)a
   @state_names ~w(none voting review)
 
   def changeset(model, params \\ :empty) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
     |> validate_inclusion(:name, @state_names)
   end
 end

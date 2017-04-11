@@ -17,7 +17,7 @@ defmodule SprintPoker.GameChannel do
 
     UserOperations.connect(user, game)
 
-    send(self, {:after_join, message})
+    send(self(), {:after_join, message})
     {:ok, socket}
   end
 
@@ -60,6 +60,7 @@ defmodule SprintPoker.GameChannel do
       TicketOperations.delete(message["ticket"])
 
       game = game |> Game.preload
+
       socket |> broadcast("game", %{game: game})
     end
     {:noreply, socket}
@@ -70,9 +71,10 @@ defmodule SprintPoker.GameChannel do
     ticket = Repo.get!(Ticket, message["ticket"]["id"])
 
     if SocketOperations.is_owner?(user, game) do
-      TicketOperations.update(ticket, message["ticket"])
+       TicketOperations.update(ticket, message["ticket"])
 
       game = game |> Game.preload
+
       socket |> broadcast("game", %{game: game})
     end
     {:noreply, socket}

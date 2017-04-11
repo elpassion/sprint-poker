@@ -8,13 +8,14 @@ defmodule SprintPoker.GameUser do
     timestamps
   end
 
-  @required_fields ~w(game_id user_id state)
-  @optional_fields ~w()
+  @required_fields ~w(game_id user_id state)a
+  @optional_fields ~w()a
   @state_names ~w(none connected disconnected)
 
   def changeset(model, params \\ :empty) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
     |> validate_inclusion(:state, @state_names)
   end
 end

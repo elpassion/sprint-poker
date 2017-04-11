@@ -17,8 +17,7 @@ config :sprint_poker, SprintPoker.Endpoint,
   check_origin: [
     "//api.sprintpoker.io",
     "//sprintpoker.io",
-    "//sprintpoker-react.surge.sh",
-    "//sprintpoker-inesita.surge.sh"
+    "//sprintpoker.netlify.com"
   ]
 
 config :sprint_poker, SprintPoker.Endpoint,

@@ -6,6 +6,9 @@ defmodule SprintPoker.TicketTest do
   alias SprintPoker.User
   alias SprintPoker.Deck
 
+  @test_user %User{}
+  @test_deck %Deck{name: "test deck", cards: []}
+
   test "don't create empty ticket" do
     assert_raise Postgrex.Error, fn ->
       %Ticket{} |> Repo.insert!
@@ -13,8 +16,8 @@ defmodule SprintPoker.TicketTest do
   end
 
   test "don't create ticket without name" do
-    user = %User{} |> Repo.insert!
-    deck = %Deck{name: "test deck"} |> Repo.insert!
+    user = @test_user |> Repo.insert!
+    deck = @test_deck |> Repo.insert!
 
     game = %Game{
       name: "sample name",
@@ -39,8 +42,8 @@ defmodule SprintPoker.TicketTest do
   end
 
   test "create ticket with name and game" do
-    user = %User{} |> Repo.insert!
-    deck = %Deck{name: "test deck"} |> Repo.insert!
+    user = @test_user |> Repo.insert!
+    deck = @test_deck |> Repo.insert!
 
     game = %Game{
       name: "sample name",
@@ -65,8 +68,8 @@ defmodule SprintPoker.TicketTest do
   end
 
   test "ticket changeset without name is not valid" do
-    user = %User{} |> Repo.insert!
-    deck = %Deck{name: "test deck"} |> Repo.insert!
+    user = @test_user |> Repo.insert!
+    deck = @test_deck |> Repo.insert!
 
     changeset = %Ticket{} |> Ticket.changeset(%{
       name: "sample name",
@@ -85,8 +88,8 @@ defmodule SprintPoker.TicketTest do
   end
 
   test "ticket with name and game is valid" do
-    user = %User{} |> Repo.insert!
-    deck = %Deck{name: "test deck"} |> Repo.insert!
+    user = @test_user |> Repo.insert!
+    deck = @test_deck |> Repo.insert!
 
     game = %Game{
       name: "sample name",
