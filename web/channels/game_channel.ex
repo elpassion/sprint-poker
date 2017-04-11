@@ -56,13 +56,11 @@ defmodule SprintPoker.GameChannel do
   def handle_in("ticket:delete", message, socket) do
     {game, user} = SocketOperations.get_game_and_user(socket)
 
-    IO.puts "game: #{inspect game}"
-    IO.puts "user: #{inspect user}"
-
     if SocketOperations.is_owner?(user, game) do
       TicketOperations.delete(message["ticket"])
 
       game = game |> Game.preload
+
       socket |> broadcast("game", %{game: game})
     end
     {:noreply, socket}
@@ -73,9 +71,10 @@ defmodule SprintPoker.GameChannel do
     ticket = Repo.get!(Ticket, message["ticket"]["id"])
 
     if SocketOperations.is_owner?(user, game) do
-      TicketOperations.update(ticket, message["ticket"])
+       TicketOperations.update(ticket, message["ticket"])
 
       game = game |> Game.preload
+
       socket |> broadcast("game", %{game: game})
     end
     {:noreply, socket}

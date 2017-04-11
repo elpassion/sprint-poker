@@ -93,8 +93,9 @@ defmodule SprintPoker.GameChannelTest do
     [ticket] = Repo.all(Ticket)
     assert ticket.name == "new test ticket"
 
-    assert_broadcast "game", %{game: game_response}
+    assert_broadcast "game", %{game: game_response = %{tickets: [response_ticket]}}
 
+    assert response_ticket.id == ticket.id
     assert game_response.id == game.id
     assert game_response.name == game.name
     assert game_response.owner_id == game.owner_id
@@ -114,12 +115,11 @@ defmodule SprintPoker.GameChannelTest do
     assert [^ticket] = Repo.all(Ticket)
 
     socket |> push("ticket:delete", %{"ticket" => %{"id" => ticket.id}})
+    assert_broadcast "game", %{game: game_response = %{tickets: []}}
 
     assert [] = Repo.all(Ticket)
 
     game = Repo.get(Game, game.id) |> Game.preload
-
-    assert_broadcast "game", %{game: game_response}
 
     assert game_response.id == game.id
     assert game_response.name == game.name
@@ -140,12 +140,13 @@ defmodule SprintPoker.GameChannelTest do
     assert [^ticket] = Repo.all(Ticket)
 
     socket |> push("ticket:update", %{ticket: %{"id" => ticket.id, "name" => "new name"}})
-    game = Repo.get(Game, game.id) |> Game.preload
+    assert_broadcast "game", %{game: game_response = %{tickets: [%{name: "new name"}]}}
 
     [ticket] = Repo.all(Ticket)
-    assert ticket.name == "new name"
 
-    assert_broadcast "game", %{game: game_response}
+    game = Repo.get(Game, game.id) |> Game.preload
+
+    assert ticket.name == "new name"
 
     assert game_response.id == game.id
     assert game_response.name == game.name
