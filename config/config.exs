@@ -5,6 +5,8 @@
 # is restricted to this project.
 use Mix.Config
 
+config :sprint_poker, ecto_repos: [SprintPoker.Repo]
+
 # Configures the endpoint
 config :sprint_poker, SprintPoker.Endpoint,
   url: [host: "localhost"],
