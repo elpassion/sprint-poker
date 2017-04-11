@@ -8,12 +8,13 @@ defmodule SprintPoker.Deck do
     timestamps
   end
 
-  @required_fields ~w(name)
-  @optional_fields ~w()
+  @required_fields ~w(name cards)a
+  @optional_fields ~w()a
 
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
     |> update_change(:name, &(String.slice(&1, 0..254)))
   end
 end

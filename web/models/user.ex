@@ -2,8 +2,8 @@ defmodule SprintPoker.User do
   use SprintPoker.Web, :model
 
   @primary_key {:id, :binary_id, autogenerate: true}
-  @required_fields ~w(name)
-  @optional_fields ~w(auth_token)
+  @required_fields ~w(name)a
+  @optional_fields ~w(auth_token)a
 
   schema "users" do
     field :name, :string
@@ -17,7 +17,8 @@ defmodule SprintPoker.User do
 
   def changeset(model, params \\ :empty) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
     |> update_change(:name, &(String.slice(&1, 0..254)))
   end
 end

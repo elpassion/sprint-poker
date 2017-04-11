@@ -18,6 +18,15 @@ defmodule SprintPoker.DeckTest do
     end
   end
 
+  test "don't create deck without cards" do
+    assert_raise Postgrex.Error, fn ->
+      %Deck{
+        name: "Test"
+      } |> Repo.insert!
+    end
+  end
+
+
   test "create deck with name and cards" do
     deck = %Deck{
       name: "sample name",

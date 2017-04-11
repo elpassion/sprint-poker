@@ -6,6 +6,10 @@ defmodule SprintPoker.StateTest do
   alias SprintPoker.Game
   alias SprintPoker.State
 
+
+  @test_user %User{}
+  @test_deck %Deck{name: "test deck", cards: []}
+
   test "empty state changeset is not valid" do
     changeset = %State{} |> State.changeset(%{})
 
@@ -25,8 +29,8 @@ defmodule SprintPoker.StateTest do
   end
 
   test "state changeset with valid name with game is valid" do
-    user = %User{} |> Repo.insert!
-    deck = %Deck{name: "test deck"} |> Repo.insert!
+    user = @test_user |> Repo.insert!
+    deck = @test_deck |> Repo.insert!
 
     game = %Game{
       name: "sample name",

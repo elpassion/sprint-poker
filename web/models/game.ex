@@ -6,8 +6,8 @@ defmodule SprintPoker.Game do
   alias SprintPoker.Repo
 
   @primary_key {:id, :binary_id, autogenerate: true}
-  @required_fields ~w(name owner_id deck_id)
-  @optional_fields ~w()
+  @required_fields ~w(name owner_id deck_id)a
+  @optional_fields ~w()a
 
   schema "games" do
     field :name, :string
@@ -24,7 +24,8 @@ defmodule SprintPoker.Game do
 
   def changeset(model, params \\ :empty) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
     |> update_change(:name, &(String.slice(&1, 0..254)))
   end
 
