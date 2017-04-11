@@ -17,7 +17,7 @@ defmodule SprintPoker.GameChannel do
 
     UserOperations.connect(user, game)
 
-    send(self, {:after_join, message})
+    send(self(), {:after_join, message})
     {:ok, socket}
   end
 
@@ -55,6 +55,9 @@ defmodule SprintPoker.GameChannel do
 
   def handle_in("ticket:delete", message, socket) do
     {game, user} = SocketOperations.get_game_and_user(socket)
+
+    IO.puts "game: #{inspect game}"
+    IO.puts "user: #{inspect user}"
 
     if SocketOperations.is_owner?(user, game) do
       TicketOperations.delete(message["ticket"])

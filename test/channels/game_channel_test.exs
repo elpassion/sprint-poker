@@ -35,11 +35,8 @@ defmodule SprintPoker.GameChannelTest do
 
     assert user in game.users
 
-    game_response = %{game: game}
-    assert_broadcast "game", ^game_response
-
-    state_response = %{state: state}
-    assert_push "state", ^state_response
+    assert_broadcast "game", %{game: ^game}
+    assert_push "state", %{state: ^state}
   end
 
   test "leave game broadcasts game" do
@@ -70,8 +67,12 @@ defmodule SprintPoker.GameChannelTest do
 
     game = Repo.get(Game, game.id) |> Game.preload
 
-    game_response = %{game: game}
-    assert_broadcast "game", ^game_response
+    assert_broadcast "game", %{game: game_response}
+
+    assert game_response.id == game.id
+    assert game_response.name == game.name
+    assert game_response.owner_id == game.owner_id
+    assert game_response.deck_id == deck.id
   end
 
   test "'ticket:create' adds ticket and broadcasts game with new ticket" do
@@ -92,8 +93,12 @@ defmodule SprintPoker.GameChannelTest do
     [ticket] = Repo.all(Ticket)
     assert ticket.name == "new test ticket"
 
-    game_response = %{game: game}
-    assert_broadcast "game", ^game_response
+    assert_broadcast "game", %{game: game_response}
+
+    assert game_response.id == game.id
+    assert game_response.name == game.name
+    assert game_response.owner_id == game.owner_id
+    assert game_response.deck_id == deck.id
   end
 
   test "'ticket:delete' deletes ticket and broadcasts game without ticket" do
@@ -110,12 +115,16 @@ defmodule SprintPoker.GameChannelTest do
 
     socket |> push("ticket:delete", %{"ticket" => %{"id" => ticket.id}})
 
-    game = Repo.get(Game, game.id) |> Game.preload
-
     assert [] = Repo.all(Ticket)
 
-    game_response = %{game: game}
-    assert_broadcast "game", ^game_response
+    game = Repo.get(Game, game.id) |> Game.preload
+
+    assert_broadcast "game", %{game: game_response}
+
+    assert game_response.id == game.id
+    assert game_response.name == game.name
+    assert game_response.owner_id == game.owner_id
+    assert game_response.deck_id == deck.id
   end
 
   test "'ticket:update' updates ticket and broadcasts game with new ticket" do
@@ -130,14 +139,18 @@ defmodule SprintPoker.GameChannelTest do
 
     assert [^ticket] = Repo.all(Ticket)
 
-    socket |> push("ticket:update", %{"ticket" => %{"id" => ticket.id, "name" => "new name"}})
+    socket |> push("ticket:update", %{ticket: %{"id" => ticket.id, "name" => "new name"}})
     game = Repo.get(Game, game.id) |> Game.preload
 
     [ticket] = Repo.all(Ticket)
     assert ticket.name == "new name"
 
-    game_response = %{game: game}
-    assert_broadcast "game", ^game_response
+    assert_broadcast "game", %{game: game_response}
+
+    assert game_response.id == game.id
+    assert game_response.name == game.name
+    assert game_response.owner_id == game.owner_id
+    assert game_response.deck_id == deck.id
   end
 
   test "'state:update' updates name state and broadcasts it" do
@@ -150,8 +163,11 @@ defmodule SprintPoker.GameChannelTest do
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
     socket |> push("state:update", %{"state" => %{name: "voting"}})
 
-    state_response = %{state: %{state | name: "voting"}}
-    assert_broadcast "state", ^state_response
+    assert_broadcast "state", %{state: state_response}
+
+    assert state_response.id == state.id
+    assert state_response.game_id == game.id
+    assert state_response.name == "voting"
   end
 
   test "'state:update' updates current_ticket_id state and broadcasts it" do
@@ -164,8 +180,11 @@ defmodule SprintPoker.GameChannelTest do
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
     socket |> push("state:update", %{"state" => %{current_ticket_id: 6}})
 
-    state_response = %{state: %{state | current_ticket_id: 6}}
-    assert_broadcast "state", ^state_response
+    assert_broadcast "state", %{state: state_response}
+
+    assert state_response.id == state.id
+    assert state_response.game_id == game.id
+    assert state_response.current_ticket_id == 6
   end
 
   test "'state:update:vote' updates state with vote and broadcasts it with nil" do
@@ -179,8 +198,11 @@ defmodule SprintPoker.GameChannelTest do
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
     socket |> push("state:update:vote", %{"vote" => %{points: "XXL"}})
 
-    state_response = %{state: %{state | votes:  Map.put(%{}, user.id, nil)}}
-    assert_broadcast "state", ^state_response
+    assert_broadcast "state", %{state: state_response}
+
+    assert state_response.id == state.id
+    assert state_response.game_id == game.id
+    assert state_response.votes == %{ user.id => "XXL" }
   end
 
   test "'state:update:vote' updates state with vote and broadcasts it with value if owner" do
@@ -195,9 +217,10 @@ defmodule SprintPoker.GameChannelTest do
     {:ok, _, socket} = socket("user:#{user.id}", %{user_id: user.id}) |> subscribe_and_join(GameChannel, "game:#{game.id}")
     socket |> push("state:update:vote", %{"vote" => %{ "points" => "XXL" }})
 
-    state_response = %{state: %{state | votes: Map.put(%{}, user.id, "XXL")}}
-    IO.inspect state_response
-    #state_response = %{state: state}
-    assert_broadcast "state", ^state_response
+    assert_broadcast "state", %{state: state_response}
+
+    assert state_response.id == state.id
+    assert state_response.game_id == game.id
+    assert state_response.votes == %{ user.id => "XXL" }
   end
 end

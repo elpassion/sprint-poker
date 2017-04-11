@@ -73,6 +73,9 @@ defmodule SprintPoker.LobbyChannelTest do
     socket |> push("game:create", %{"game" => %{"name" => "new game", "deck" => %{"id" => deck.id}}})
 
     owner_id = user.id
-    assert_push "game", %{game: %{id: _, name: "new game", owner_id: ^owner_id}}
+    assert_push "game", %{game: push_game}
+
+    assert push_game.name == "new game"
+    assert push_game.owner_id == owner_id
   end
 end
