@@ -1,4 +1,7 @@
 defmodule SprintPoker.LobbyChannel do
+  @moduledoc """
+  Lobby channel messages handling
+  """
   use Phoenix.Channel
 
   alias SprintPoker.Repo
@@ -9,7 +12,7 @@ defmodule SprintPoker.LobbyChannel do
   alias SprintPoker.UserOperations
 
   def join("lobby", message, socket) do
-    send(self, {:after_join, message})
+    send(self(), {:after_join, message})
     {:ok, socket}
   end
 
@@ -33,7 +36,9 @@ defmodule SprintPoker.LobbyChannel do
   end
 
   def handle_in("user:update", %{"user" => user}, socket) do
-    user = Repo.get!(User, socket.assigns.user_id) |> UserOperations.update(user)
+    user = User
+           |> Repo.get!(socket.assigns.user_id)
+           |> UserOperations.update(user)
 
     socket |> push("user", %{user: user})
     {:noreply, socket}
@@ -41,7 +46,9 @@ defmodule SprintPoker.LobbyChannel do
 
   def handle_in("game:create", %{"game" => game}, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
-    game = GameOperations.create(game, user) |> Repo.preload([:owner, :deck])
+    game = game
+           |> GameOperations.create(user)
+           |> Repo.preload([:owner, :deck])
 
     socket |> push("game", %{game: game})
     {:noreply, socket}

@@ -1,4 +1,4 @@
-# Sprint Poker [![Build Status](https://travis-ci.org/elpassion/sprint-poker.svg)](https://travis-ci.org/elpassion/sprint-poker)
+# Sprint Poker [![Build Status](https://travis-ci.org/elpassion/sprint-poker.svg)](https://travis-ci.org/elpassion/sprint-poker) [![Code Climate](https://codeclimate.com/repos/58edf0c722fccf0268001d37/badges/66da3ec72dad0cb41e7c/gpa.svg)](https://codeclimate.com/repos/58edf0c722fccf0268001d37/feed)
 
 Online estimation tool for Agile teams, written using [Elixir Lang], [Phoenix Framework].
 

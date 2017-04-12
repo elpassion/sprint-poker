@@ -1,4 +1,7 @@
 defmodule SprintPoker.GameChannel do
+  @moduledoc """
+  Game channel messages hadling
+  """
   use Phoenix.Channel
 
   alias SprintPoker.Repo
@@ -36,7 +39,7 @@ defmodule SprintPoker.GameChannel do
     game = game |> Game.preload
 
     socket |> broadcast("game", %{game: game})
-    socket |> push("state", %{ state: StateOperations.hide_votes(game.state, user) })
+    socket |> push("state", %{state: StateOperations.hide_votes(game.state, user)})
 
     {:noreply, socket}
   end
@@ -86,7 +89,7 @@ defmodule SprintPoker.GameChannel do
 
     if SocketOperations.is_owner?(user, game) do
       state = StateOperations.update(game.state, message["state"])
-      socket |> broadcast("state", %{ state: state })
+      socket |> broadcast("state", %{state: state})
     end
     {:noreply, socket}
   end
@@ -96,16 +99,19 @@ defmodule SprintPoker.GameChannel do
     game = game |> Repo.preload([:state])
 
     state = StateOperations.update(game.state,
-      %{ votes: Map.put(game.state.votes, user.id, message["vote"]["points"]) })
+      %{votes: Map.put(game.state.votes, user.id, message["vote"]["points"])})
 
-    socket |> broadcast("state", %{ state: state })
+    socket |> broadcast("state", %{state: state})
     {:noreply, socket}
   end
 
   intercept ["state"]
   def handle_out("state", message, socket) do
     user = Repo.get!(User, socket.assigns.user_id)
-    socket |> push("state", %{ state: StateOperations.hide_votes(message.state, user) })
+
+    socket
+    |> push("state", %{state: StateOperations.hide_votes(message.state, user)})
+
     {:noreply, socket}
   end
 end

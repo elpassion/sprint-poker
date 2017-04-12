@@ -1,11 +1,14 @@
 defmodule SprintPoker.Deck do
+  @moduledoc """
+  Deck database schema
+  """
   use SprintPoker.Web, :model
 
   schema "decks" do
     field :name, :string
     field :cards, {:array, :string}
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(name cards)a

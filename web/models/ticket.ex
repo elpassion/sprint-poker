@@ -1,4 +1,7 @@
 defmodule SprintPoker.Ticket do
+  @moduledoc """
+  Ticker database schema
+  """
   use SprintPoker.Web, :model
 
   schema "tickets" do
@@ -6,7 +9,7 @@ defmodule SprintPoker.Ticket do
     field :points, :string
     belongs_to :game, SprintPoker.Game, type: :binary_id
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(name game_id)a

@@ -1,4 +1,8 @@
 defmodule SprintPoker.SocketOperations do
+  @moduledoc """
+  Socket related operations
+  """
+
   alias SprintPoker.Repo
   alias SprintPoker.Game
   alias SprintPoker.User

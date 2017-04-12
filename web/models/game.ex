@@ -1,9 +1,13 @@
 defmodule SprintPoker.Game do
+  @moduledoc """
+  Game database schema
+  """
   use SprintPoker.Web, :model
 
   alias SprintPoker.Ticket
   alias SprintPoker.User
   alias SprintPoker.Repo
+  alias Ecto.UUID
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @required_fields ~w(name owner_id deck_id)a
@@ -19,7 +23,7 @@ defmodule SprintPoker.Game do
 
     has_many :game_user, SprintPoker.GameUser
     has_many :users, through: [:game_user, :user]
-    timestamps
+    timestamps()
   end
 
   def changeset(model, params \\ :empty) do
@@ -40,7 +44,7 @@ defmodule SprintPoker.Game do
   end
 
   def get(id, opts \\ []) do
-    case Ecto.UUID.cast(id) do
+    case UUID.cast(id) do
       {:ok, _} -> Repo.get(__MODULE__, id, opts)
       _ -> nil
     end

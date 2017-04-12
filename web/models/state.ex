@@ -1,4 +1,7 @@
 defmodule SprintPoker.State do
+  @moduledoc """
+  Game state database schema
+  """
   use SprintPoker.Web, :model
 
   schema "states" do
@@ -6,7 +9,7 @@ defmodule SprintPoker.State do
     field :current_ticket_id, :integer
     field :votes, :map, default: %{}
     field :name, :string
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(game_id name)a
