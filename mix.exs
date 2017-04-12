@@ -42,9 +42,9 @@ defmodule SprintPoker.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
-      {:poison, "~> 2.0", override: true},
+      {:poison, "~> 3.0", override: true},
       {:cowboy, "~> 1.0"},
-      {:airbrakex, "~> 0.0.4"},
+      {:airbrakex, "~> 0.1"},
       {:credo, "~> 0.7", only: [:dev, :test]}
     ]
   end
