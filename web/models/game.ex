@@ -1,4 +1,7 @@
 defmodule SprintPoker.Game do
+  @moduledoc """
+  Game database schema
+  """
   use SprintPoker.Web, :model
 
   alias SprintPoker.Ticket

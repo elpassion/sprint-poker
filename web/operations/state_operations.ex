@@ -1,4 +1,8 @@
 defmodule SprintPoker.StateOperations do
+  @moduledoc """
+  Game state related operations
+  """
+
   alias SprintPoker.Repo
   alias SprintPoker.State
 

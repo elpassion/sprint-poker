@@ -1,4 +1,7 @@
 defmodule SprintPoker.TicketOperations do
+  @moduledoc """
+  Ticket related operations
+  """
   alias SprintPoker.Repo
   alias SprintPoker.Ticket
 

@@ -1,4 +1,7 @@
 defmodule SprintPoker.GameUser do
+  @moduledoc """
+  Game - User database relation schema
+  """
   use SprintPoker.Web, :model
 
   schema "game_user" do

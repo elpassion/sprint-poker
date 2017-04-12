@@ -1,4 +1,7 @@
 defmodule SprintPoker.Ticket do
+  @moduledoc """
+  Ticker database schema
+  """
   use SprintPoker.Web, :model
 
   schema "tickets" do

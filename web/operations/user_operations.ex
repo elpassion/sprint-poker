@@ -1,4 +1,7 @@
 defmodule SprintPoker.UserOperations do
+  @moduledoc """
+  User related operations
+  """
   alias SprintPoker.GameUser
   alias SprintPoker.Repo
   alias SprintPoker.User

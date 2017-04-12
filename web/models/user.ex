@@ -1,4 +1,7 @@
 defmodule SprintPoker.User do
+  @moduledoc """
+  User database schema
+  """
   use SprintPoker.Web, :model
 
   @primary_key {:id, :binary_id, autogenerate: true}

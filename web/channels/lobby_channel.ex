@@ -1,4 +1,7 @@
 defmodule SprintPoker.LobbyChannel do
+  @moduledoc """
+  Lobby channel messages handling
+  """
   use Phoenix.Channel
 
   alias SprintPoker.Repo

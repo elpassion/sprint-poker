@@ -1,4 +1,7 @@
 defmodule SprintPoker do
+  @moduledoc """
+  SprintPoker
+  """
   use Application
   alias SprintPoker.Endpoint
 

@@ -1,4 +1,7 @@
 defmodule SprintPoker.GameChannel do
+  @moduledoc """
+  Game channel messages hadling
+  """
   use Phoenix.Channel
 
   alias SprintPoker.Repo

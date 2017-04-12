@@ -1,4 +1,7 @@
 defmodule SprintPoker.Deck do
+  @moduledoc """
+  Deck database schema
+  """
   use SprintPoker.Web, :model
 
   schema "decks" do

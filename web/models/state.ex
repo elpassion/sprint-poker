@@ -1,4 +1,7 @@
 defmodule SprintPoker.State do
+  @moduledoc """
+  Game state database schema
+  """
   use SprintPoker.Web, :model
 
   schema "states" do
