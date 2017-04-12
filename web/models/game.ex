@@ -4,6 +4,7 @@ defmodule SprintPoker.Game do
   alias SprintPoker.Ticket
   alias SprintPoker.User
   alias SprintPoker.Repo
+  alias Ecto.UUID
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @required_fields ~w(name owner_id deck_id)a
@@ -40,7 +41,7 @@ defmodule SprintPoker.Game do
   end
 
   def get(id, opts \\ []) do
-    case Ecto.UUID.cast(id) do
+    case UUID.cast(id) do
       {:ok, _} -> Repo.get(__MODULE__, id, opts)
       _ -> nil
     end

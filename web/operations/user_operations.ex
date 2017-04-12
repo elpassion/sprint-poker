@@ -4,6 +4,7 @@ defmodule SprintPoker.UserOperations do
   alias SprintPoker.User
 
   alias SprintPoker.GameUserOperations
+  alias Ecto.UUID
 
   def connect(user, game) do
     case Repo.get_by(GameUser, game_id: game.id, user_id: user.id) do
@@ -24,8 +25,9 @@ defmodule SprintPoker.UserOperations do
   end
 
   def get_or_create(auth_token) do
-    case Ecto.UUID.cast(auth_token) do
-      {:ok, auth_token} -> Repo.get_by(User, auth_token: auth_token) || get_or_create(nil)
+    case UUID.cast(auth_token) do
+      {:ok, auth_token} ->
+        Repo.get_by(User, auth_token: auth_token) || get_or_create(nil)
       _ -> get_or_create(nil)
     end
   end

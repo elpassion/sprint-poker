@@ -14,7 +14,9 @@ defmodule SprintPoker.StateOperations do
   end
 
   def hide_votes(state, current_user) do
-    unless state.name == "review" do
+    if state.name == "review" do
+      state
+    else
       new_votes = for {key, value} <- state.votes, into: %{} do
         if key == current_user.id do
           {key,  value}
@@ -24,8 +26,6 @@ defmodule SprintPoker.StateOperations do
       end
 
       %{state | votes: new_votes}
-    else
-      state
     end
   end
 
