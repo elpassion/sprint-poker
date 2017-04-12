@@ -5,7 +5,7 @@ defmodule SprintPoker.GameUser do
     belongs_to :user, SprintPoker.User, type: :binary_id
     belongs_to :game, SprintPoker.Game, type: :binary_id
     field :state, :string, default: "connected"
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(game_id user_id state)a

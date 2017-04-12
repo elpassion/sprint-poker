@@ -23,9 +23,10 @@ defmodule SprintPoker.StateOperations do
         end
       end
 
-      state = %{state | votes: new_votes}
+      %{state | votes: new_votes}
+    else
+      state
     end
-    state
   end
 
   def update(state, params) do

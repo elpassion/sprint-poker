@@ -6,7 +6,7 @@ defmodule SprintPoker.State do
     field :current_ticket_id, :integer
     field :votes, :map, default: %{}
     field :name, :string
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(game_id name)a

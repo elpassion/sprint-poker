@@ -5,8 +5,10 @@ defimpl Poison.Encoder, for: SprintPoker.User do
       name: user.name
     }
 
-    if user.state do
-      hash = hash |> Map.put(:state, user.state)
+    hash = if user.state do
+      hash |> Map.put(:state, user.state)
+    else
+      hash
     end
 
     hash |> Poison.Encoder.encode(options)

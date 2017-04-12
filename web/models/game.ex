@@ -19,7 +19,7 @@ defmodule SprintPoker.Game do
 
     has_many :game_user, SprintPoker.GameUser
     has_many :users, through: [:game_user, :user]
-    timestamps
+    timestamps()
   end
 
   def changeset(model, params \\ :empty) do

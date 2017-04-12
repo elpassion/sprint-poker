@@ -9,7 +9,7 @@ defmodule SprintPoker.LobbyChannel do
   alias SprintPoker.UserOperations
 
   def join("lobby", message, socket) do
-    send(self, {:after_join, message})
+    send(self(), {:after_join, message})
     {:ok, socket}
   end
 
