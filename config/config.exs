@@ -8,7 +8,7 @@ use Mix.Config
 config :sprint_poker, ecto_repos: [SprintPoker.Repo]
 
 # Configures the endpoint
-config :sprint_poker, SprintPoker.Endpoint,
+config :sprint_poker, SprintPoker.Web.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "ZxLhVLGlxT/2YhQE0pIthf8utPtLgxAwMnGRZNW3kCqpszn4yNJnZqpwXSAOW9Pj",
