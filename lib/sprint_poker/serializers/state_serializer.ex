@@ -1,4 +1,4 @@
-defimpl Poison.Encoder, for: SprintPoker.State do
+defimpl Poison.Encoder, for: SprintPoker.Repo.State do
   def encode(state, options) do
     current_ticket_id = case state.current_ticket_id do
       nil -> nil

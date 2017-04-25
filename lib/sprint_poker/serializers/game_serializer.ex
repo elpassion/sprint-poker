@@ -1,6 +1,6 @@
-defimpl Poison.Encoder, for: SprintPoker.Game do
+defimpl Poison.Encoder, for: SprintPoker.Repo.Game do
   alias SprintPoker.Repo
-  alias SprintPoker.GameUser
+  alias SprintPoker.Repo.GameUser
 
   def encode(game, options) do
     hash =  %{
