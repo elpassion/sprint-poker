@@ -43,4 +43,8 @@ defmodule SprintPoker.StateOperations do
         changeset |> Repo.update!
     end
   end
+
+  def preload(data) do
+    data |> Repo.preload([:state])
+  end
 end

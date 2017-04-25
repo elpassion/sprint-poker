@@ -36,4 +36,8 @@ defmodule SprintPoker.TicketOperations do
         changeset |> Repo.update!
     end
   end
+
+  def get_by_id(id) do
+    Repo.get!(Ticket, id)
+  end
 end

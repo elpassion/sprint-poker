@@ -5,22 +5,30 @@ defmodule SprintPoker.UserOperations do
   alias SprintPoker.Repo
   alias SprintPoker.Repo.GameUser
   alias SprintPoker.Repo.User
+  alias SprintPoker.Repo.Game
 
   alias SprintPoker.GameUserOperations
   alias Ecto.UUID
 
-  def connect(user, game) do
+  def connect(user_id, game_id) do
+    user = Repo.get!(User, user_id)
+    game = Repo.get!(Game, game_id)
+
     case Repo.get_by(GameUser, game_id: game.id, user_id: user.id) do
       nil -> GameUserOperations.create(game, user)
       game_user -> GameUserOperations.update_state(game_user, "connected")
     end
   end
 
-  def disconnect(user, game) do
+  def disconnect(user_id, game_id) do
+    user = Repo.get!(User, user_id)
+    game = Repo.get!(Game, game_id)
+
     game_user = Repo.get_by(GameUser, game_id: game.id, user_id: user.id)
     if game_user do
       GameUserOperations.update_state(game_user, "disconnected")
     end
+    game
   end
 
   def get_or_create(nil) do
@@ -46,5 +54,9 @@ defmodule SprintPoker.UserOperations do
       _ ->
         changeset |> Repo.update!
     end
+  end
+
+  def get_by_id(id) do
+    Repo.get!(User, id)
   end
 end

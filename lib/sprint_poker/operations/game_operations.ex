@@ -26,7 +26,7 @@ defmodule SprintPoker.GameOperations do
       _ ->
         game = changeset |> Repo.insert!
         StateOperations.create(game)
-        game
+        game |> Repo.preload([:owner, :deck])
     end
   end
 
@@ -38,8 +38,8 @@ defmodule SprintPoker.GameOperations do
     end
   end
 
-  def preload(model) do
-    Repo.preload(model, [
+  def preload(data) do
+    Repo.preload(data, [
       :owner,
       :deck,
       :state,
@@ -53,5 +53,9 @@ defmodule SprintPoker.GameOperations do
       {:ok, _} -> Repo.get(Game, id, opts)
       _ -> nil
     end
+  end
+
+  def get_decks() do
+    Repo.all(Deck)
   end
 end

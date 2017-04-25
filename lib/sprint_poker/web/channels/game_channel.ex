@@ -4,11 +4,6 @@ defmodule SprintPoker.Web.GameChannel do
   """
   use Phoenix.Channel
 
-  alias SprintPoker.Repo
-  alias SprintPoker.Repo.User
-  alias SprintPoker.Repo.Game
-  alias SprintPoker.Repo.Ticket
-
   alias SprintPoker.UserOperations
   alias SprintPoker.SocketOperations
   alias SprintPoker.StateOperations
@@ -16,21 +11,19 @@ defmodule SprintPoker.Web.GameChannel do
   alias SprintPoker.GameOperations
 
   def join("game:" <> game_id, message, socket) do
-    game = Repo.get!(Game, game_id)
-    user = Repo.get!(User, socket.assigns.user_id)
-
-    UserOperations.connect(user, game)
+    UserOperations.connect(socket.assigns.user_id, game_id)
 
     send(self(), {:after_join, message})
     {:ok, socket}
   end
 
   def terminate(_message, socket) do
-    {game, user} = SocketOperations.get_game_and_user(socket)
+    "game:" <> game_id = socket.topic
 
-    UserOperations.disconnect(user, game)
+    game = socket.assigns.user_id
+           |> UserOperations.disconnect(game_id)
+           |> GameOperations.preload
 
-    game = game |> GameOperations.preload
     socket |> broadcast("game", %{game: game})
   end
 
@@ -72,7 +65,7 @@ defmodule SprintPoker.Web.GameChannel do
 
   def handle_in("ticket:update", message, socket) do
     {game, user} = SocketOperations.get_game_and_user(socket)
-    ticket = Repo.get!(Ticket, message["ticket"]["id"])
+    ticket = TicketOperations.get_by_id(message["ticket"]["id"])
 
     if SocketOperations.is_owner?(user, game) do
        TicketOperations.update(ticket, message["ticket"])
@@ -86,7 +79,7 @@ defmodule SprintPoker.Web.GameChannel do
 
   def handle_in("state:update", message, socket) do
     {game, user} = SocketOperations.get_game_and_user(socket)
-    game = game |> Repo.preload([:state])
+    game = game |> StateOperations.preload()
 
     if SocketOperations.is_owner?(user, game) do
       state = StateOperations.update(game.state, message["state"])
@@ -97,7 +90,7 @@ defmodule SprintPoker.Web.GameChannel do
 
   def handle_in("state:update:vote", message, socket) do
     {game, user} = SocketOperations.get_game_and_user(socket)
-    game = game |> Repo.preload([:state])
+    game = game |> StateOperations.preload()
 
     state = StateOperations.update(game.state,
       %{votes: Map.put(game.state.votes, user.id, message["vote"]["points"])})
@@ -108,7 +101,7 @@ defmodule SprintPoker.Web.GameChannel do
 
   intercept ["state"]
   def handle_out("state", message, socket) do
-    user = Repo.get!(User, socket.assigns.user_id)
+    user = UserOperations.get_by_id(socket.assigns.user_id)
 
     socket
     |> push("state", %{state: StateOperations.hide_votes(message.state, user)})
