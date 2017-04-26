@@ -18,7 +18,14 @@ defmodule SprintPoker.Web.UserSocket do
   transport :longpoll, LongPoll
 
   def connect(params, socket) do
-    {:ok, assign(socket, :user_id, UserOperations.get_or_create(params["auth_token"]).id)}
+    {
+      :ok,
+      assign(
+        socket,
+        :user_id,
+        UserOperations.get_or_create(params["auth_token"]).id
+      )
+    }
   end
 
   def id(socket), do: "user:#{socket.assigns.user_id}"

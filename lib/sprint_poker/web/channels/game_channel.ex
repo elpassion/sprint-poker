@@ -33,7 +33,8 @@ defmodule SprintPoker.Web.GameChannel do
     game = game |> GameOperations.preload
 
     socket |> broadcast("game", %{game: game})
-    socket |> push("state", %{state: StateOperations.hide_votes(game.state, user)})
+    socket
+    |> push("state", %{state: StateOperations.hide_votes(game.state, user)})
 
     {:noreply, socket}
   end
