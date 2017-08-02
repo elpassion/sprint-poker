@@ -4,56 +4,56 @@ defmodule SprintPoker.Mixfile do
   def project do
     [
       app: :sprint_poker,
-      version: "0.6.0",
-      elixir: "~> 1.0",
+      version: "0.0.1",
+      elixir: "~> 1.4",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix] ++ Mix.compilers,
-      build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
-      deps: deps(),
-      aliases: aliases()
-   ]
+      aliases: aliases(),
+      deps: deps()
+    ]
   end
 
-  # Configuration for the OTP application
+  # Configuration for the OTP application.
   #
-  # Type `mix help compile.app` for more information
+  # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {SprintPoker, []},
-      applications: ~w(
-        phoenix phoenix_pubsub cowboy logger
-        phoenix_ecto postgrex
-        poison airbrakex
-      )a
+      mod: {SprintPoker.Application, []},
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
-  # Specifies which paths to compile per environment
-  defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
-  defp elixirc_paths(_),     do: ["lib", "web"]
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_),     do: ["lib"]
 
-  # Specifies your project dependencies
+  # Specifies your project dependencies.
   #
-  # Type `mix help deps` for examples and options
+  # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.2"},
+      {:phoenix, "~> 1.3.0"},
       {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.0"},
+      {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
-      {:poison, "~> 3.0", override: true},
       {:cowboy, "~> 1.0"},
       {:airbrakex, "~> 0.1"},
-      {:credo, "~> 0.7", only: [:dev, :test]}
+      {:credo, "~> 0.7", only: [:dev, :test]},
     ]
   end
 
-    defp aliases do
+  # Aliases are shortcuts or tasks specific to the current project.
+  # For example, to create, migrate and run the seeds file at once:
+  #
+  #     $ mix ecto.setup
+  #
+  # See the documentation for `Mix` for more info on aliases.
+  defp aliases do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.setup", "test"]
+      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end
